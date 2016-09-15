@@ -12,10 +12,18 @@
         "rap2hpoutre/laravel-log-viewer": "^0.6.1",
         "arcanedev/log-viewer": "~3.0",
         "toin0u/geocoder-laravel": "@stable",
-        "barryvdh/laravel-dompdf": "0.6.*"
+        "barryvdh/laravel-dompdf": "0.6.*",
+        "artisaninweb/laravel-soap": "0.2.*",
+        "sasco/libredte": "dev-master",
+        "robrichards/xmlseclibs": "dev-master",
+        "orchestra/parser": "~3.0",
+        "jorgejavierleon/laravelpnotify": "~1.0",
+        "nesbot/carbon": "^1.21",
+        "milon/barcode": "^5.2",
+        "intervention/image": "^2.3",
+        "webcraft/laravel-random": "^1.0"
     },
     "require-dev": {
-        "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~4.0",
         "symfony/css-selector": "2.8.*|3.0.*",

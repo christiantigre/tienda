@@ -16,7 +16,7 @@
                             <label for="email" class="col-md-4 control-label">E-Mail </label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}">
+                                <input id="email" autocomplete="off" type="email" readonly="readonly" class="form-control" name="email" value="{{ $email or old('email') }}">
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
@@ -30,7 +30,7 @@
                             <label for="password" class="col-md-4 control-label">Nueva clave</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
+                                <input id="password" autocomplete="off" type="password" class="form-control" name="password">
 
                                 @if ($errors->has('password'))
                                     <span class="help-block">
@@ -43,7 +43,7 @@
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                             <label for="password-confirm" class="col-md-4 control-label">Confirmar clave</label>
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <input id="password-confirm" autocomplete="off" type="password" class="form-control" name="password_confirmation">
 
                                 @if ($errors->has('password_confirmation'))
                                     <span class="help-block">

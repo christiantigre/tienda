@@ -11,9 +11,17 @@ use App\Department;
 class DepartmentController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$departments = Department::orderBy('id','depart')->paginate(5);
-    	//dd($departments);
     	return view('admin.department.index', compact('departments'));
+    }else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function create(){

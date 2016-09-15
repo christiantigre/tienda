@@ -12,9 +12,17 @@ use App\isactive;
 class BrandController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$brands = Brand::all();
-    	//dd($brands);
     	return view('admin.brand.index', compact('brands'));
+    }else{
+        \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function create(){

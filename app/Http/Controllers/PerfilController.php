@@ -10,29 +10,46 @@ use App\Http\Requests;
 use App\client;
 use App\User;
 use App\Province;
+use Carbon\Carbon;
 
 class PerfilController extends Controller
 {
+    public function __construct(){
+        Carbon::setLocale('es');
+    }
+
+
 	public function index()
     {
-        $client = new client;
-        return view('store.perfil.perfil', compact('client'));
+            $client = new client;
+            return view('store.perfil.perfil', compact('client'));
+        
+
+        
     }
 
-    public function show(Request $request, $idus){    	
+    public function show(Request $request, $idus){ 
+        if(\Auth::check()){
+
     	$client = new client;
-    	$user = new User;
+        $user = new User;
+    	$prov = new Province;
 		$perfil = $client->select()->where('users_id', '=', $idus)->first();
-		$users = $user->select()->where('id', '=', $idus)->first();
-    	return view('store.perfil.perfil',compact('perfil','users'));
+        $users = $user->select()->where('id', '=', $idus)->first();
+		$provincia = $prov->select()->where('id', '=', $perfil->provincia_idprovincia)->first();
+    	return view('store.perfil.perfil',compact('perfil','users','provincia'));
+        }else{
+            return abort(444);
+        }
     }
 
-    public function edit(client $client){    	
+    public function edit(client $client){  
         $provinces = Province::orderBy('id', 'desc')->lists('prov','id');
     	return view('store.perfil.edit', compact('client','provinces'));
     }
 
-    public function update(Request $request, client $client){
+    public function update(Request $request, client $client){ 
+
     	$the_users = new User;
     	$client->fill($request->all());
     	$updated = $client->save();
@@ -40,14 +57,38 @@ class PerfilController extends Controller
     	$users = $the_users->select()->where('id','=', $client->users_id)->first();
     	$provinces = Province::orderBy('id', 'desc')->lists('prov','id');
     	\Session::flash('flash_message', 'Información de perfil actualizada correctamente');
-    	return view('store.perfil.edit',compact('client','provinces'));
+        return redirect('/');
     }
 
     public function changepass(){
         $token = new User;
         $token->comfirm_token=str_random(255);
         $email = \Auth::user()->email;
+
         return view('store.perfil.chanpass',compact('token','email'));
+    }
+
+    public function uploadImg(){
+        $file = Input::file('image');
+        $random = str_random(10);
+        $nombre = $random.$file->getClientOriginalName();
+        $path = public_path('upload/'.$nombre);
+        $url ='/upload/'.$nombre;
+        $image = Image::make($file->getRealPath());
+        $image->save($path);
+        return '<img src="'.$url.'" />';
+    }
+
+    public function create(client $client){
+        $provinces = Province::orderBy('id', 'desc')->lists('prov','id');
+        return view('store.perfil.create', compact('client','provinces'));
+    }
+
+    public function store(Request $request){
+        client::create($request->all());
+        return "creado";
+        //$datos = $request->all();
+        //dd($datos);
     }
 
     public function updatepass(Request $request,User $user){        

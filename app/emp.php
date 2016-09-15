@@ -2,13 +2,14 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+//use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class emp extends Model
+
+class emp extends Authenticatable
 {
     protected $table = 'emps';
-    protected $fillable = ['nombres','apellidos','fechanacimiento','genero','cedula','cargo_id','department_id','country_id','province_id','isactive_id',
-    'telefono','celular','email','img','dir','estcivil','sld'];
+    protected $fillable = ['nombres','apellidos','fechanacimiento','genero','cedula','cargo_id','department_id','country_id','province_id','isactive_id','telefono','celular','email','img','dir','estcivil','sld','username','password'];
 
     public function cargo(){
     	return $this->belongsTo('App\Position');
@@ -29,4 +30,8 @@ class emp extends Model
     public function isactives(){
     	return $this->belongsTo('App\Isactive');
     }
+
+    protected $hidden = [
+        'password', 'remember_token',
+    ];
 }

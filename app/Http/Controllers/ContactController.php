@@ -18,6 +18,11 @@ class ContactController extends Controller
     }
 
     public function store(Request $request){
+        $this->validate($request, [
+            'name'=>'required|max:255',
+            'email'=>'required|max:255',
+            'mensaje'=>'required|max:255'
+            ]);
     	Mail::send('store.emails.contact',$request->all(), function($msj){
     		$asunto = "StoreLine";
     		$msj->subject($asunto);

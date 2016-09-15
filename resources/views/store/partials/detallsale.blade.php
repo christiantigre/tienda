@@ -73,6 +73,7 @@
                     <thead>
                       <tr>
                         <th>Producto</th>
+                        <th>Extras</th>
                         <th>Precio</th>
                         <th style="width: 59%">Cantidad</th>
                         <th>Subtotal</th>
@@ -81,7 +82,14 @@
                     @foreach($cartord as $item)
                     <tbody>
                       <tr>
-                        <td>{{ $item->nombre }}</td>
+                        <td>
+                        {{ $item->nombre }}
+                        </td>
+                        <td>
+                        {{ $item->sizes }}<br/>
+                        {{ $item->preferences }}<br/>
+                        {{ $item->numbers }}<br/>
+                        </td>
                         <td>{{ number_format($item->pre_ven,2) }}</td>
                         <td>{{ $item->cantt }}</td>
                         <td>${{ number_format( $item->pre_ven * $item->cantt,2 ) }}</td>

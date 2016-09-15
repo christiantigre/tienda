@@ -12,6 +12,7 @@
 
   <!-- Bootstrap core CSS -->
 
+
   <link href="{{ asset('admin/css/bootstrap.min.css') }}" rel="stylesheet">
 
   <link href="{{ asset('admin/fonts/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -47,7 +48,7 @@
 </head>
 
 
-<body class="nav-md">
+<body class="nav-md" onload="back()" oncontextmenu="return false" >
 
   <div class="container body">
             @if (Session::has('flash_message'))
@@ -74,7 +75,9 @@
   </div>
 
   <script src="{{ asset('admin/js/bootstrap.min.js') }}"></script>
-
+<!-- form wizard -->
+  <script type="text/javascript" src="{{ asset('admin/js/wizard/jquery.smartWizard.js') }}"></script>
+  
   <!-- gauge js -->
   <script type="text/javascript" src="{{ asset('admin/js/gauge/gauge.min.js') }}"></script>
   <script type="text/javascript" src="{{ asset('admin/js/gauge/gauge_demo.js') }}"></script>
@@ -613,6 +616,7 @@
           });
           TableManageButtons.init();
         </script>
+
 </body>
 
 </html>

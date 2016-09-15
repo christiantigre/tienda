@@ -17,8 +17,17 @@ use App\PayMethod;
 class SalesController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$pedido = Pedido::orderBy('id', 'desc')->get();
-    	return view('admin.sales.index', compact('pedido'));
+    	return view('admin.sales.index', compact('pedido'));}else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
+
     }
 
     public function edit(Pedido $pedido, $id){
@@ -51,8 +60,8 @@ class SalesController extends Controller
 
     public function show(Pedido $pedido, $id){
         $pedidoshow = Pedido::select()->where('id','=',$id)->first();
-        $item = ItemPedido::where('pedido_id','=',$pedido->id)->orderBy('id', 'asc')->get();
-        $perfil = client::select()->where('id','=',$pedido->users_id)->get();
+        $item = ItemPedido::where('pedido_id','=',$pedidoshow->id)->orderBy('id', 'asc')->get();
+        $perfil = client::select()->where('id','=',$pedidoshow->users_id)->get();
         $dt_empress = Empresaa::select()->get();
         $status = statu::orderBy('id', 'asc')->lists('statu','id');
         return view('admin.sales.show',compact('pedidoshow','item','perfil','dt_empress','status'));

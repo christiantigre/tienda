@@ -5,12 +5,8 @@
   <div class="">  
     <div class="page-title">
       <div class="title_left">
-        <h3>
-          Editar Perfíl
-          <small>
-
-          </small>
-        </h3>
+        <h2 class="title text-center">Editar Perfíl</h2>
+        
       </div>
 
       
@@ -25,56 +21,56 @@
       @endif
       <div class="col-md-10 col-sm-10 col-xs-10">           
         <div class="product-information">
-         {!! Form::model($client, array('route' => array('store.perfil.update', $client->users_id))) !!}
+         {!! Form::model($client, ['route' => ['store.perfil.update', $client->users_id],'files'=>true]) !!}
          <input type="hidden" name="_method" value="PUT">
          <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Nombre :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Nombre (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('name',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('name',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Apellido :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Apellido (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('apellidos',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('apellidos',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Cedula :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Cedula (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
 
             
-            {!! Form::text('cedula',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de id','id'=>'cedula','autofocus'=>'autofocus','onblur'=>'validaced()')) !!}                  
+            {!! Form::text('cedula',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de id','id'=>'cedula','autofocus'=>'autofocus','onblur'=>'validaced()','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Ruc :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Ruc (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('ruc',null,array('class'=>'form-control','placeholder'=>'Ingrese su ruc/rise','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('ruc',null,array('class'=>'form-control','placeholder'=>'Ingrese su ruc/rise','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Fecha de nacimiento :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('fechanacimiento',null,array('class'=>'form-control','placeholder'=>'Ingrese feha de nacimiento','autofocus'=>'autofocus','id'=>'datetimepicker1')) !!}                  
+            {!! Form::text('fechanacimiento',null,array('class'=>'form-control','placeholder'=>'Ingrese feha de nacimiento','autofocus'=>'autofocus','id'=>'datetimepicker1','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Genero :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('genero',null,array('class'=>'form-control','placeholder'=>'Seleccione su genero','autofocus'=>'autofocus')) !!}                  
+            {!! Form::select('genero', ['2' => 'Masculino', '1' => 'Femenino'], 'M',['class'=>'form-control'])    !!}                 
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Telefono :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Telefono (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('telefono',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de teléfono','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('telefono',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de teléfono','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Celular :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Celular (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('celular',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de celular','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('celular',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de celular','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
@@ -84,21 +80,29 @@
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Dirección 1 :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Dirección 1 (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('dir1',null,array('class'=>'form-control','placeholder'=>'Ingrese su dirección principal','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('dir1',null,array('class'=>'form-control','placeholder'=>'Ingrese su dirección principal','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Dirección 2 :</label>
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Dirección 2 (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('dir2',null,array('class'=>'form-control','placeholder'=>'Ingrese la dirección transversal','autofocus'=>'autofocus')) !!}                  
+            {!! Form::text('dir2',null,array('class'=>'form-control','placeholder'=>'Ingrese la dirección transversal','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Provincia :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
            {!! Form::select('provincia_idprovincia', $provinces, null,['class'=>'form-control'])    !!}
+         </div>
+       </div>
+       <div class="form-group">
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Imagen :</label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            {!! Form::file('path') !!}
+            <!--<input type="file" name="image" id="image" accept="image/*" class="form-control"/>     -->
+            {{ csrf_field() }}                      
          </div>
        </div>
        <div class="form-group">

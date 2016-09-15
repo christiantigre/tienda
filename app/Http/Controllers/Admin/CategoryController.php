@@ -11,10 +11,17 @@ use App\Category;
 class CategoryController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$categories = Category::all();
-    	/*dd($categories);
-    	enviar a vista*/
     	return view('admin.category.index', compact('categories'));
+    }else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function create(){

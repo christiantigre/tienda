@@ -10,9 +10,11 @@ class Category extends Model
     protected $fillable = ['name','description'];
     public $timestamps = false;
 
-
     public function products(){
     	return $this->hasMany('App\Product');
     }
 
+    public function subcategories(){
+		return $this->hasMany('App\Subcategory');
+	}
 }

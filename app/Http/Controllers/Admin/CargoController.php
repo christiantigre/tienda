@@ -11,9 +11,17 @@ use App\Position;
 class CargoController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$positions = Position::orderBy('id','poss')->paginate(5);
-    	//dd($positions);
     	return view('admin.position.index', compact('positions'));
+    }else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function create(Position $position){

@@ -24,7 +24,8 @@ class SaveProductoRequest extends Request
     public function rules()
     {
         return [
-            'nombre' => 'required|unique:products|max:25',
+            'nombre' => 'required|max:45',
+            'path'=>'min:5|max:500|mimes:png,jpeg',
             'codbarra'=>'required|unique:products|max:25',
             'cant'=>'required',
             'pre_com'=>'required',

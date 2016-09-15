@@ -15,9 +15,17 @@ use App\Isactive;
 class ProveedorController extends Controller
 {
     public function index(){
-    	$proveedors = Proveedor::all();
-    //dd($proveedors);
-    	return view('admin.proveedor.index', compact('proveedors'));
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
+            	$proveedors = Proveedor::all();
+            	return view('admin.proveedor.index', compact('proveedors'));
+            }else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function create(){

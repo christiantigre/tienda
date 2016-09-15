@@ -16,8 +16,8 @@
 						<tr class="cart_menu">
 							<td class="image">Item</td>
 							<td class="description"></td>
-							<td class="price">Price</td>
-							<td class="quantity">Quantity</td>
+							<td class="price">Precio</td>
+							<td class="quantity">Cantidad</td>
 							<td class="total">Total</td>
 							<td></td>
 						</tr>
@@ -26,10 +26,19 @@
 						@foreach($cart as $item)
 						<tr>
 							<td class="cart_price">
-								<a href=""><img src="{{ $item->img }}" alt="" width="60"></a>
+								<a href="{{ route('product-detail', $item->slug) }}"><img src="/upload/products/{{ $item->img }}" alt="" width="60"></a>
 							</td>
 							<td class="cart_price">
-								<p>{{ $item->nombre }}</p>
+								<p>{{ $item->nombre }}</p><br/>
+								@if(!empty($item->sizes))
+								<p><h6>Talla : {{ $item->sizes }}</h6></p>
+								@endif
+								@if(!empty($item->preferences))
+								<p><h6>Color : {{ $item->preferences }}</h6></p>
+								@endif
+								@if(!empty($item->numbers))
+								<p><h6>Número : {{ $item->numbers }}</h6></p>
+								@endif
 							</td>
 							<td class="cart_price">
 								<p>{{ number_format($item->pre_ven,2) }}</p>
@@ -45,6 +54,7 @@
 										id="product_{{ $item->id }}"
 										data-href="{{ route('cart-update',[ $item->slug, null] )}}"
 										data-id = "{{ $item->id }}"
+										required="required" 
 										size="2"
 									>
 								</div>
@@ -67,7 +77,7 @@
 										<td>${{ number_format($sub,2) }}</td>
 									</tr>
 									<tr>
-										<td>Iva</td>
+										<td>Iva {{ $iv }}%</td>
 										<td>${{ number_format($iva,2) }}</td>
 									</tr>
 									<tr>
@@ -90,6 +100,15 @@
 									</tr>
 								</table>
 							</td>
+							<td>
+								<a href="http://localhost/certificado/documento.php?id_firma={{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}"><i class="fa fa-lock"></i></a>
+							<!-- </td>
+							<td> -->&nbsp;
+								<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?j=true"><i class="fa fa-barcode"></i></a>
+							<!-- </td>
+							<td> -->&nbsp;
+								<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?o=true"><i class="fa fa-cloud-download"></i></a>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -104,20 +123,19 @@
 				@else
 					<h3>No hay Items en su carrito</h3>
 					<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> IR DE COMPRAS</a>
-
-				@endif
-				
+					<h2></h2>
+				@endif				
 			</div>
 			<script>
-            $(document).ready(function(){
-            $(".btn-update-item").on('click', function(e){
-            e.preventDefault();        
-            var id = $(this).data('id');
-            var href = $(this).data('href');
-            var cant = $('#product_' + id).val();
-            window.location.href = href + "/" + cant;        	
-            });
-            });
+	            $(document).ready(function(){
+		            $(".btn-update-item").on('click', function(e){
+			            e.preventDefault();        
+			            var id = $(this).data('id');
+			            var href = $(this).data('href');
+			            var cant = $('#product_' + id).val();
+			            window.location.href = href + "/" + cant;        	
+		            });
+	            });
         	</script>
 
 

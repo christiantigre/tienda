@@ -71,7 +71,12 @@
                                 @else                              
                                 <!--<li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>-->
                                 <input name="idus" id="idus" value="{{ Auth::user()->id }}" type="hidden">
-                                <li><a href="{{ route('cart-show') }}"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                                <li><a href="{{ route('cart-show') }}">
+                                    @if (session('items'))
+                                        <span class="badge bg-green">{{ session('items') }}</span>
+                                    @endif
+                                    <i class="fa fa-shopping-cart"></i> Cart</a>
+                                </li>
                                 <li>
                                     <a>
                                         <i class="fa fa-user"></i> {{ Auth::user()->name }}
@@ -84,7 +89,7 @@
                                         <li><a href="{{ route('mysales') }}" class="inactive">Mis compras   <i class="fa fa-folder"></i></a></li>
                                         <br>
                                         <li>
-                                            <a href="{{ url('/logout') }}">Logout   <i class="fa fa-sign-in"></i></a>
+                                            <a href="{{ url('/logout') }}">Salir   <i class="fa fa-sign-in"></i></a>
                                         </li> 
                                     </ul>
                                 </li>

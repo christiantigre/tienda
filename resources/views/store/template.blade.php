@@ -37,11 +37,23 @@
         <script src="{{ asset('js/funcion.js') }}"></script>
         <!--validacion de la cedula-->
         <script src="{{ asset('admin/js/validate/validateid.js') }}"></script>
+        
+        <script src="{{ asset('admin/js/query-2.1.4.min.js') }}"></script>
+        {{--Pnotify--}}
+      <link rel="stylesheet" href="{{ asset('pnotify/pnotify.core.min.css') }}"/>
+      <link rel="stylesheet" href="{{ asset('pnotify/pnotify.buttons.min.css') }}"/>
+      <script type="text/javascript" src="{{ asset('pnotify/pnotify.core.min.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('pnotify/pnotify.buttons.min.js') }}"></script>
 
     </head>
 
 
-    <body>
+    <body  onload="back()" oncontextmenu="return false" >
+
+      <script type="text/javascript" src="{{ asset('pnotify/pnotify.core.min.js') }}"></script>
+      <script type="text/javascript" src="{{ asset('pnotify/pnotify.buttons.min.js') }}"></script>
+      
+    @include('store.partials.notify')
 <!--Uso de zoom-->
     <header id="header"><!--header-->
         @include('store.partials.header')
@@ -49,9 +61,7 @@
     </header>
     
     <section id="advertisement">
-
         <div class="container">
-            
             <!--<img src="{{ asset('images/shop/advertisement.jpg') }}" alt="" />-->
         </div>
     </section>
@@ -66,6 +76,8 @@
          @include('store.partials.footer')        
     </footer><!--/Footer-->
     
+
+
       <!-- datepicker -->
  <script src="{{ asset('datepicker/jquery.js') }}"></script>
                                                                 <script src="{{ asset('datepicker/jquery.datetimepicker.full.js') }}"></script>

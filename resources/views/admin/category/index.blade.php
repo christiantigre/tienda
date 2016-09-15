@@ -88,7 +88,13 @@
                       			</a>
                       		</td>
                       		<td><h3>{{ $category->name }}</h3></td>
-							<td><h3>{{ $category->description }}</h3></td>
+							<td><h3>
+                @if(strlen($category->description) > 25)
+                  {{ substr($category->description,0,15)  }}...
+                @else
+                  {{ $category->description }}
+                @endif
+              </h3></td>
                       </tr>
 						@endforeach
 			      </tbody>

@@ -11,11 +11,18 @@ use App\Statu;
 class EstadosPedidoController extends Controller
 {
     public function index(){
+        if(\Auth::check()){
+        if(\Auth::user()->is_admin){
     	$status = Statu::all();
-    	//dd($status);
-    	//enviar a vista*/
         $status = Statu::orderBy('id','statu')->paginate(10);
     	return view('admin.status.index', compact('status'));
+    }else{
+                \Auth::logout();
+                return redirect('login');
+        }
+    }else{
+        \Auth::logout();
+    }
     }
 
     public function store(Request $request){

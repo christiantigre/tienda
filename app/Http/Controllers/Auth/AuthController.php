@@ -49,6 +49,7 @@ class AuthController extends Controller
     public function postRegister(Request $request){
         $rules = [
             'name' => 'required|min:3|max:255|regex:/^[a-záéíóúÁÉÍÓÚñàéìòùÀÈÌÒÙÑ1234567890]+$/i',
+            'datetimepicker1'=>'required',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:8|confirmed',
             'edad' => 'Integer|Min:18',
@@ -58,6 +59,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), $rules);
 
         if($validator->fails()){
+            //return redirect("register")->with("flash_message", "Verifica que la información ingreseste correcta");
             return redirect("register")->withErrors($validator)->withInput();
         }else{
             $user = new User;
@@ -88,11 +90,32 @@ class AuthController extends Controller
         }
     }
 
+    public function recuperaCuenta($comfirm_token, $email){
+        //return "hola";returnSelf()
+            $user = new User;
+                $the_user = $user->select()->where('email', '=' , $email)->get();
+                //dd($email);
+                if(count($the_user) > 0){
+                    $status = 1;
+                    $comfirm_token = str_random(255);
+                    $user->where('email', '=', $email)
+                        ->update(['status' => $status, 'comfirm_token' => $comfirm_token]);
+                        //return redirect('register')->with("flash_message","Enhorabuena ". $the_user[0]['name']. ' ya puedes iniciar session, te recomendamos completar la información de tu perfíl');
+                        $message = "Enhorabuena ". $the_user[0]['name']. ', tu cuenta ha sido activada';
+                       \Session::flash('flash_message', $message);
+                       $message = "". $the_user[0]['name']. ', ingresa tu email para la recuperación de tu clave';
+                       \Session::flash('flash_message_info', $message);
+                       //url('/password/reset');
+                        return redirect('/password/reset');
 
+                }
+                //else{
+                  //  return redirect('register')->with("flash_message","La cuenta ya fue activada anteriormente");
+                //}
+    }
 
 
     public function confregister($comfirm_token, $email){
-        //dd($email);
         $user = new User;
         $the_user = $user->select()->where('email', '=' , $email)
                 ->where('comfirm_token', '=', $comfirm_token)->get();
@@ -106,7 +129,7 @@ class AuthController extends Controller
                         return redirect()->guest('login')->with("flash_message","Enhorabuena ". $the_user[0]['name']. ' ya puedes iniciar session, te recomendamos completar la información de tu perfíl');
 
                 }else{
-                    return redirect('register')->with("flash_message","La cuenta que pertenece a ya fue activada anteriormente");
+                    return redirect('register')->with("flash_message","La cuenta ya fue activada anteriormente");
                 }
     }
 

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use Cache;
+
 
 class HomeController extends Controller
 {
@@ -24,12 +26,17 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = Empresaa::all();
-        $name = "christian";
-        /*dd($news);*/
-        return View::make('home')->with('name', $name);
-        /*return view('home', compact('name'));*/
-            /*return view('home');   */
+            if(\Auth::user()->is_admin){
+            $name = \Auth::user()->name;
+                $key = Cache::get('key');
+                Cache::forever('key','0');
+                Cache::flush(); 
+                return view('admin/home',compact('name'));  
+            }else{
+                
+                \Auth::logout();
+                return abort(404);
+            } 
     }
 
 
