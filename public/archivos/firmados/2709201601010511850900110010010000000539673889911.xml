@@ -5,11 +5,11 @@
     <razonSocial>TIGRE CONDO CHRISTIAN ANDRES</razonSocial>
     <nombreComercial>StoreLine</nombreComercial>
     <ruc>0105118509001</ruc>
-    <claveAcceso>2709201601010511850900110010010000000352325898511</claveAcceso>
+    <claveAcceso>2709201601010511850900110010010000000539673889911</claveAcceso>
     <codDoc>01</codDoc>
     <estab>001</estab>
     <ptoEmi>001</ptoEmi>
-    <secuencial>000000035</secuencial>
+    <secuencial>000000053</secuencial>
     <dirMatriz>Remigio Crespo y Lorenzo Piedra</dirMatriz>
   </infoTributaria>
   <infoFactura>
@@ -46,16 +46,16 @@
       <codigoAuxiliar>83</codigoAuxiliar>
       <descripcion>zapatos</descripcion>
       <cantidad>2</cantidad>
-      <precioUnitario>62.7</precioUnitario>
+      <precioUnitario>55</precioUnitario>
       <descuento>0</descuento>
-      <precioTotalSinImpuesto>55.00</precioTotalSinImpuesto>
+      <precioTotalSinImpuesto>110.00</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
           <codigo>2</codigo>
           <codigoPorcentaje>3</codigoPorcentaje>
           <tarifa>14</tarifa>
-          <baseImponible>55.00</baseImponible>
-          <valor>7.70</valor>
+          <baseImponible>110.00</baseImponible>
+          <valor>15.40</valor>
         </impuesto>
       </impuestos>
     </detalle>
@@ -65,34 +65,34 @@
     <campoAdicional nombre="Teléfono">2203584</campoAdicional>
     <campoAdicional nombre="Email">andrescondo17@gmail.com</campoAdicional>
   </infoAdicional>
-<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature549592">
-<ds:SignedInfo Id="Signature-SignedInfo820331">
+<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature134058">
+<ds:SignedInfo Id="Signature-SignedInfo663700">
 <ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
 <ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/>
-<ds:Reference Id="SignedPropertiesID771307" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature549592-SignedProperties203848">
+<ds:Reference Id="SignedPropertiesID807294" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature134058-SignedProperties717504">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>xs8ZJJYEcisGuQhyBraI1J9DPQs=</ds:DigestValue>
+<ds:DigestValue>qJX6N70blUmpMD+OfBFDuAJzZno=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference URI="#Certificate1568485">
+<ds:Reference URI="#Certificate187105">
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>U213iXwYO6iEseyvm+xILldItjQ=</ds:DigestValue>
+<ds:DigestValue>/U5b+jUeZROC8mgZCIsjGOb9NBU=</ds:DigestValue>
 </ds:Reference>
-<ds:Reference Id="Reference-ID-34875" URI="#comprobante">
+<ds:Reference Id="Reference-ID-617174" URI="#comprobante">
 <ds:Transforms>
 <ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
 </ds:Transforms>
 <ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/>
-<ds:DigestValue>HJEWWRX37DnWZpYV1Iw//nnTPg0=</ds:DigestValue>
+<ds:DigestValue>H6fEktXvNhFubOi7/JAx3HEFeKk=</ds:DigestValue>
 </ds:Reference>
 </ds:SignedInfo>
-<ds:SignatureValue Id="SignatureValue308713">
-VkJ2s3jn4tDnCJK1cXjwmZo0DKE3Q5Lj8bsG/AZTQ4NSDs3q55INF4mAdH6poR6IcaWa1ejAUq/w
-6PmU3oW7F9bS/GgHrXdx280iJKu1QKahzqiVvLFKzobI7kXA4MvGPhbHvLlRGjDOeWMr5uUKN0/P
-UqZ7ZWaNzCTyWJMPzlRXjZnGDk+noYArcultPh+7YufESYz3osqubBaJ4CP6CNO+qsWmmR8m4cmu
-iZ2TKj9AD+UtotsU2UXD3QSOsnyU1Y0SvnoxArY+b9GsfLJKjSUnhXROPGT7LSyHn2Qr++sLOM2a
-ru8zWx/y/Sjp4Xwg9YJgpb9Qbmcd5NJ9vcGWwA==
+<ds:SignatureValue Id="SignatureValue665115">
+Cb/mPwSgqtXIae1GDHCI8Y3PjLhpe2YIUoTsEX0Gk36WelWdnTJ3GPhncElNf6qwQnV13fAxvhHb
+GoCfr9zkugiqQyx+qna8GZ+z6hDsBnxsTvxl142KBUKO1gXm9GPeoSL3v4XY+FFUP24nZZ1YyI1R
+Jl3RuM+3t/4aCUCtxHdczywNaPB1VXd9TsHKDSRZB2scdwinTvRnYqY0NZmaBwS/B4tqaSOamKqC
+/d4Z63kHQyUJBhfoMEgoJM5tpHmEyUWv/qaJxwdFvT5ndpCyKKVneF9oR3eIRF85BtBvZJ7f+Ln3
+iePCPepHYjMoud96asRzlGlTrjedhp1roviW2w==
 </ds:SignatureValue>
-<ds:KeyInfo Id="Certificate1568485">
+<ds:KeyInfo Id="Certificate187105">
 <ds:X509Data>
 <ds:X509Certificate>
 MIIJljCCB36gAwIBAgIETkatgzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -154,4 +154,4 @@ navKHggb8leOsqeDerF9SadLm2r01+96nX4VFw==
 </ds:RSAKeyValue>
 </ds:KeyValue>
 </ds:KeyInfo>
-<ds:Object Id="Signature549592-Object52091"><etsi:QualifyingProperties Target="#Signature549592"><etsi:SignedProperties Id="Signature549592-SignedProperties203848"><etsi:SignedSignatureProperties><etsi:SigningTime>2016-09-27T13:49:37-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>2DMiQbO1KUGRMqp70ka/4o1E5Tk=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313254787</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-34875"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>
+<ds:Object Id="Signature134058-Object106552"><etsi:QualifyingProperties Target="#Signature134058"><etsi:SignedProperties Id="Signature134058-SignedProperties717504"><etsi:SignedSignatureProperties><etsi:SigningTime>2016-09-27T16:14:11-05:00</etsi:SigningTime><etsi:SigningCertificate><etsi:Cert><etsi:CertDigest><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>2DMiQbO1KUGRMqp70ka/4o1E5Tk=</ds:DigestValue></etsi:CertDigest><etsi:IssuerSerial><ds:X509IssuerName>CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC</ds:X509IssuerName><ds:X509SerialNumber>1313254787</ds:X509SerialNumber></etsi:IssuerSerial></etsi:Cert></etsi:SigningCertificate></etsi:SignedSignatureProperties><etsi:SignedDataObjectProperties><etsi:DataObjectFormat ObjectReference="#Reference-ID-617174"><etsi:Description>contenido comprobante</etsi:Description><etsi:MimeType>text/xml</etsi:MimeType></etsi:DataObjectFormat></etsi:SignedDataObjectProperties></etsi:SignedProperties></etsi:QualifyingProperties></ds:Object></ds:Signature></factura>

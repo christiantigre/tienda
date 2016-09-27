@@ -405,20 +405,25 @@ public function generaXml($idpedido){
     $descripcion = $xml->createElement('descripcion',$product->prgr_tittle);
     $descripcion = $detalle->appendChild($descripcion);  
 
-    $cantidad = $xml->createElement('cantidad',$item->cant);
+    $cantidadproducto = $item->cant;
+    $precioventa = ($product->pre_ven * $cantidadproducto);
+
+    $cantidad = $xml->createElement('cantidad',$cantidadproducto);
     $cantidad = $detalle->appendChild($cantidad); 
-
-    $precioUnitario = $xml->createElement('precioUnitario',$product->pre_ven);
-    $precioUnitario = $detalle->appendChild($precioUnitario); 
-
-    $descuento = $xml->createElement('descuento',$item->descuento);
-    $descuento = $detalle->appendChild($descuento); 
     $productoprecio = $product->pre_ven;
     $valsiniv = $productoprecio / $obtnvl;
     $ivcero = $iva / 100; 
     $valiv = $valsiniv * $ivcero;
 
-    $precioTotalSinImpuesto = $xml->createElement('precioTotalSinImpuesto',number_format($valsiniv, 2, '.', ','));
+    $precioUnitario = $xml->createElement('precioUnitario',$valsiniv);
+    $precioUnitario = $detalle->appendChild($precioUnitario); 
+
+    $descuento = $xml->createElement('descuento',$item->descuento);
+    $descuento = $detalle->appendChild($descuento); 
+
+    $totsininpuesto = $precioventa*$cantidadproducto;
+
+    $precioTotalSinImpuesto = $xml->createElement('precioTotalSinImpuesto',number_format($valsinimpuestos, 2, '.', ','));
     $precioTotalSinImpuesto = $detalle->appendChild($precioTotalSinImpuesto);
 
     $impuestos = $xml->createElement('impuestos');
@@ -436,10 +441,12 @@ public function generaXml($idpedido){
     $tarifa = $xml->createElement('tarifa',$iva);
     $tarifa = $impuesto->appendChild($tarifa);
 
-    $baseImponible = $xml->createElement('baseImponible',number_format($valsiniv, 2, '.', ','));
+    $baseImponible = $xml->createElement('baseImponible',number_format($valsinimpuestos, 2, '.', ','));
     $baseImponible = $impuesto->appendChild($baseImponible);
 
-    $valor= $xml->createElement('valor',number_format($valiv, 2, '.', ','));
+    $totivaval = $valiv*$cantidadproducto;
+
+    $valor= $xml->createElement('valor',number_format($totivaval, 2, '.', ','));
     $valor= $impuesto->appendChild($valor);   
 }
 
@@ -491,6 +498,10 @@ public function firmarXml($nombrexml){
         $cmd = 'cmd /C java -jar '.$jar.' '.$pathfirma.' '.$pass.' '.$pathgenerado.' '.$pathsalida.' '.$xml.' ';
         $oExec = $WshShell->Run($cmd, 0, false);    
     }
+}
+
+public function enviarautorizar(){
+  
 }
 
 protected function saveOrderItem($product, $order_id){
