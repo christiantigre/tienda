@@ -322,8 +322,6 @@
       'uses' => 'CarritoController@firmarXml'
       ]);
 
-    
-
     Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas

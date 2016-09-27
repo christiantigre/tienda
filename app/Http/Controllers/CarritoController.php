@@ -184,6 +184,10 @@ public function saveOrder(Request $request){
         $message = 'Su pedido fue realizado con éxito, porfavor espere su aprovación';
     }
 
+    $date = Carbon::now();
+    $date->timezone = new \DateTimeZone('America/Guayaquil');
+    $date = $date->format('d/m/Y');
+//  date('d/m/Y')
     $order = Pedido::create([
         'subtotal' => $sub,
         'total' => $total,
@@ -191,7 +195,7 @@ public function saveOrder(Request $request){
         'entrega' => $request->get('entrega'),
         'ubiclg' => $request->get('lat'),
         'ubiclt' => $request->get('long'),
-        'date' => date('d/m/Y'),
+        'date' => $date,
         'users_id' => $id_us,
         'status_id' => $var,
         'paymethods_id' => $request->get('id')
@@ -317,8 +321,14 @@ public function generaXml($idpedido){
 
        $dirEstablecimiento = $xml->createElement('dirEstablecimiento',$dt_empres->dir);
        $dirEstablecimiento = $infoFactura->appendChild($dirEstablecimiento);
+       if ($dt_empres->obligadocontbl==0) {
+           $obligado = "NO";
+       } else {
+           $obligado = "SI";           
+       }
 
-       $obligadoContabilidad = $xml->createElement('obligadoContabilidad',$dt_empres->obligadocontbl);
+
+       $obligadoContabilidad = $xml->createElement('obligadoContabilidad',$obligado);
        $obligadoContabilidad = $infoFactura->appendChild($obligadoContabilidad);
 
        $tipoIdentificacionComprador = $xml->createElement('tipoIdentificacionComprador',$identificacion);
@@ -536,6 +546,8 @@ public function randomlongitud($longitud){
 public function generaclaveacceso($factura){
     //fecha
     $date = Carbon::now();
+    $date->timezone = new \DateTimeZone('America/Guayaquil');
+    //$date = $date->format('d/m/Y');
     $d = $date->format('d');
     $m = $date->format('m');
     $y = $date->format('Y');
@@ -597,7 +609,7 @@ public function generaDigitoModulo11($cadena){
 }
 
 public function recibirWs(){
-    
+
 }
 
 
