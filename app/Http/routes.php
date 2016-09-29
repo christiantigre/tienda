@@ -327,6 +327,11 @@
       'uses' => 'CarritoController@revisarXml'
       ]);
 
+    Route::get('generapdf/', [
+      'as' => 'generapdf',
+      'uses' => 'CarritoController@generaPdf'
+      ]);
+
     Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas

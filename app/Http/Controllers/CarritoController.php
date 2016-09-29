@@ -519,16 +519,18 @@ class CarritoController extends Controller
     }
 
     public function revisarXml(){
-      $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\2909201601010511850900110010010000000777687155819.xml";
+      $claveAcceso = "2909201601010511850900110010010000000777687155819";
+      $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
+      //lee el xml y decodifica
       $content = utf8_encode(file_get_contents($xmlPath));
         $xml = \simplexml_load_string($content);
         $cont = (integer) $xml['counter'];
         $xml['counter'] = $cont + 1;
-        $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\doc.xml");
-
-        echo "------------------------------------------------------------";
+        //guarda temporalmente el xml decodificado
+        $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
+        //obtiene los valores de los campos del archivo temporal decodificado
         $doc = new \DOMDocument();
-        $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\doc.xml");
+        $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
 
         // Reading tag's value.
         $estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
@@ -549,11 +551,14 @@ class CarritoController extends Controller
     }
 
     public function generaPdf(){
-
+       $claveAcceso = "2909201601010511850900110010010000000777687155819";
+      $pdf = \PDF::loadView('pdf/vista');
+      $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
+      //return $pdf->download('prueba.pdf');
     }
 
     public function almacenaError(){
-      
+
     }
 
     protected function saveOrderItem($product, $order_id){
