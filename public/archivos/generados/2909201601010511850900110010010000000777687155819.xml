@@ -6,38 +6,38 @@
     <razonSocial>TIGRE CONDO CHRISTIAN ANDRES</razonSocial>
     <nombreComercial>StoreLine</nombreComercial>
     <ruc>0105118509001</ruc>
-    <claveAcceso>2809201601010511850900110010010000000706246866311</claveAcceso>
+    <claveAcceso>2909201601010511850900110010010000000777687155819</claveAcceso>
     <codDoc>01</codDoc>
     <estab>001</estab>
     <ptoEmi>001</ptoEmi>
-    <secuencial>000000070</secuencial>
+    <secuencial>000000077</secuencial>
     <dirMatriz>Remigio Crespo y Lorenzo Piedra</dirMatriz>
   </infoTributaria>
   <infoFactura>
-    <fechaEmision>28/09/2016</fechaEmision>
+    <fechaEmision>29/09/2016</fechaEmision>
     <dirEstablecimiento>3 de Noviembre y Cesar Cueva</dirEstablecimiento>
     <obligadoContabilidad>NO</obligadoContabilidad>
     <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
     <razonSocialComprador>Christian Tigre C.</razonSocialComprador>
     <identificacionComprador>0105118509001</identificacionComprador>
-    <totalSinImpuestos>220.00</totalSinImpuestos>
+    <totalSinImpuestos>243.92</totalSinImpuestos>
     <totalDescuento>0.00</totalDescuento>
     <totalConImpuestos>
       <totalImpuesto>
         <codigo>2</codigo>
         <codigoPorcentaje>3</codigoPorcentaje>
-        <baseImponible>220.00</baseImponible>
+        <baseImponible>243.92</baseImponible>
         <tarifa>14</tarifa>
-        <valor>30.80</valor>
+        <valor>34.15</valor>
       </totalImpuesto>
     </totalConImpuestos>
     <propina>0.00</propina>
-    <importeTotal>250.8</importeTotal>
+    <importeTotal>278.07</importeTotal>
     <moneda>DOLAR</moneda>
     <pagos>
       <pago>
         <formaPago>01</formaPago>
-        <total>250.80</total>
+        <total>278.07</total>
       </pago>
     </pagos>
   </infoFactura>
@@ -46,24 +46,42 @@
       <codigoPrincipal>675644567764532</codigoPrincipal>
       <codigoAuxiliar>83</codigoAuxiliar>
       <descripcion>zapatos</descripcion>
-      <cantidad>4</cantidad>
-      <precioUnitario>55</precioUnitario>
+      <cantidad>3</cantidad>
+      <precioUnitario>55.00</precioUnitario>
       <descuento>0</descuento>
-      <precioTotalSinImpuesto>220.00</precioTotalSinImpuesto>
+      <precioTotalSinImpuesto>165.00</precioTotalSinImpuesto>
       <impuestos>
         <impuesto>
           <codigo>2</codigo>
           <codigoPorcentaje>3</codigoPorcentaje>
           <tarifa>14</tarifa>
-          <baseImponible>220.00</baseImponible>
-          <valor>30.80</valor>
+          <baseImponible>165.00</baseImponible>
+          <valor>23.10</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>1989998767656</codigoPrincipal>
+      <codigoAuxiliar>62</codigoAuxiliar>
+      <descripcion>Legin de niñas</descripcion>
+      <cantidad>3</cantidad>
+      <precioUnitario>26.31</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>78.92</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>3</codigoPorcentaje>
+          <tarifa>14</tarifa>
+          <baseImponible>78.92</baseImponible>
+          <valor>11.05</valor>
         </impuesto>
       </impuestos>
     </detalle>
   </detalles>
   <infoAdicional>
-    <campoAdicional nombre="Dirección">3 de Noviembre y Cesar cueva</campoAdicional>
-    <campoAdicional nombre="Teléfono">2203584</campoAdicional>
+    <campoAdicional nombre="Direccion">3 de Noviembre y Cesar cueva</campoAdicional>
+    <campoAdicional nombre="Telefono">2203584</campoAdicional>
     <campoAdicional nombre="Email">andrescondo17@gmail.com</campoAdicional>
   </infoAdicional>
 </factura>

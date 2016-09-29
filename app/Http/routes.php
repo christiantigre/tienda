@@ -322,6 +322,11 @@
       'uses' => 'CarritoController@firmarXml'
       ]);
 
+    Route::get('revisar/', [
+      'as' => 'revisar',
+      'uses' => 'CarritoController@revisarXml'
+      ]);
+
     Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas

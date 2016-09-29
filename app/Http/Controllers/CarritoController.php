@@ -415,15 +415,17 @@ class CarritoController extends Controller
         $ivcero = $iva / 100; 
         $valiv = $valsiniv * $ivcero;
 
-        $precioUnitario = $xml->createElement('precioUnitario',$valsiniv);
+        $precioUnitario = $xml->createElement('precioUnitario',number_format($valsiniv, 2, '.', ','));
         $precioUnitario = $detalle->appendChild($precioUnitario); 
 
         $descuento = $xml->createElement('descuento',$item->descuento);
         $descuento = $detalle->appendChild($descuento); 
 
         $totsininpuesto = $precioventa*$cantidadproducto;
+        $sinInp = ($valsiniv*$cantidadproducto);
 
-        $precioTotalSinImpuesto = $xml->createElement('precioTotalSinImpuesto',number_format($valsinimpuestos, 2, '.', ','));
+        //$precioTotalSinImpuesto = $xml->createElement('precioTotalSinImpuesto',number_format($valsinimpuestos, 2, '.', ','));
+        $precioTotalSinImpuesto = $xml->createElement('precioTotalSinImpuesto',number_format($sinInp, 2, '.', ','));
         $precioTotalSinImpuesto = $detalle->appendChild($precioTotalSinImpuesto);
 
         $impuestos = $xml->createElement('impuestos');
@@ -441,7 +443,8 @@ class CarritoController extends Controller
         $tarifa = $xml->createElement('tarifa',$iva);
         $tarifa = $impuesto->appendChild($tarifa);
 
-        $baseImponible = $xml->createElement('baseImponible',number_format($valsinimpuestos, 2, '.', ','));
+        //$baseImponible = $xml->createElement('baseImponible',number_format($valsinimpuestos, 2, '.', ','));
+        $baseImponible = $xml->createElement('baseImponible',number_format($sinInp, 2, '.', ','));
         $baseImponible = $impuesto->appendChild($baseImponible);
 
         $totivaval = $valiv*$cantidadproducto;
@@ -454,11 +457,11 @@ class CarritoController extends Controller
       $infoAdicional = $factura->appendChild($infoAdicional);
       foreach ($perfils as $adicionalperson) {
         $campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->dir1.' y '.$adicionalperson->dir2);
-        $campoAdicional->setAttribute('nombre','Dirección');
+        $campoAdicional->setAttribute('nombre','Direccion');
         $campoAdicional = $infoAdicional->appendChild($campoAdicional);
 
         $campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->telefono);
-        $campoAdicional->setAttribute('nombre','Teléfono');        
+        $campoAdicional->setAttribute('nombre','Telefono');        
         $campoAdicional = $infoAdicional->appendChild($campoAdicional);
 
         $campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->email);
@@ -513,6 +516,44 @@ class CarritoController extends Controller
       $jar = $ruta.'//SRI//dist//SRI.jar';
       $cmd = 'cmd /C java -jar '.$jar.' '.$pathXmlFirmado.' '.$claveAcceso.' '.$autorizados.' '.$rechazados.' '.$linkRecepcion.' '.$linkAutorizacion. ' ';
       $oExec = $WshShell->Run($cmd, 0, false); 
+    }
+
+    public function revisarXml(){
+      $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\2909201601010511850900110010010000000777687155819.xml";
+      $content = utf8_encode(file_get_contents($xmlPath));
+        $xml = \simplexml_load_string($content);
+        $cont = (integer) $xml['counter'];
+        $xml['counter'] = $cont + 1;
+        $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\doc.xml");
+
+        echo "------------------------------------------------------------";
+        $doc = new \DOMDocument();
+        $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\doc.xml");
+
+        // Reading tag's value.
+        $estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
+        if ($estado == "AUTORIZADO") {
+            $numAut = $doc->getElementsByTagName("numeroAutorizacion")->item(0)->nodeValue;
+            $fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
+            print_r($estado);
+            print_r($numAut);
+            print_r($fechAut);
+        } else {
+            $fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
+            $mensaje = $doc->getElementsByTagName("mensajes")->item(0)->nodeValue;
+            print_r($estado);
+            print_r($fechAut);
+            print_r($mensaje);
+        }
+      
+    }
+
+    public function generaPdf(){
+
+    }
+
+    public function almacenaError(){
+      
     }
 
     protected function saveOrderItem($product, $order_id){
