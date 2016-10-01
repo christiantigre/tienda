@@ -21,18 +21,10 @@ body {
   font-family: Arial;
 }
 
+
 header {
   padding: 10px 0;
   margin-bottom: 30px;
-}
-
-#logo {
-  text-align: center;
-  margin-bottom: 10px;
-}
-
-#logo img {
-  width: 90px;
 }
 
 h1 {
@@ -45,6 +37,154 @@ h1 {
   text-align: center;
   margin: 0 0 20px 0;
   background: url(dimension.png);
+}
+.info{
+  float: left;
+}
+.log{
+ margin-bottom: 5px;
+
+ float: left;
+ /*border-top: 1px solid  #5D6975;
+ border-bottom: 1px solid  #5D6975;
+ border-left: 1px solid  #5D6975;
+ border-right: 1px solid  #5D6975;*/
+ height: 40px; 
+ width: 175px; 
+ padding: 21px 36px 20px 36px; 
+ margin: 0px auto 0px auto; 
+ display: block; 
+ background: rgba(255, 255, 255, 1.0); 
+ color: rgba(0, 0, 0, 1.0); 
+ border-radius: 10px 10px 10px 10px;
+ margin-top: -5px;
+}
+
+.empr{
+ margin-bottom: 3px;
+ position: absolute;
+ top: 157px;
+ float: left;
+ border-top: 1px solid  #5D6975;
+ border-bottom: 1px solid  #5D6975;
+ border-left: 1px solid  #5D6975;
+ border-right: 1px solid  #5D6975;
+ height: 75px; 
+ width: 175px; 
+ padding: 21px 36px 20px 36px; 
+ margin: 0px auto 0px auto; 
+ display: block; 
+ background: rgba(255, 255, 255, 1.0); 
+ color: rgba(0, 0, 0, 1.0); 
+ border-radius: 10px 10px 10px 10px;
+ margin-top: 5px;
+ font-size: 0.9em;
+ text-align: justify-all;
+}
+
+#weigh{
+  font-weight: bold;
+}
+
+h4,h5,h6{
+  font-family: Verdana, Arial, Helvetica; 
+  padding: 0;
+  margin: 0px;
+}
+
+#inportante{
+ color: #5D6975;
+}
+
+.autorizacion {
+  float: right; 
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  border-left: 1px solid  #5D6975;
+  border-right: 1px solid  #5D6975;
+  height: auto; 
+  width: 240px; 
+  padding: 21px 36px 20px 36px; 
+  margin: 0px auto 0px auto; 
+  display: block; 
+  background: rgba(255, 255, 255, 1.0); 
+  color: rgba(0, 0, 0, 1.0); 
+  border-radius: 10px 10px 10px 10px;
+  margin-bottom: 5px;
+}
+
+.cliente {
+  margin-bottom: 5px;
+  
+  float: right;
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  border-left: 1px solid  #5D6975;
+  border-right: 1px solid  #5D6975;
+  height: auto; 
+  width: auto; 
+  padding: 21px 36px 20px 36px; 
+  margin: 0px auto 0px auto; 
+  display: block; 
+  background: rgba(255, 255, 255, 1.0); 
+  color: rgba(0, 0, 0, 1.0); 
+  border-radius: 10px 10px 10px 10px;
+
+}
+.detalle {
+  margin-bottom: 5px;
+  
+  float: right;
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  border-left: 1px solid  #5D6975;
+  border-right: 1px solid  #5D6975;
+  height: auto; 
+  width: auto; 
+  padding: 21px 36px 20px 36px; 
+  margin: 0px auto 0px auto; 
+  display: block; 
+  background: rgba(255, 255, 255, 1.0); 
+  color: rgba(0, 0, 0, 1.0); 
+  border-radius: 10px 10px 10px 10px;
+  margin-top: 5px;
+
+}
+.observaciones {
+  margin-bottom: 5px;
+  
+  float: left;
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  border-left: 1px solid  #5D6975;
+  border-right: 1px solid  #5D6975;
+  height: auto; 
+  width: 265px; 
+  padding: 21px 36px 20px 36px; 
+  margin: 0px auto 0px auto; 
+  display: block; 
+  background: rgba(255, 255, 255, 1.0); 
+  color: rgba(0, 0, 0, 1.0); 
+  border-radius: 10px 10px 10px 10px;
+  margin-top: 5px;
+
+}
+.tot {
+  margin-bottom: 5px;  
+  float: right;
+  border-top: 1px solid  #5D6975;
+  border-bottom: 1px solid  #5D6975;
+  border-left: 1px solid  #5D6975;
+  border-right: 1px solid  #5D6975;
+  height: auto; 
+  width: 150px; 
+  padding: 21px 36px 20px 36px; 
+  margin: 0px auto 0px auto; 
+  display: block; 
+  background: rgba(255, 255, 255, 1.0); 
+  color: rgba(0, 0, 0, 1.0); 
+  border-radius: 10px 10px 10px 10px;
+  margin-top: 5px;
 }
 
 #project {
@@ -112,7 +252,7 @@ table td.desc {
 table td.unit,
 table td.qty,
 table td.total {
-  font-size: 1.2em;
+  font-size: 0.7em;
 }
 
 table td.grand {
@@ -122,15 +262,4 @@ table td.grand {
 #notices .notice {
   color: #5D6975;
   font-size: 1.2em;
-}
-
-footer {
-  color: #5D6975;
-  width: 100%;
-  height: 30px;
-  position: absolute;
-  bottom: 0;
-  border-top: 1px solid #C1CED9;
-  padding: 8px 0;
-  text-align: center;
 }

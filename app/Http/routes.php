@@ -332,6 +332,11 @@
       'uses' => 'CarritoController@generaPdf'
       ]);
 
+    Route::get('vista', function ()
+    {
+      return View::make('pdf/vista');
+    });
+
     Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas

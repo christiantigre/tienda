@@ -551,8 +551,9 @@ class CarritoController extends Controller
     }
 
     public function generaPdf(){
+      $dt_empress = Empresaa::select()->get();
        $claveAcceso = "2909201601010511850900110010010000000777687155819";
-      $pdf = \PDF::loadView('pdf/vista');
+      $pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress]);
       $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
       //return $pdf->download('prueba.pdf');
     }
