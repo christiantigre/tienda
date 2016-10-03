@@ -322,7 +322,7 @@
       'uses' => 'CarritoController@firmarXml'
       ]);
 
-    Route::get('revisar/', [
+    Route::get('revisar/{var}', [
       'as' => 'revisar',
       'uses' => 'CarritoController@revisarXml'
       ]);
