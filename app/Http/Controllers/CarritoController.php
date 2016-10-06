@@ -666,7 +666,7 @@ class CarritoController extends Controller
         } 
       }else{ 
         $this->firmarXml($claveacceso);
-        $message = 'Su pedido fue realizado con éxito, estamos preparando tu factua y la enviarémos a tu correo electrónico';
+        $message = 'Su pedido fue realizado con éxito, estamos preparando tu factura y la enviarémos a tu correo electrónico';
 
         \Session::flash('flash_message', $message); 
         /*dd($cartordaux);*/
@@ -703,9 +703,9 @@ class CarritoController extends Controller
       ->update(['convrt_ride' => '1']);
       $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
       //return $pdf->download('prueba.pdf');
-      $this->deleteDir("generados");
-      $this->deleteDir("firmados");
-      $this->deleteDir("temp");
+      //$this->deleteDir("generados");
+      //$this->deleteDir("firmados");
+      //$this->deleteDir("temp");
     }
 
     public function sendEmail($clavedeacceso)
