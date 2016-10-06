@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><autorizacion>
-    <estado>NO AUTORIZADO</estado>
-    <fechaAutorizacion>2016-09-29T11:02:26-05:00</fechaAutorizacion>
+    <estado>AUTORIZADO</estado>
+    <numeroAutorizacion>0410201601121501051185090010000002157</numeroAutorizacion>
+    <fechaAutorizacion>2016-10-04T01:36:38-05:00</fechaAutorizacion>
     <comprobante>&lt;![CDATA[&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?&gt;&lt;factura id="comprobante" version="1.0.0"&gt;
   &lt;infoTributaria&gt;
     &lt;ambiente&gt;1&lt;/ambiente&gt;
@@ -8,75 +9,75 @@
     &lt;razonSocial&gt;TIGRE CONDO CHRISTIAN ANDRES&lt;/razonSocial&gt;
     &lt;nombreComercial&gt;StoreLine&lt;/nombreComercial&gt;
     &lt;ruc&gt;0105118509001&lt;/ruc&gt;
-    &lt;claveAcceso&gt;2909201601010511850900110010010000000769169717215&lt;/claveAcceso&gt;
+    &lt;claveAcceso&gt;0410201601010511850900110010010000002155214877714&lt;/claveAcceso&gt;
     &lt;codDoc&gt;01&lt;/codDoc&gt;
     &lt;estab&gt;001&lt;/estab&gt;
     &lt;ptoEmi&gt;001&lt;/ptoEmi&gt;
-    &lt;secuencial&gt;000000076&lt;/secuencial&gt;
+    &lt;secuencial&gt;000000215&lt;/secuencial&gt;
     &lt;dirMatriz&gt;Remigio Crespo y Lorenzo Piedra&lt;/dirMatriz&gt;
   &lt;/infoTributaria&gt;
   &lt;infoFactura&gt;
-    &lt;fechaEmision&gt;29/09/2016&lt;/fechaEmision&gt;
+    &lt;fechaEmision&gt;04/10/2016&lt;/fechaEmision&gt;
     &lt;dirEstablecimiento&gt;3 de Noviembre y Cesar Cueva&lt;/dirEstablecimiento&gt;
     &lt;obligadoContabilidad&gt;NO&lt;/obligadoContabilidad&gt;
     &lt;tipoIdentificacionComprador&gt;04&lt;/tipoIdentificacionComprador&gt;
     &lt;razonSocialComprador&gt;Christian Tigre C.&lt;/razonSocialComprador&gt;
     &lt;identificacionComprador&gt;0105118509001&lt;/identificacionComprador&gt;
-    &lt;totalSinImpuestos&gt;243.92&lt;/totalSinImpuestos&gt;
+    &lt;totalSinImpuestos&gt;184.17&lt;/totalSinImpuestos&gt;
     &lt;totalDescuento&gt;0.00&lt;/totalDescuento&gt;
     &lt;totalConImpuestos&gt;
       &lt;totalImpuesto&gt;
         &lt;codigo&gt;2&lt;/codigo&gt;
         &lt;codigoPorcentaje&gt;3&lt;/codigoPorcentaje&gt;
-        &lt;baseImponible&gt;243.92&lt;/baseImponible&gt;
+        &lt;baseImponible&gt;184.17&lt;/baseImponible&gt;
         &lt;tarifa&gt;14&lt;/tarifa&gt;
-        &lt;valor&gt;34.15&lt;/valor&gt;
+        &lt;valor&gt;25.78&lt;/valor&gt;
       &lt;/totalImpuesto&gt;
     &lt;/totalConImpuestos&gt;
     &lt;propina&gt;0.00&lt;/propina&gt;
-    &lt;importeTotal&gt;278.07&lt;/importeTotal&gt;
+    &lt;importeTotal&gt;209.95&lt;/importeTotal&gt;
     &lt;moneda&gt;DOLAR&lt;/moneda&gt;
     &lt;pagos&gt;
       &lt;pago&gt;
         &lt;formaPago&gt;01&lt;/formaPago&gt;
-        &lt;total&gt;278.07&lt;/total&gt;
+        &lt;total&gt;209.95&lt;/total&gt;
       &lt;/pago&gt;
     &lt;/pagos&gt;
   &lt;/infoFactura&gt;
   &lt;detalles&gt;
     &lt;detalle&gt;
-      &lt;codigoPrincipal&gt;675644567764532&lt;/codigoPrincipal&gt;
-      &lt;codigoAuxiliar&gt;83&lt;/codigoAuxiliar&gt;
-      &lt;descripcion&gt;zapatos&lt;/descripcion&gt;
+      &lt;codigoPrincipal&gt;1111111212121&lt;/codigoPrincipal&gt;
+      &lt;codigoAuxiliar&gt;70&lt;/codigoAuxiliar&gt;
+      &lt;descripcion&gt;Mochilas&lt;/descripcion&gt;
       &lt;cantidad&gt;3&lt;/cantidad&gt;
-      &lt;precioUnitario&gt;55.00&lt;/precioUnitario&gt;
+      &lt;precioUnitario&gt;40.34&lt;/precioUnitario&gt;
       &lt;descuento&gt;0&lt;/descuento&gt;
-      &lt;precioTotalSinImpuesto&gt;165.00&lt;/precioTotalSinImpuesto&gt;
+      &lt;precioTotalSinImpuesto&gt;121.03&lt;/precioTotalSinImpuesto&gt;
       &lt;impuestos&gt;
         &lt;impuesto&gt;
           &lt;codigo&gt;2&lt;/codigo&gt;
           &lt;codigoPorcentaje&gt;3&lt;/codigoPorcentaje&gt;
           &lt;tarifa&gt;14&lt;/tarifa&gt;
-          &lt;baseImponible&gt;243.92&lt;/baseImponible&gt;
-          &lt;valor&gt;23.10&lt;/valor&gt;
+          &lt;baseImponible&gt;121.03&lt;/baseImponible&gt;
+          &lt;valor&gt;16.94&lt;/valor&gt;
         &lt;/impuesto&gt;
       &lt;/impuestos&gt;
     &lt;/detalle&gt;
     &lt;detalle&gt;
-      &lt;codigoPrincipal&gt;1989998767656&lt;/codigoPrincipal&gt;
-      &lt;codigoAuxiliar&gt;62&lt;/codigoAuxiliar&gt;
-      &lt;descripcion&gt;Legin de niñas&lt;/descripcion&gt;
-      &lt;cantidad&gt;3&lt;/cantidad&gt;
-      &lt;precioUnitario&gt;26.31&lt;/precioUnitario&gt;
+      &lt;codigoPrincipal&gt;1232343432123&lt;/codigoPrincipal&gt;
+      &lt;codigoAuxiliar&gt;17&lt;/codigoAuxiliar&gt;
+      &lt;descripcion&gt;Casaca cafe&lt;/descripcion&gt;
+      &lt;cantidad&gt;2&lt;/cantidad&gt;
+      &lt;precioUnitario&gt;31.57&lt;/precioUnitario&gt;
       &lt;descuento&gt;0&lt;/descuento&gt;
-      &lt;precioTotalSinImpuesto&gt;78.92&lt;/precioTotalSinImpuesto&gt;
+      &lt;precioTotalSinImpuesto&gt;63.14&lt;/precioTotalSinImpuesto&gt;
       &lt;impuestos&gt;
         &lt;impuesto&gt;
           &lt;codigo&gt;2&lt;/codigo&gt;
           &lt;codigoPorcentaje&gt;3&lt;/codigoPorcentaje&gt;
           &lt;tarifa&gt;14&lt;/tarifa&gt;
-          &lt;baseImponible&gt;243.92&lt;/baseImponible&gt;
-          &lt;valor&gt;11.05&lt;/valor&gt;
+          &lt;baseImponible&gt;63.14&lt;/baseImponible&gt;
+          &lt;valor&gt;8.84&lt;/valor&gt;
         &lt;/impuesto&gt;
       &lt;/impuestos&gt;
     &lt;/detalle&gt;
@@ -86,34 +87,34 @@
     &lt;campoAdicional nombre="Telefono"&gt;2203584&lt;/campoAdicional&gt;
     &lt;campoAdicional nombre="Email"&gt;andrescondo17@gmail.com&lt;/campoAdicional&gt;
   &lt;/infoAdicional&gt;
-&lt;ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature438251"&gt;
-&lt;ds:SignedInfo Id="Signature-SignedInfo264032"&gt;
+&lt;ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:etsi="http://uri.etsi.org/01903/v1.3.2#" Id="Signature202496"&gt;
+&lt;ds:SignedInfo Id="Signature-SignedInfo295932"&gt;
 &lt;ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/&gt;
 &lt;ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/&gt;
-&lt;ds:Reference Id="SignedPropertiesID946334" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature438251-SignedProperties104643"&gt;
+&lt;ds:Reference Id="SignedPropertiesID371890" Type="http://uri.etsi.org/01903#SignedProperties" URI="#Signature202496-SignedProperties364803"&gt;
 &lt;ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-&lt;ds:DigestValue&gt;dPEHShvQ4IlEaesB/MoNZHLeuug=&lt;/ds:DigestValue&gt;
+&lt;ds:DigestValue&gt;moYD1Zr96II5n5RQgmlb7Fqs94g=&lt;/ds:DigestValue&gt;
 &lt;/ds:Reference&gt;
-&lt;ds:Reference URI="#Certificate1381632"&gt;
+&lt;ds:Reference URI="#Certificate1992505"&gt;
 &lt;ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-&lt;ds:DigestValue&gt;M1/qEzdM7Mf8NmghjIJJtI0Wc/I=&lt;/ds:DigestValue&gt;
+&lt;ds:DigestValue&gt;JL7YlMQOzI2rTKzGtUUxJwlaV7o=&lt;/ds:DigestValue&gt;
 &lt;/ds:Reference&gt;
-&lt;ds:Reference Id="Reference-ID-312722" URI="#comprobante"&gt;
+&lt;ds:Reference Id="Reference-ID-29338" URI="#comprobante"&gt;
 &lt;ds:Transforms&gt;
 &lt;ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/&gt;
 &lt;/ds:Transforms&gt;
 &lt;ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;
-&lt;ds:DigestValue&gt;EkcHkNou+4yMt8OGZYxzLvUvn7E=&lt;/ds:DigestValue&gt;
+&lt;ds:DigestValue&gt;0jtPk3UqawxZUCsS/6ykf84/2B0=&lt;/ds:DigestValue&gt;
 &lt;/ds:Reference&gt;
 &lt;/ds:SignedInfo&gt;
-&lt;ds:SignatureValue Id="SignatureValue116902"&gt;
-eV0x5qnBUFnChivm+BSI8CVpxSeIhoqeBrs9RUTLkbkcD9KPYicGeV2yMHCWizEhFhrj98prDTvo
-jBvNTWm4usRTF8YC2bu3fK1zNoWSLNJ67d8vzzQnGaQ6xpLAidY+TYPTfy8hrX/4MuiSDckuacuM
-eticUeUoBvkUN/SEhh30KWggWjCH6uwO2vq/e0TA1VZBCBo4TCMYnphILcjpvY1IflHAK2XwKojx
-8q/ToCCuyaBEzfZETKZfUBNrVYl57oQL9z5rM3pouzNR0Mp3vqcsOSvukeaS3210bW3Do1fjJak4
-FztNtyJ8rLXEyWt08Bi9Vkq64rs0isTQq+Zp1Q==
+&lt;ds:SignatureValue Id="SignatureValue732892"&gt;
+STFSEiCFCVhqIsCi1e2eoaocOZLcvhNNggfHLBkkTo6aqhUfjoDj1GbgRbVkDAsDLZwxrxms4OBa
+6afthlxBBXiaq8KGNwJMSArkAO65fkZ7KjdqHu1Xq5Tj9pWyQErOiODg89Ksu5ET3yq7WEXFHomX
+WQqnmftvvN8syZW0/FEYTXQfycwqGPjp0OHhn+xwm5saY04h8abtg83CNoN6QIY5l4wz56PR3ToZ
+Ng5JHRQyduxxYsy51Jzc/H5t2W96r1ngYMb0GZIwPxexp/ufGN9R6I+niJeG47BhRx5/hk2V0k9b
+3L4szbBaaCzcDs6viwLivtOfSM4NH1fTyMB9Cg==
 &lt;/ds:SignatureValue&gt;
-&lt;ds:KeyInfo Id="Certificate1381632"&gt;
+&lt;ds:KeyInfo Id="Certificate1992505"&gt;
 &lt;ds:X509Data&gt;
 &lt;ds:X509Certificate&gt;
 MIIJljCCB36gAwIBAgIETkatgzANBgkqhkiG9w0BAQsFADCBoTELMAkGA1UEBhMCRUMxIjAgBgNV
@@ -175,20 +176,6 @@ navKHggb8leOsqeDerF9SadLm2r01+96nX4VFw==
 &lt;/ds:RSAKeyValue&gt;
 &lt;/ds:KeyValue&gt;
 &lt;/ds:KeyInfo&gt;
-&lt;ds:Object Id="Signature438251-Object639134"&gt;&lt;etsi:QualifyingProperties Target="#Signature438251"&gt;&lt;etsi:SignedProperties Id="Signature438251-SignedProperties104643"&gt;&lt;etsi:SignedSignatureProperties&gt;&lt;etsi:SigningTime&gt;2016-09-29T11:02:11-05:00&lt;/etsi:SigningTime&gt;&lt;etsi:SigningCertificate&gt;&lt;etsi:Cert&gt;&lt;etsi:CertDigest&gt;&lt;ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;&lt;ds:DigestValue&gt;2DMiQbO1KUGRMqp70ka/4o1E5Tk=&lt;/ds:DigestValue&gt;&lt;/etsi:CertDigest&gt;&lt;etsi:IssuerSerial&gt;&lt;ds:X509IssuerName&gt;CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC&lt;/ds:X509IssuerName&gt;&lt;ds:X509SerialNumber&gt;1313254787&lt;/ds:X509SerialNumber&gt;&lt;/etsi:IssuerSerial&gt;&lt;/etsi:Cert&gt;&lt;/etsi:SigningCertificate&gt;&lt;/etsi:SignedSignatureProperties&gt;&lt;etsi:SignedDataObjectProperties&gt;&lt;etsi:DataObjectFormat ObjectReference="#Reference-ID-312722"&gt;&lt;etsi:Description&gt;contenido comprobante&lt;/etsi:Description&gt;&lt;etsi:MimeType&gt;text/xml&lt;/etsi:MimeType&gt;&lt;/etsi:DataObjectFormat&gt;&lt;/etsi:SignedDataObjectProperties&gt;&lt;/etsi:SignedProperties&gt;&lt;/etsi:QualifyingProperties&gt;&lt;/ds:Object&gt;&lt;/ds:Signature&gt;&lt;/factura&gt;]]&gt;</comprobante>
-    <mensajes>
-        <mensaje>
-            <identificador>52</identificador>
-            <mensaje>ERROR EN DIFERENCIAS</mensaje>
-            <informacionAdicional>
-
---- Inventario de errores ---
-
-- ImpuestoTotalizado:
-	La base imponible total FacturaTotalConImpuesto [codigo=2, codigoPorcentaje=3] esperado 243.92 no coincide con el calculado 487.84
-- ImpuestoDetalle:
-	La base imponible del impuesto 243.92 no coincide con la calculada 78.92 en FacturaDetalleImpuesto [codigo=2, codigoPorcentaje=3]</informacionAdicional>
-            <tipo>ERROR</tipo>
-        </mensaje>
-    </mensajes>
+&lt;ds:Object Id="Signature202496-Object794866"&gt;&lt;etsi:QualifyingProperties Target="#Signature202496"&gt;&lt;etsi:SignedProperties Id="Signature202496-SignedProperties364803"&gt;&lt;etsi:SignedSignatureProperties&gt;&lt;etsi:SigningTime&gt;2016-10-04T01:36:21-05:00&lt;/etsi:SigningTime&gt;&lt;etsi:SigningCertificate&gt;&lt;etsi:Cert&gt;&lt;etsi:CertDigest&gt;&lt;ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/&gt;&lt;ds:DigestValue&gt;2DMiQbO1KUGRMqp70ka/4o1E5Tk=&lt;/ds:DigestValue&gt;&lt;/etsi:CertDigest&gt;&lt;etsi:IssuerSerial&gt;&lt;ds:X509IssuerName&gt;CN=AC BANCO CENTRAL DEL ECUADOR,L=QUITO,OU=ENTIDAD DE CERTIFICACION DE INFORMACION-ECIBCE,O=BANCO CENTRAL DEL ECUADOR,C=EC&lt;/ds:X509IssuerName&gt;&lt;ds:X509SerialNumber&gt;1313254787&lt;/ds:X509SerialNumber&gt;&lt;/etsi:IssuerSerial&gt;&lt;/etsi:Cert&gt;&lt;/etsi:SigningCertificate&gt;&lt;/etsi:SignedSignatureProperties&gt;&lt;etsi:SignedDataObjectProperties&gt;&lt;etsi:DataObjectFormat ObjectReference="#Reference-ID-29338"&gt;&lt;etsi:Description&gt;contenido comprobante&lt;/etsi:Description&gt;&lt;etsi:MimeType&gt;text/xml&lt;/etsi:MimeType&gt;&lt;/etsi:DataObjectFormat&gt;&lt;/etsi:SignedDataObjectProperties&gt;&lt;/etsi:SignedProperties&gt;&lt;/etsi:QualifyingProperties&gt;&lt;/ds:Object&gt;&lt;/ds:Signature&gt;&lt;/factura&gt;]]&gt;</comprobante>
+    <mensajes/>
 </autorizacion>

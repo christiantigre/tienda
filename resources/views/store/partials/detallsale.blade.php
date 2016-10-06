@@ -1,6 +1,8 @@
 @extends('store.template')
 @section('content')
-
+<script type="text/javascript">
+  
+</script>
 <!-- page content -->
 <div class="right_col" role="main">
   <div class="">
@@ -23,6 +25,8 @@
                 <div class="col-xs-12 invoice-header">
                   <h1>
                     <small class="pull-right">Date: {{ $order->date }}</small>
+                    <input type="text" name="claveacceso" id="claveacceso" value="{{ $codigogenerado }}"/>
+                    <input type="text" name="rutaPdf" id="rutaPdf" value="{{ $rutaPdf }}"/>
                   </h1>
                 </div>
                 <!-- /.col -->

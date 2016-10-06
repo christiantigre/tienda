@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\generaPdf;
 use Random;
 use App\Http\Requests;
 use App\Product;
@@ -19,6 +20,10 @@ use App\Moneda;
 use App\User;
 use Illuminate\Support\Facades\Input;
 use Carbon\Carbon;
+use Queue;
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Support\ServiceProvider;
+use App\convertRide;
 
 class CarritoController extends Controller
 {
@@ -165,6 +170,7 @@ class CarritoController extends Controller
         }
 
         public function saveOrder(Request $request){
+          $the_sales = new sales;
           $id_us = Auth::user()->id;
           $total=0;
           $valiva = 1.14;
@@ -221,11 +227,31 @@ class CarritoController extends Controller
             'claveacceso'=>$codigogenerado
             ]);
     //Genera XML
-           $this->generaXml($order->id);
+            //$sales = $the_sales->select()->where('claveacceso', '=', $codigogenerado)->first();
+           
+           if ($generado = $this->generaXml($order->id)) {
+             if ($firmado = $this->firmarXml($codigogenerado)) {
+               $pos = explode(",", $firmado, 4);
+               $this->deleteDir("generados");
+               \DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '1']);
+             } else {
+               \DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '0']);
+             }
+
+           } else {
+             \DB::table('sales')->where('pedido_id', $order->id)->update(['gen_xml' => '0']);
+           }
+
+
      //firma xml
-           $this->firmarXml($codigogenerado);
+          // $this->firmarXml($codigogenerado);
+
+
     //dd($codigogenerado);
          }
+         $rutai = public_path();
+         $ruta = str_replace("\\", "//", $rutai);
+         $rutaPdf=$ruta."\\archivos\\pdf\\";
 
 
          \Session::flash('flash_message', $message);        
@@ -238,66 +264,68 @@ class CarritoController extends Controller
          $cartord = \Session::get('cart');
          $cartordaux = $order->select()->where('id', '=', $order->id)->first();
          /*dd($cartordaux);*/
-         return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux'));
+          //$this->revisarXml($codigogenerado)
+         //Queue::later(180, $this->retorno($codigogenerado));
+         return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux','codigogenerado','rutaPdf'));
        }
 
-       public function generaXml($idpedido){
-        $pedidoshow = Pedido::select()->where('id', '=', $idpedido)->first();
-        $items = ItemPedido::where('pedido_id', '=', $pedidoshow->id)->orderBy('id', 'asc')->get();
-        $perfils = client::select()->where('id', '=', $pedidoshow->users_id)->get();
-        $sale = sales::select('claveacceso','numfactura')->where('pedido_id', '=', $idpedido)->first();
+       private function generaXml($idpedido){ //$this->deleteDir("autorizados");
+       $pedidoshow = Pedido::select()->where('id', '=', $idpedido)->first();
+       $items = ItemPedido::where('pedido_id', '=', $pedidoshow->id)->orderBy('id', 'asc')->get();
+       $perfils = client::select()->where('id', '=', $pedidoshow->users_id)->get();
+       $sale = sales::select('claveacceso','numfactura')->where('pedido_id', '=', $idpedido)->first();
 
-        $dt_empress = Empresaa::select()->get();
+       $dt_empress = Empresaa::select()->get();
 
-        $xml = new \DomDocument('1.0', 'UTF-8');
-        $factura = $xml->createElement('factura');  
-        $factura->setAttribute('id','comprobante');
-        $factura->setAttribute('version','1.0.0');
-        $factura = $xml->appendChild($factura);
+       $xml = new \DomDocument('1.0', 'UTF-8');
+       $factura = $xml->createElement('factura');  
+       $factura->setAttribute('id','comprobante');
+       $factura->setAttribute('version','1.0.0');
+       $factura = $xml->appendChild($factura);
 
-        $infoTributaria = $xml->createElement('infoTributaria');
-        $infoTributaria = $factura->appendChild($infoTributaria);
+       $infoTributaria = $xml->createElement('infoTributaria');
+       $infoTributaria = $factura->appendChild($infoTributaria);
 
-        foreach ($dt_empress as $dt_empres) {
-          $ambiente = $xml->createElement('ambiente',$dt_empres->ambiente);
-          $ambiente = $infoTributaria->appendChild($ambiente);
+       foreach ($dt_empress as $dt_empres) {
+        $ambiente = $xml->createElement('ambiente',$dt_empres->ambiente);
+        $ambiente = $infoTributaria->appendChild($ambiente);
 
-          $tipoEmision = $xml->createElement('tipoEmision','1');
-          $tipoEmision = $infoTributaria->appendChild($tipoEmision);
+        $tipoEmision = $xml->createElement('tipoEmision','1');
+        $tipoEmision = $infoTributaria->appendChild($tipoEmision);
 
-          $razonSocial = $xml->createElement('razonSocial',$dt_empres->prop);
-          $razonSocial = $infoTributaria->appendChild($razonSocial);
+        $razonSocial = $xml->createElement('razonSocial',$dt_empres->prop);
+        $razonSocial = $infoTributaria->appendChild($razonSocial);
 
-          $nombreComercial = $xml->createElement('nombreComercial',$dt_empres->nom);
-          $nombreComercial = $infoTributaria->appendChild($nombreComercial);
+        $nombreComercial = $xml->createElement('nombreComercial',$dt_empres->nom);
+        $nombreComercial = $infoTributaria->appendChild($nombreComercial);
 
-          $ruc = $xml->createElement('ruc',$dt_empres->ruc);
-          $ruc = $infoTributaria->appendChild($ruc);
+        $ruc = $xml->createElement('ruc',$dt_empres->ruc);
+        $ruc = $infoTributaria->appendChild($ruc);
 
-          $claveAcceso = $xml->createElement('claveAcceso',$sale->claveacceso);
-          $claveAcceso = $infoTributaria->appendChild($claveAcceso);
+        $claveAcceso = $xml->createElement('claveAcceso',$sale->claveacceso);
+        $claveAcceso = $infoTributaria->appendChild($claveAcceso);
 
-          $codDoc = $xml->createElement('codDoc','01');
-          $codDoc = $infoTributaria->appendChild($codDoc);
+        $codDoc = $xml->createElement('codDoc','01');
+        $codDoc = $infoTributaria->appendChild($codDoc);
 
-          $estab = $xml->createElement('estab',$dt_empres->codestablecimiento);
-          $estab = $infoTributaria->appendChild($estab);
+        $estab = $xml->createElement('estab',$dt_empres->codestablecimiento);
+        $estab = $infoTributaria->appendChild($estab);
 
-          $ptoEmi = $xml->createElement('ptoEmi',$dt_empres->codpntemision);
-          $ptoEmi = $infoTributaria->appendChild($ptoEmi);
+        $ptoEmi = $xml->createElement('ptoEmi',$dt_empres->codpntemision);
+        $ptoEmi = $infoTributaria->appendChild($ptoEmi);
 
-          $secuencial = $xml->createElement('secuencial',$sale->numfactura);
-          $secuencial = $infoTributaria->appendChild($secuencial);
+        $secuencial = $xml->createElement('secuencial',$sale->numfactura);
+        $secuencial = $infoTributaria->appendChild($secuencial);
 
-          $dirMatriz = $xml->createElement('dirMatriz',$dt_empres->dirmatriz);
-          $dirMatriz = $infoTributaria->appendChild($dirMatriz);
-        }
+        $dirMatriz = $xml->createElement('dirMatriz',$dt_empres->dirmatriz);
+        $dirMatriz = $infoTributaria->appendChild($dirMatriz);
+      }
 
-        foreach ($perfils as $perfil) {
+      foreach ($perfils as $perfil) {
 
-          $cedula = $dt_empres->cedula;
-          $ruc = $dt_empres->ruc;
-          if(!empty($ruc)){
+        $cedula = $dt_empres->cedula;
+        $ruc = $dt_empres->ruc;
+        if(!empty($ruc)){
            $identificacion = '04'; //ruc
            $id = $ruc;
          }elseif(!empty($cedula)){
@@ -475,6 +503,9 @@ class CarritoController extends Controller
 
       $xml->formatOutput = true;
       $el_xml = $xml->saveXML();
+      \DB::table('sales')
+      ->where('pedido_id', $idpedido)
+      ->update(['gen_xml' => '1']);
       $xml->save('archivos/generados/'.$sale->claveacceso.'.xml');
 
       htmlentities($el_xml);
@@ -501,13 +532,13 @@ class CarritoController extends Controller
         $pathsalida = $firmados;
         $pathgenerado = $generados.$nombrexml.'.xml';
         $jar = $ruta.'//DevelopedSignature/dist/firmaJava.jar';
-        //$cmd = 'cmd /C java -jar C:/DevelopedSignature/dist/firmaJava.jar '.$pathfirma.' '.$pass.' '.$pathgenerado.' '.$pathsalida.' '.$xml.' ';
         $cmd = 'cmd /C java -jar '.$jar.' '.$pathfirma.' '.$pass.' '.$pathgenerado.' '.$pathsalida.' '.$xml.' ';
         $oExec = $WshShell->Run($cmd, 0, false);   
         $pathxmlfirmado = $pathsalida.''.$xml;
         $xmlautorizados = $autorizados.$nombrexml.'.xml';
-        $xmlNoautorizados = $noautorizados.$nombrexml.'.xml';
-        $this->enviarautorizar($pathxmlfirmado,$nombrexml,$xmlautorizados,$xmlNoautorizados); 
+        $xmlNoautorizados = $noautorizados.$nombrexml.'.xml'; 
+        \DB::table('sales')->where('claveacceso', $nombrexml)->update(['fir_xml' => '1']);
+        $this->enviarautorizar($pathxmlfirmado,$nombrexml,$xmlautorizados,$xmlNoautorizados);         
       }
     }
 
@@ -520,38 +551,109 @@ class CarritoController extends Controller
       $linkAutorizacion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
       $jar = $ruta.'//SRI//dist//SRI.jar';
       $cmd = 'cmd /C java -jar '.$jar.' '.$pathXmlFirmado.' '.$claveAcceso.' '.$autorizados.' '.$rechazados.' '.$linkRecepcion.' '.$linkAutorizacion. ' ';
-      $oExec = $WshShell->Run($cmd, 0, false); 
-      //$this->revisarXml($claveAcceso); 
+      $oExec = $WshShell->Run($cmd, 0, false);
+      if ($oExec=='0') {
+        \DB::table('sales')
+        ->where('claveacceso', $claveAcceso)
+        ->update(['aut_xml' => '1']);
+        sleep(30);
+        $this->revisarXml($claveAcceso);   
+      } else {
+        \DB::table('sales')
+        ->where('claveacceso', $claveAcceso)
+        ->update(['aut_xml' => '0']);
+      }
+
+
+    }
+
+    public function fileExist($claveacceso){
+      $rutai = public_path();
+      $ruta = str_replace("\\", "\\", $rutai);
+      $claveAcceso = $claveacceso;
+      $xmlPath = $ruta."\\archivos\\autorizados\\".$claveAcceso.".xml";
+      $i=0;
+      while ($i>0) {
+        if (file_exists($xmlPath)==true){
+          return "existe";
+        //$this->revisarXml($claveAcceso);
+        }else{
+        //sleep(0.25);
+        //$this->retorno($claveAcceso);
+          //return "No existe";
+          $i++;
+        }        # code...
+      }
+
+    }
+
+    public function existFile($claveacceso){
+      $rutai = public_path();
+      $ruta = str_replace("\\", "\\", $rutai);
+      $claveAcceso = $claveacceso;
+      $xmlPath = $ruta."\\archivos\\autorizados\\".$claveAcceso.".xml";   
+      $date = Carbon::now()->addMinutes(3);
+
+      if (file_exists($xmlPath)){
+        $this->revisarXml($claveAcceso);      
+      }else{
+        \DB::table('sales')
+        ->where('claveacceso', $claveAcceso)
+        ->update(['aut_xml' => '0']);
+      //Queue::later($date, new generaPdf($claveAcceso));
+      }
+
+    //$a = 0;
+    //$b = 0;
+   // for($i = 1; $i< 5005; $i++){
+     // $a = $a + 1;
+     // for($j = 1; $j< 5005; $j++){
+      //  $b = $b + $j;
+        //if (file_exists($xmlPath)){
+      //  return "existe";
+          //$this->revisarXml($claveAcceso);
+        //}
+      //}
+    //}
+
+    //else{
+       // sleep(20);
+        //$this->retorno($claveAcceso);
+      //return "No existe";
+    //}
+    }
+
+    public function retorno($claveacceso){
+      $this->existFile($claveacceso);
     }
 
     public function revisarXml($claveacceso){
       //$claveAcceso = "0210201601010511850900110010010000000799134976711";
-        $claveAcceso = $claveacceso;
-        $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
-        if (file_exists($xmlPath)){
-       //lee el xml y decodifica
-         $content = utf8_encode(file_get_contents($xmlPath));
-         $xml = \simplexml_load_string($content);
-         $cont = (integer) $xml['counter'];
-         $xml['counter'] = $cont + 1;
-        //guarda temporalmente el xml decodificado
-         $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
-        //obtiene los valores de los campos del archivo temporal decodificado
-         $doc = new \DOMDocument();
-         $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
+      $claveAcceso = $claveacceso;
+      $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
+      if (file_exists($xmlPath)){     
 
+       //lee el xml y decodifica
+        $content = utf8_encode(file_get_contents($xmlPath));
+        $xml = \simplexml_load_string($content);
+        $cont = (integer) $xml['counter'];
+        $xml['counter'] = $cont + 1;
+        //guarda temporalmente el xml decodificado
+        $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
+        //obtiene los valores de los campos del archivo temporal decodificado
+        $doc = new \DOMDocument();
+        $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
             // Reading tag's value.
-         $estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
-         if ($estado == "AUTORIZADO") {
+        $estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
+        if ($estado == "AUTORIZADO") {
           $numAut = $doc->getElementsByTagName("numeroAutorizacion")->item(0)->nodeValue;
           $fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;  
           \DB::table('sales')
           ->where('claveacceso', $claveAcceso)
           ->update(['num_autoriz' => $numAut,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
           $this->generaPdf($claveAcceso); 
-            //print_r($estado);
-            //print_r($numAut);
-            //print_r($fechAut);
+        //$this->deleteDir("generados");
+        //$this->deleteDir("firmados");
         } else {
           $fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
           $mensaje = $doc->getElementsByTagName("mensajes")->item(0)->nodeValue; 
@@ -559,123 +661,180 @@ class CarritoController extends Controller
           \DB::table('sales')
           ->where('claveacceso', $claveAcceso)
           ->update(['mensaje' => $mensaje,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
-        //print_r($estado);
-        //print_r($fechAut);
-        //print_r($mensaje);
-        }
-      }     
+        //$this->deleteDir("generados");
+        //$this->deleteDir("firmados");
+        } 
+      }else{ 
+        $this->firmarXml($claveacceso);
+        $message = 'Su pedido fue realizado con éxito, estamos preparando tu factua y la enviarémos a tu correo electrónico';
 
- }
+        \Session::flash('flash_message', $message); 
+        /*dd($cartordaux);*/
+          //$this->revisarXml($codigogenerado)
+         //Queue::later(180, $this->retorno($codigogenerado));
+       //return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux'));
+      }
 
- public function generaPdf($claveacceso){
-  $dt_empress = Empresaa::select()->get();
+    }
+
+    public function generaPdf($claveacceso){
+      $dt_empress = Empresaa::select()->get();
       //$claveAcceso = "2909201601010511850900110010010000000777687155819";
-  $claveAcceso = $claveacceso;
-  $the_sales = new sales;
-  $the_user = new User;
-  $the_pedido = new pedido;
-  $the_cliente = new client;
-  $the_item = new ItemPedido;
-  $date = Carbon::now();
-  $date->timezone = new \DateTimeZone('America/Guayaquil');
-  $date = $date->format('d/m/Y');
-  $sales = $the_sales->select()->where('claveacceso', '=', $claveAcceso)->first();
-  $aux_sales = \DB::table('sales')->where('claveacceso', '=', $claveAcceso)->get();
-  $orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
-  $pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
-  $users = $the_user->select()->where('id', '=', $orders->users_id)->first();
-  $clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
-  $aux_clientes = \DB::table('clients')->where('id', '=', $users->id)->get();
-  $items = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
-  $pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress,'aux_sales'=>$aux_sales,'aux_clientes'=>$aux_clientes,'date'=>$date,'items'=>$items,'pedidos'=>$pedidos]);
-  $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
+      $claveAcceso = $claveacceso;
+      $the_sales = new sales;
+      $the_user = new User;
+      $the_pedido = new pedido;
+      $the_cliente = new client;
+      $the_item = new ItemPedido;
+      $date = Carbon::now();
+      $date->timezone = new \DateTimeZone('America/Guayaquil');
+      $date = $date->format('d/m/Y');
+      $sales = $the_sales->select()->where('claveacceso', '=', $claveAcceso)->first();
+      $aux_sales = \DB::table('sales')->where('claveacceso', '=', $claveAcceso)->get();
+      $orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
+      $pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
+      $users = $the_user->select()->where('id', '=', $orders->users_id)->first();
+      $clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
+      $aux_clientes = \DB::table('clients')->where('id', '=', $users->id)->get();
+      $items = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
+      $pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress,'aux_sales'=>$aux_sales,'aux_clientes'=>$aux_clientes,'date'=>$date,'items'=>$items,'pedidos'=>$pedidos]);
+      \DB::table('sales')
+      ->where('claveacceso', $claveAcceso)
+      ->update(['convrt_ride' => '1']);
+      $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
       //return $pdf->download('prueba.pdf');
-}
+      $this->deleteDir("generados");
+      $this->deleteDir("firmados");
+      $this->deleteDir("temp");
+    }
 
-public function almacenaError(){
+    public function sendEmail($clavedeacceso)
+    {
+      $the_sales = new sales;
+      $the_user = new User;
+      $the_pedido = new pedido;
+      $the_cliente = new client;
+      $sales = $the_sales->select()->where('claveacceso', '=', $clavedeacceso)->first();
+      $pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
+      $orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
+      $users = $the_user->select()->where('id', '=', $orders->users_id)->first();
+      $clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
+      $data['email_cliente'] = $emailcliente = $clientes->email;
+      $rutai = public_path();
+      $ruta = str_replace("\\", "//", $rutai);
+      $data['xml'] = $autorizados = $ruta.'//archivos//'.'autorizados'.'//'.$clavedeacceso.'.xml';
+      $data['pdf'] =         $convertidos = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
+      $data['clave'] = $clavedeacceso;
+      if (file_exists($autorizados)){ 
+        if (file_exists($convertidos)){ 
+          \Mail::send("emails.bienvenido", ['data'=>$data], function($message) use($data){
+            $message->to($data['email_cliente'], "christian ")
+            ->subject("Mensaje de prueba!");
+            $rutaPdf=$data['xml'];
+            $rutaXml=$data['pdf'];
+            $message->attach($rutaXml);
+            $message->attach($rutaPdf);
+          });
+          \DB::table('sales')
+          ->where('claveacceso', $clavedeacceso)
+          ->update(['send_xml' => '1','send_pdf'=>'1']);
+        }else{
+          \DB::table('sales')
+          ->where('claveacceso', $clavedeacceso)
+          ->update(['send_pdf' => '0']);
+        }
+      }else{
+        \DB::table('sales')
+        ->where('claveacceso', $clavedeacceso)
+        ->update(['send_xml' => '0']);
+      }
+      
+    }
 
-}
+    public function almacenaError(){
 
-protected function saveOrderItem($product, $order_id){
-  ItemPedido::create([
-    'products_id' => $product->id,
-    'cant' => $product->cantt,
-    'prec' => $product->pre_ven,
-    'pedido_id' => $order_id,
-    'size'=>$product->sizes,
-    'preference'=>$product->preferences,
-    'number'=>$product->numbers
-    ]);
-}
+    }
 
-public function firmar(){
-  return "Firmar";
-}
+    protected function saveOrderItem($product, $order_id){
+      ItemPedido::create([
+        'products_id' => $product->id,
+        'cant' => $product->cantt,
+        'prec' => $product->pre_ven,
+        'pedido_id' => $order_id,
+        'size'=>$product->sizes,
+        'preference'=>$product->preferences,
+        'number'=>$product->numbers
+        ]);
+    }
 
-public function generanumerofactura(){
-  $contsales = \DB::table('sales')->count();
-  $sales = $contsales+1;
-  $longitud = strlen($sales);
-  if($longitud==1)
-    $factura = "00000000".$sales;
-  elseif ($longitud==2)
-    $factura = "0000000".$sales;
-  elseif ($longitud == 3)
-    $factura = "000000".$sales;
-  elseif ($longitud == 4)
-    $factura = "00000".$sales;
-  elseif ($longitud == 5)
-    $factura = "0000".$sales;
-  elseif ($longitud == 6)
-    $factura = "000".$sales;
-  elseif ($longitud == 7)
-    $factura = "00".$sales;
-  elseif ($longitud == 8)
-    $factura = "0".$sales;
-  elseif ($longitud == 9)
-    $factura = "".$sales; 
-  return $factura;
-}
+    public function firmar(){
+      return "Firmar";
+    }
 
-public function randomlongitud($longitud){
-  $generado = '';
-  $collection = '123456789';
-  $max = strlen($collection) - 1;
-  for ($i = 0; $i < $longitud; $i++)
-    $generado .= $collection{mt_rand(0, $max)};
-  return $generado;
-}
+    public function generanumerofactura(){
+      $contsales = \DB::table('sales')->count();
+      $sales = $contsales+1;
+      $longitud = strlen($sales);
+      if($longitud==1)
+        $factura = "00000000".$sales;
+      elseif ($longitud==2)
+        $factura = "0000000".$sales;
+      elseif ($longitud == 3)
+        $factura = "000000".$sales;
+      elseif ($longitud == 4)
+        $factura = "00000".$sales;
+      elseif ($longitud == 5)
+        $factura = "0000".$sales;
+      elseif ($longitud == 6)
+        $factura = "000".$sales;
+      elseif ($longitud == 7)
+        $factura = "00".$sales;
+      elseif ($longitud == 8)
+        $factura = "0".$sales;
+      elseif ($longitud == 9)
+        $factura = "".$sales; 
+      return $factura;
+    }
 
-public function generaclaveacceso($factura){
+    public function randomlongitud($longitud){
+      $generado = '';
+      $collection = '123456789';
+      $max = strlen($collection) - 1;
+      for ($i = 0; $i < $longitud; $i++)
+        $generado .= $collection{mt_rand(0, $max)};
+      return $generado;
+    }
+
+    public function generaclaveacceso($factura){
     //fecha
-  $date = Carbon::now();
-  $date->timezone = new \DateTimeZone('America/Guayaquil');
+      $date = Carbon::now();
+      $date->timezone = new \DateTimeZone('America/Guayaquil');
     //$date = $date->format('d/m/Y');
-  $d = $date->format('d');
-  $m = $date->format('m');
-  $y = $date->format('Y');
-  $fecha = $d.''.$m.''.$y;
+      $d = $date->format('d');
+      $m = $date->format('m');
+      $y = $date->format('Y');
+      $fecha = $d.''.$m.''.$y;
     //tipo comprobante
-  $tipocmprobante = '01';
+      $tipocmprobante = '01';
     //ruc
-  $dt_empress = Empresaa::select()->first();
-  $ruc = $dt_empress->ruc;
+      $dt_empress = Empresaa::select()->first();
+      $ruc = $dt_empress->ruc;
     //ambiente
-  $ambiente = $dt_empress->ambiente;
+      $ambiente = $dt_empress->ambiente;
     //serie de factura = odigo establecimiento concatenado codigogo punto de emision
-  $codestab = $dt_empress->codestablecimiento;
-  $codpntemision = $dt_empress->codpntemision;
-  $cod = $codestab.''.$codpntemision;
+      $codestab = $dt_empress->codestablecimiento;
+      $codpntemision = $dt_empress->codpntemision;
+      $cod = $codestab.''.$codpntemision;
     //serie factura
-  $seriefac = $cod;
+      $seriefac = $cod;
     //Numero factura
-  $numerofactura = $factura;
+      $numerofactura = $factura;
     //numero cualquiera 8
-  $random = $this->randomlongitud(8);
-  $numerocualquiera = $random;
+      $random = $this->randomlongitud(8);
+      $numerocualquiera = $random;
     //tipo emision
-  $tipoemision = '1';
-  $clavedeacceso = $fecha.''.$tipocmprobante.''.$ruc.''.$ambiente.''.$seriefac.''.$numerofactura.''.$numerocualquiera.''.$tipoemision;
+      $tipoemision = '1';
+      $clavedeacceso = $fecha.''.$tipocmprobante.''.$ruc.''.$ambiente.''.$seriefac.''.$numerofactura.''.$numerocualquiera.''.$tipoemision;
     //$verificador = $this->generaDigitoModulo11($clavedeacceso);
     //dd($clavedeacceso);
     $clavedeacceso = $clavedeacceso;//.''.$verificador;
@@ -715,5 +874,24 @@ public function generaclaveacceso($factura){
 
   }
 
+  public function deleteDir($dir){
+    $rutai = public_path();
+    $ruta = str_replace("\\", "\\", $rutai);
+    $dir = $ruta."\\archivos\\".$dir."\\";
+    $handle = opendir($dir);
+
+    while ($file = readdir($handle)) {
+      if (is_file($dir . $file)) {
+        //echo $file;
+        unlink($dir . $file);
+      }
+    }
+  }
+
 
 }
+
+
+
+
+
