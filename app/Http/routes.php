@@ -339,7 +339,11 @@
       'uses' => 'CarritoController@existFile'
       ]);
 
+<<<<<<< HEAD
     Route::get('generapdf/', [
+=======
+    Route::get('generapdf/{clave}', [
+>>>>>>> test
       'as' => 'generapdf',
       'uses' => 'CarritoController@generaPdf'
       ]);
