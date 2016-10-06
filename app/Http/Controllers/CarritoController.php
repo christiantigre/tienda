@@ -718,16 +718,28 @@ class CarritoController extends Controller
     }
     public function sendEmail($clavedeacceso)
     {
+      $dt_empress = new Empresaa;
       $the_sales = new sales;
       $the_user = new User;
       $the_pedido = new pedido;
       $the_cliente = new client;
+      $empresa = $dt_empress->select()->first();
       $sales = $the_sales->select()->where('claveacceso', '=', $clavedeacceso)->first();
       $pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
       $orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
       $users = $the_user->select()->where('id', '=', $orders->users_id)->first();
       $clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
+      $data['empresa'] = $emp = $empresa->nom;
+      $data['tlfun'] = $tlfun = $empresa->tlfun;
+      $data['tlfds'] = $tlfds = $empresa->tlfds;
+      $data['cel'] = $cel = $empresa->cel;
+      $data['dir'] = $dir = $empresa->dir;
+      $data['pagweb'] = $pagweb = $empresa->pagweb;
+      $data['email'] = $email = $empresa->email;
+      $data['count'] = $count = $empresa->count;
+      $data['ciu'] = $ciu = $empresa->ciu;
       $data['email_cliente'] = $emailcliente = $clientes->email;
+      $data['name'] = $nombrecliente = $clientes->name;
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
       $data['xml'] = $autorizados = $ruta.'//archivos//'.'autorizados'.'//'.$clavedeacceso.'.xml';
@@ -735,9 +747,9 @@ class CarritoController extends Controller
       $data['clave'] = $clavedeacceso;
       if (file_exists($autorizados)){ 
         if (file_exists($convertidos)){ 
-          \Mail::send("emails.bienvenido", ['data'=>$data], function($message) use($data){
+          \Mail::send("emails.comprobantesMail", ['data'=>$data], function($message) use($data){
             $message->to($data['email_cliente'], "christian ")
-            ->subject("Mensaje de prueba!");
+            ->subject("Comprobante Electrónico");
             $rutaPdf=$data['xml'];
             $rutaXml=$data['pdf'];
             $message->attach($rutaXml);
@@ -756,7 +768,6 @@ class CarritoController extends Controller
         ->where('claveacceso', $clavedeacceso)
         ->update(['send_xml' => '0']);
       }
-      
     }
 
     public function almacenaError(){
