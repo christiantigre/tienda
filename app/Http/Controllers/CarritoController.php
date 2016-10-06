@@ -666,11 +666,8 @@ class CarritoController extends Controller
         } 
       }else{ 
         $this->firmarXml($claveacceso);
-<<<<<<< HEAD
         $message = 'Su pedido fue realizado con éxito, estamos preparando tu factua y la enviarémos a tu correo electrónico';
-=======
         $message = 'Su pedido fue realizado con éxito, estamos preparando tu factura y la enviarémos a tu correo electrónico';
->>>>>>> test
 
         \Session::flash('flash_message', $message); 
         /*dd($cartordaux);*/
@@ -682,11 +679,8 @@ class CarritoController extends Controller
     }
 
     public function generaPdf($claveacceso){
-<<<<<<< HEAD
-=======
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
->>>>>>> test
       $dt_empress = Empresaa::select()->get();
       //$claveAcceso = "2909201601010511850900110010010000000777687155819";
       $claveAcceso = $claveacceso;
@@ -707,7 +701,6 @@ class CarritoController extends Controller
       $aux_clientes = \DB::table('clients')->where('id', '=', $users->id)->get();
       $items = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
       $pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress,'aux_sales'=>$aux_sales,'aux_clientes'=>$aux_clientes,'date'=>$date,'items'=>$items,'pedidos'=>$pedidos]);
-<<<<<<< HEAD
       \DB::table('sales')
       ->where('claveacceso', $claveAcceso)
       ->update(['convrt_ride' => '1']);
@@ -718,7 +711,6 @@ class CarritoController extends Controller
       $this->deleteDir("temp");
     }
 
-=======
       $rutaPdf = $ruta."//archivos//pdf//".$claveAcceso.".pdf";
       //$pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
       $pdf->save($rutaPdf);
@@ -735,7 +727,6 @@ class CarritoController extends Controller
       //$this->deleteDir("firmados");
       //$this->deleteDir("temp");
     }
->>>>>>> test
     public function sendEmail($clavedeacceso)
     {
       $the_sales = new sales;
