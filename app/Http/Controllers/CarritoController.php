@@ -706,10 +706,10 @@ class CarritoController extends Controller
       ->update(['convrt_ride' => '1']);
       $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
       //return $pdf->download('prueba.pdf');
-      $this->deleteDir("generados");
-      $this->deleteDir("firmados");
-      $this->deleteDir("temp");
-    }
+      //$this->deleteDir("generados");
+      //$this->deleteDir("firmados");
+      //$this->deleteDir("temp");
+    
 
       $rutaPdf = $ruta."//archivos//pdf//".$claveAcceso.".pdf";
       //$pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
@@ -746,7 +746,7 @@ class CarritoController extends Controller
       $data['clave'] = $clavedeacceso;
       if (file_exists($autorizados)){ 
         if (file_exists($convertidos)){ 
-          \Mail::send("emails.bienvenido", ['data'=>$data], function($message) use($data){
+          \Mail::send("emails.comprobantesMail", ['data'=>$data], function($message) use($data){
             $message->to($data['email_cliente'], "christian ")
             ->subject("Mensaje de prueba!");
             $rutaPdf=$data['xml'];
