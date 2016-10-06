@@ -18,19 +18,33 @@
 
                                     <td style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left" valign="top">
 
+<<<<<<< HEAD
                                         Estimado(a) Cliente<br>
                                         S&iacute;rvase encontrar el comprobante electr&oacute;nico <strong>(XML&sup1; y RIDE&sup2;)</strong> que hemos emitido en nuestra empresa. <br>Descargue sus documentos electr&oacute;nicos, Gracias por Preferirnos.<br>
                                         <strong>Atentamente</strong>, La Playa Mega Store
+=======
+                                        Estimado(a) Cliente {{ $data['name'] }}.<br>
+                                        S&iacute;rvase encontrar el comprobante electr&oacute;nico <strong>(XML&sup1; y RIDE&sup2;)</strong> que hemos emitido en nuestra empresa. <br>Descargue sus documentos electr&oacute;nicos, Gracias por Preferirnos.<br>
+                                        <strong>Atentamente</strong>, {{ $data['empresa'] }}.
+>>>>>>> test
                                         <br>                                             
 
                                         &nbsp;
                                         
+<<<<<<< HEAD
                                         <p style="text-align: left;"><a title="StoreLine" href="StoreLinet.com" target="_blank">StoreLine.com </a></p>
                                         <p style="text-align: left;">Direci&oacute;n</p>
                                         <p style="text-align: left;">Cont&aacute;ctos</p>
                                         <p style="text-align: left;">Cont&aacute;ctos</p>
                                         <p style="text-align: left;">Email</p>
                                         <p style="text-align: left;">Redes sociales</p>
+=======
+                                        <p style="text-align: left;"><a title="{{ $data['empresa'] }}" href="{{ $data['pagweb'] }}" target="_blank">{{ $data['pagweb'] }}</a></p>
+                                        <p style="text-align: left;">DirecCi&oacute;n {{ $data['dir'] }}</p>
+                                        <p style="text-align: left;">Cont&aacute;ctos {{ $data['tlfun'] }} / {{ $data['tlfds'] }}</p>
+                                        <p style="text-align: left;">M&oacutevil {{ $data['cel'] }}</p>
+                                        <p style="text-align: left;">Email {{ $data['email'] }}</p>
+>>>>>>> test
                                     </td>
                             </tbody>
                         </table>
