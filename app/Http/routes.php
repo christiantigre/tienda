@@ -8,7 +8,8 @@
   | Here is where you can register all of the routes for an application.
   | It's a breeze. Simply tell Laravel the URIs it should respond to
   | and give it the controller to call when that URI is requested.
-  |
+  |Agregar estas lineas en el servidor 
+  * * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
  */
 
 //dependencias//
@@ -302,6 +303,7 @@
 
 
 // PRUEBAS     firma 
+    
     Route::get('firma/{id}', [
       'as' => 'firma',
       'uses' => 'FirmaController@firma'
@@ -310,6 +312,11 @@
     Route::get('xml/', [
       'as' => 'firma',
       'uses' => 'CarritoController@generaclaveacceso'
+      ]);
+    
+    Route::get('sendEmail/{clavedeacceso}', [
+      'as' => 'sendEmail',
+      'uses' => 'CarritoController@sendEmail'
       ]);
 
     Route::get('generaxml/{id}', [
@@ -321,6 +328,38 @@
       'as' => 'firma',
       'uses' => 'CarritoController@firmarXml'
       ]);
+
+    Route::get('revisar/{var}', [
+      'as' => 'revisar',
+      'uses' => 'CarritoController@revisarXml'
+      ]);
+
+    Route::get('existFile/{var}', [
+      'as' => 'revisar',
+      'uses' => 'CarritoController@existFile'
+      ]);
+
+    Route::get('generapdf/', [
+      'as' => 'generapdf',
+      'uses' => 'CarritoController@generaPdf'
+      ]);
+
+    Route::get('redis', function ()
+    {
+      $redis = app()->make('redis');
+      $redis->set("key1","testValue");
+      return $redis->get("key1");
+    });
+
+    Route::get('vista', function ()
+    {
+      return View::make('pdf/vista');
+    });
+
+    Route::get('artisan', function ()
+    {
+      Artisan::call('log:ride'); 
+   });
 
     Route::any('/server', 'SoapController@demo');
 
@@ -350,9 +389,14 @@
       'as' => 'lista',
       'uses' => 'PruebasController@index'
       ]);
+
     Route::get("test-email", function() {
       Mail::send("emails.bienvenido", [], function($message) {
         $message->to("andrescondo17@gmail.com", "christian ")
-        ->subject("Bienvenido a Aprendible!");
+        ->subject("Mensaje de prueba!");
+        $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
+        $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
+        $message->attach($rutaXml);
+        $message->attach($rutaPdf);
       });
     });
