@@ -906,7 +906,7 @@ class CarritoController extends Controller
   protected function deleteFile($directorio,$archivo){
     $rutai = public_path();
     $ruta = str_replace("\\", "\\", $rutai);
-    echo $archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
+    $archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
     if (file_exists($archivo)) {
       unlink($archivo);
    }
