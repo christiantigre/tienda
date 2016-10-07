@@ -16,156 +16,163 @@
                                 <tr>
                                     <td style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left" valign="top">
 
-                                    <td style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left" valign="top">
-                                        Estimado(a) Cliente {{ $data['name'] }}.<br>
-                                        S&iacute;rvase encontrar el comprobante electr&oacute;nico <strong>(XML&sup1; y RIDE&sup2;)</strong> que hemos emitido en nuestra empresa. <br>Descargue sus documentos electr&oacute;nicos, Gracias por Preferirnos.<br>
-                                        <strong>Atentamente</strong>, {{ $data['empresa'] }}.
+                                        <td style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left" valign="top">
+                                            Estimado(a) Cliente {{ $data['name'] }}.<br>
+                                            S&iacute;rvase encontrar el comprobante electr&oacute;nico <strong>(XML&sup1; y RIDE&sup2;)</strong> que hemos emitido en nuestra empresa. <br>Descargue sus documentos electr&oacute;nicos, Gracias por Preferirnos.<br>
+                                            <strong>Atentamente</strong>, {{ $data['empresa'] }}.
 
-                                        <br>                                             
+                                            <br>                                             
 
-                                        &nbsp;
-                                        
+                                            &nbsp;
 
-                                        <p style="text-align: left;"><a title="{{ $data['empresa'] }}" href="{{ $data['pagweb'] }}" target="_blank">{{ $data['pagweb'] }}</a></p>
-                                        <p style="text-align: left;">DirecCi&oacute;n {{ $data['dir'] }}</p>
-                                        <p style="text-align: left;">Cont&aacute;ctos {{ $data['tlfun'] }} / {{ $data['tlfds'] }}</p>
-                                        <p style="text-align: left;">M&oacutevil {{ $data['cel'] }}</p>
-                                        <p style="text-align: left;">Email {{ $data['email'] }}</p>
 
-                                    </td>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%"> 
-            <tbody><tr>
-                    <td style="padding-left:9px;padding-right:9px" align="center">
-                        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tbody><tr>
+                                            <p style="text-align: left;"><a title="{{ $data['empresa'] }}" href="{{ $data['pagweb'] }}" target="_blank">{{ $data['pagweb'] }}</a></p>
+                                            <p style="text-align: left;">Direcci&oacute;n {{ $data['dir'] }}</p>
+                                            <p style="text-align: left;">Cont&aacute;ctos {{ $data['tlfun'] }} / {{ $data['tlfds'] }}</p>
+                                            <p style="text-align: left;">M&oacutevil {{ $data['cel'] }}</p>
+                                            <p style="text-align: left;">Email {{ $data['email'] }}</p>
+
+                                        </td>
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%"> 
+                    <tbody><tr>
+                        <td style="padding-left:9px;padding-right:9px" align="center">
+                            <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tbody><tr>
                                     <td style="padding-top:9px;padding-right:9px;padding-left:9px" align="center" valign="top">
                                         <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0">
                                             <tbody><tr>
-                                                    <td valign="top">
-                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td style="padding-right:10px;padding-bottom:9px" valign="top">
-                                                                        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                            <tbody><tr>
-                                                                                    <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
-                                                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                                            <tbody><tr>
+                                                <td valign="top">
+                                                    <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td style="padding-right:10px;padding-bottom:9px" valign="top">
+                                                                    <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                                        <tbody><tr>
+                                                                            <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
+                                                                                <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
+                                                                                    <tbody><tr>
 
-                                                                                                    <td align="center" valign="middle" width="24">
-                                                                                                        <a href="https://twitter.com/?lang=es" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3Da02f64c8bc%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNFxlIgr1s7oHZgC4_8XHFe4lD03AA"><img class="CToWUd" src="https://ci5.googleusercontent.com/proxy/-SgR5D3-bPp1julTBdSE5457JLji6LNVwzZc_IzhWv_glCJmaIYrbdmJKf7oglfkeHHhMOEnTfkjdEFyTdW4nZ7I9uQz-CPztcyuJwCec3wpBJjvTFOFzAkhm_xj1bBX=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
-                                                                                                    </td>
+                                                                                        <td align="center" valign="middle" width="24">
+                                                                                            <a href="https://twitter.com/?lang=es" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3Da02f64c8bc%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNFxlIgr1s7oHZgC4_8XHFe4lD03AA"><img class="CToWUd" src="https://ci5.googleusercontent.com/proxy/-SgR5D3-bPp1julTBdSE5457JLji6LNVwzZc_IzhWv_glCJmaIYrbdmJKf7oglfkeHHhMOEnTfkjdEFyTdW4nZ7I9uQz-CPztcyuJwCec3wpBJjvTFOFzAkhm_xj1bBX=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
+                                                                                        </td>
 
 
-                                                                                                </tr>
-                                                                                            </tbody>
-                                                                                        </table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
+                                                                                    </tr>
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
-                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
+                                            <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
+                                                <tbody><tr>
+                                                    <td style="padding-right:10px;padding-bottom:9px" valign="top">
+                                                        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
                                                             <tbody><tr>
-                                                                    <td style="padding-right:10px;padding-bottom:9px" valign="top">
-                                                                        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                            <tbody><tr>
-                                                                                    <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
-                                                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                                            <tbody><tr>
+                                                                <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
+                                                                    <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
+                                                                        <tbody>
+                                                                            <tr>
 
-                                                                                                    <td align="center" valign="middle" width="24">
-                                                                                                        <a href="https://www.facebook.com/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage1.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3D86163a9a93%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNF8vvwpUq87vKOIms3fb9QpxeDpeA"><img class="CToWUd" src="https://ci4.googleusercontent.com/proxy/X9MqCnSCvb5f1PshSVntsSqqm9dNg_ie7HbGsGn_ezsyhoBi1KL0re94Q0I4KPY2mGVpcW3dKRZwm_0bekmhL_IFCF7C82_1xXG2ZkrezDWf6kPh_gik805bm8zRcbMSMw=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
-                                                                                                    </td>
+                                                                                <td align="center" valign="middle" width="24">
+                                                                                    <a href="https://www.facebook.com/" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage1.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3D86163a9a93%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNF8vvwpUq87vKOIms3fb9QpxeDpeA"><img class="CToWUd" src="https://ci4.googleusercontent.com/proxy/X9MqCnSCvb5f1PshSVntsSqqm9dNg_ie7HbGsGn_ezsyhoBi1KL0re94Q0I4KPY2mGVpcW3dKRZwm_0bekmhL_IFCF7C82_1xXG2ZkrezDWf6kPh_gik805bm8zRcbMSMw=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
+                                                                                </td>
 
 
-                                                                                                </tr>
-                                                                                            </tbody></table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody></table>
+                                                                            </tr>
+                                                                        </tbody></table>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
-
-
-
-
-                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
-                                                            <tbody><tr>
-                                                                    <td style="padding-right:0;padding-bottom:9px" valign="top">
-                                                                        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
-                                                                            <tbody><tr>
-                                                                                    <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
-                                                                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
-                                                                                            <tbody><tr>
-
-                                                                                                    <td align="center" valign="middle" width="24">
-                                                                                                        <a href="http://storelinect.com" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3Dc9d69cfb71%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNGa0eBtMLYdr3K5HQFD1jIKwv97Xg"><img class="CToWUd" src="https://ci3.googleusercontent.com/proxy/_uFbA8j5252fdnk4T1_dJcIe3YicShHtrxPXTNzgU81-5pFJl2KE13IBBm4-vmLNjsIyoC7sNVtQSpq--CaF3PHuhb6igzEEPH4WYLOOxYKIPOBarWCqgaZCobMK=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
-                                                                                                    </td>
-
-
-                                                                                                </tr>
-                                                                                            </tbody></table>
-                                                                                    </td>
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-
-
-
                                                     </td>
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
-            <tbody>
-                <tr>
-                    <td valign="top">
-
-                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
-                            <tbody><tr>
-
-                                    <td style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:center" valign="top">
-
-                                        <em>Copyright &copy; 2016 Christian T, All rights reserved.</em>
-                                        <br>
-                                        Eres parte de nuestra familia StoreLine
-                                        <br>
-                                        <br>
-                                        <br>
-                                    </td>
-                                </tr>
-                            </tbody></table>
-
-                    </td>
-                </tr>
-            </tbody>
-        </table>
 
 
-    </center>
+
+
+                                        <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0">
+                                            <tbody><tr>
+                                                <td style="padding-right:0;padding-bottom:9px" valign="top">
+                                                    <table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                                        <tbody><tr>
+                                                            <td style="padding-top:5px;padding-right:10px;padding-bottom:5px;padding-left:9px" align="left" valign="middle">
+                                                                <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="">
+                                                                    <tbody><tr>
+
+                                                                        <td align="center" valign="middle" width="24">
+                                                                            <a href="http://storelinect.com" target="_blank" data-saferedirecturl="https://www.google.com/url?hl=es&amp;q=http://crehana.us10.list-manage.com/track/click?u%3Da2cea3044d924acccfa40983b%26id%3Dc9d69cfb71%26e%3Dc8015e356f&amp;source=gmail&amp;ust=1471026679494000&amp;usg=AFQjCNGa0eBtMLYdr3K5HQFD1jIKwv97Xg"><img class="CToWUd" src="https://ci3.googleusercontent.com/proxy/_uFbA8j5252fdnk4T1_dJcIe3YicShHtrxPXTNzgU81-5pFJl2KE13IBBm4-vmLNjsIyoC7sNVtQSpq--CaF3PHuhb6igzEEPH4WYLOOxYKIPOBarWCqgaZCobMK=s0-d-e1-ft#http://cdn-images.mailchimp.com/icons/social-block-v2/color-link-48.png" style="display:block;border:0;min-height:auto;outline:none;text-decoration:none" width="24" height="24"></a>
+                                                                        </td>
+
+
+                                                                    </tr>
+                                                                </tbody></table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<table style="border-collapse:collapse" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody>
+        <tr>
+            <td valign="top">
+
+                <table style="border-collapse:collapse" align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                    <tbody><tr>
+
+                        <td style="padding-top:9px;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#656565;font-family:Helvetica;font-size:12px;line-height:150%;text-align:center" valign="top">
+
+                            <em>Copyright &copy; 2016 Christian T, All rights reserved.</em>
+                            <br>
+                            Eres parte de nuestra familia StoreLine
+                            <br>
+                            <br>
+                            <br>
+                        </td>
+                    </tr>
+                </tbody></table>
+
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</center>
+<div style="padding-top:0;padding-right:18px;padding-bottom:9px;padding-left:18px;word-break:break-word;color:#202020;font-family:Helvetica;font-size:16px;line-height:150%;text-align:left">
+    Si no recibiste tus comprobantes electr&oacute;nicos, porfavor no dudes en contactarnos estaremos encantados de atenderte.
+    tambi&eacute;n puedes&nbsp; descargarlos en nuestro sitio ingresando en el men&uacute; mis compras
+</div>
 </div>

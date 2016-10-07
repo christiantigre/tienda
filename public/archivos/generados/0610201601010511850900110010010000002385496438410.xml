@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>TIGRE CONDO CHRISTIAN ANDRES</razonSocial>
+    <nombreComercial>StoreLine</nombreComercial>
+    <ruc>0105118509001</ruc>
+    <claveAcceso>0610201601010511850900110010010000002385496438410</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000238</secuencial>
+    <dirMatriz>Remigio Crespo y Lorenzo Piedra</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>06/10/2016</fechaEmision>
+    <dirEstablecimiento>3 de Noviembre y Cesar Cueva</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+    <razonSocialComprador>Christian Tigre C.</razonSocialComprador>
+    <identificacionComprador>0105118509001</identificacionComprador>
+    <totalSinImpuestos>178.89</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>3</codigoPorcentaje>
+        <baseImponible>178.89</baseImponible>
+        <tarifa>14</tarifa>
+        <valor>25.05</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>203.94</importeTotal>
+    <moneda>DOLAR</moneda>
+    <pagos>
+      <pago>
+        <formaPago>01</formaPago>
+        <total>203.94</total>
+      </pago>
+    </pagos>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>999911112211212</codigoPrincipal>
+      <codigoAuxiliar>71</codigoAuxiliar>
+      <descripcion>mochila</descripcion>
+      <cantidad>4</cantidad>
+      <precioUnitario>31.57</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>126.28</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>3</codigoPorcentaje>
+          <tarifa>14</tarifa>
+          <baseImponible>126.28</baseImponible>
+          <valor>17.68</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+    <detalle>
+      <codigoPrincipal>989836364868</codigoPrincipal>
+      <codigoAuxiliar>64</codigoAuxiliar>
+      <descripcion>Pantalon de niño</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>26.31</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>52.61</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>3</codigoPorcentaje>
+          <tarifa>14</tarifa>
+          <baseImponible>52.61</baseImponible>
+          <valor>7.37</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <infoAdicional>
+    <campoAdicional nombre="Direccion">3 de Noviembre y Cesar cueva</campoAdicional>
+    <campoAdicional nombre="Telefono">2203584</campoAdicional>
+    <campoAdicional nombre="Email">andrescondo17@gmail.com</campoAdicional>
+  </infoAdicional>
+</factura>
