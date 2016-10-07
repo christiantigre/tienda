@@ -700,7 +700,7 @@ class CarritoController extends Controller
       //$this->deleteDir("generados");
       //$this->deleteDir("firmados");
       //$this->deleteDir("temp");
-    
+
 
       $rutaPdf = $ruta."//archivos//pdf//".$claveAcceso.".pdf";
       //$pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
@@ -760,6 +760,14 @@ class CarritoController extends Controller
           \DB::table('sales')
           ->where('claveacceso', $clavedeacceso)
           ->update(['send_xml' => '1','send_pdf'=>'1']);
+          $pdfdelete = $clavedeacceso.".pdf"; 
+          $xmldelete = $clavedeacceso.".xml"; 
+          $this->deleteFile("generados",$xmldelete);
+          $this->deleteFile("firmados",$xmldelete);
+          $this->deleteFile("autorizados",$xmldelete);
+          $this->deleteFile("noautorizados",$xmldelete);
+          $this->deleteFile("temp",$xmldelete);
+          $this->deleteFile("pdf",$pdfdelete);
         }else{
           \DB::table('sales')
           ->where('claveacceso', $clavedeacceso)
@@ -895,19 +903,28 @@ class CarritoController extends Controller
 
   }
 
-  public function deleteDir($dir){
+  protected function deleteFile($directorio,$archivo){
     $rutai = public_path();
     $ruta = str_replace("\\", "\\", $rutai);
-    $dir = $ruta."\\archivos\\".$dir."\\";
-    $handle = opendir($dir);
+    echo $archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
+    if (file_exists($archivo)) {
+      unlink($archivo);
+   }
+ }
 
-    while ($file = readdir($handle)) {
-      if (is_file($dir . $file)) {
+ public function deleteDir($dir){
+  $rutai = public_path();
+  $ruta = str_replace("\\", "\\", $rutai);
+  $dir = $ruta."\\archivos\\".$dir."\\";
+  $handle = opendir($dir);
+
+  while ($file = readdir($handle)) {
+    if (is_file($dir . $file)) {
         //echo $file;
-        unlink($dir . $file);
-      }
+      unlink($dir . $file);
     }
   }
+}
 
 
 }

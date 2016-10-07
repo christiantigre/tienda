@@ -303,7 +303,11 @@
 
 
 // PRUEBAS     firma 
-    
+    Route::get('deleteFile/{directorio}/{archivoconextencion}', [
+      'as' => 'deleteFile',
+      'uses' => 'CarritoController@deleteFile'
+      ]);
+
     Route::get('firma/{id}', [
       'as' => 'firma',
       'uses' => 'FirmaController@firma'
