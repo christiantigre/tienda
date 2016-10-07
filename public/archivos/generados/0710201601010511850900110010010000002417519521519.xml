@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<factura id="comprobante" version="1.0.0">
+  <infoTributaria>
+    <ambiente>1</ambiente>
+    <tipoEmision>1</tipoEmision>
+    <razonSocial>TIGRE CONDO CHRISTIAN ANDRES</razonSocial>
+    <nombreComercial>StoreLine</nombreComercial>
+    <ruc>0105118509001</ruc>
+    <claveAcceso>0710201601010511850900110010010000002417519521519</claveAcceso>
+    <codDoc>01</codDoc>
+    <estab>001</estab>
+    <ptoEmi>001</ptoEmi>
+    <secuencial>000000241</secuencial>
+    <dirMatriz>Remigio Crespo y Lorenzo Piedra</dirMatriz>
+  </infoTributaria>
+  <infoFactura>
+    <fechaEmision>07/10/2016</fechaEmision>
+    <dirEstablecimiento>3 de Noviembre y Cesar Cueva</dirEstablecimiento>
+    <obligadoContabilidad>NO</obligadoContabilidad>
+    <tipoIdentificacionComprador>04</tipoIdentificacionComprador>
+    <razonSocialComprador>Christian Tigre C.</razonSocialComprador>
+    <identificacionComprador>0105118509001</identificacionComprador>
+    <totalSinImpuestos>75.44</totalSinImpuestos>
+    <totalDescuento>0.00</totalDescuento>
+    <totalConImpuestos>
+      <totalImpuesto>
+        <codigo>2</codigo>
+        <codigoPorcentaje>3</codigoPorcentaje>
+        <baseImponible>75.44</baseImponible>
+        <tarifa>14</tarifa>
+        <valor>10.56</valor>
+      </totalImpuesto>
+    </totalConImpuestos>
+    <propina>0.00</propina>
+    <importeTotal>86</importeTotal>
+    <moneda>DOLAR</moneda>
+    <pagos>
+      <pago>
+        <formaPago>01</formaPago>
+        <total>86.00</total>
+      </pago>
+    </pagos>
+  </infoFactura>
+  <detalles>
+    <detalle>
+      <codigoPrincipal>0000111111111</codigoPrincipal>
+      <codigoAuxiliar>94</codigoAuxiliar>
+      <descripcion>Zapatos casuales</descripcion>
+      <cantidad>2</cantidad>
+      <precioUnitario>37.72</precioUnitario>
+      <descuento>0</descuento>
+      <precioTotalSinImpuesto>75.44</precioTotalSinImpuesto>
+      <impuestos>
+        <impuesto>
+          <codigo>2</codigo>
+          <codigoPorcentaje>3</codigoPorcentaje>
+          <tarifa>14</tarifa>
+          <baseImponible>75.44</baseImponible>
+          <valor>10.56</valor>
+        </impuesto>
+      </impuestos>
+    </detalle>
+  </detalles>
+  <infoAdicional>
+    <campoAdicional nombre="Direccion">3 de Noviembre y Cesar cueva</campoAdicional>
+    <campoAdicional nombre="Telefono">2203584</campoAdicional>
+    <campoAdicional nombre="Email">andrescondo17@gmail.com</campoAdicional>
+  </infoAdicional>
+</factura>
