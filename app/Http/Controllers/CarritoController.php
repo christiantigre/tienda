@@ -628,7 +628,6 @@ class CarritoController extends Controller
     }
 
     public function revisarXml($claveacceso){
-      //$claveAcceso = "0210201601010511850900110010010000000799134976711";
       $claveAcceso = $claveacceso;
       $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
       if (file_exists($xmlPath)){     
@@ -652,8 +651,6 @@ class CarritoController extends Controller
           ->where('claveacceso', $claveAcceso)
           ->update(['num_autoriz' => $numAut,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
           $this->generaPdf($claveAcceso); 
-        //$this->deleteDir("generados");
-        //$this->deleteDir("firmados");
         } else {
           $fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
           $mensaje = $doc->getElementsByTagName("mensajes")->item(0)->nodeValue; 
@@ -661,18 +658,12 @@ class CarritoController extends Controller
           \DB::table('sales')
           ->where('claveacceso', $claveAcceso)
           ->update(['mensaje' => $mensaje,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
-        //$this->deleteDir("generados");
-        //$this->deleteDir("firmados");
         } 
       }else{ 
         $this->firmarXml($claveacceso);
         $message = 'Su pedido fue realizado con éxito, estamos preparando tu factura y la enviarémos a tu correo electrónico';
 
         \Session::flash('flash_message', $message); 
-        /*dd($cartordaux);*/
-          //$this->revisarXml($codigogenerado)
-         //Queue::later(180, $this->retorno($codigogenerado));
-       //return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux'));
       }
 
     }
