@@ -6,7 +6,7 @@
       <div class="title_left">
         <h3>                    
           <small>
-            Pedidos
+            Factura
           </small>
         </h3>
       </div>
@@ -30,7 +30,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="x_panel">
           <div class="x_title">
-            <h2>Pedidos <small></small></h2>
+            <h2>Factura <small></small></h2>
             <ul class="nav navbar-right panel_toolbox">
               <li><a href="#"><i class="fa fa-chevron-up"></i></a>
               </li>
@@ -57,49 +57,43 @@
                   </p>
 
                   <table id="datatable-keytable" class="table table-striped table-bordered">
-                    <thead>
-                      <tr>                              
-                        <th>Ver</th>
-                        <th>Rutas</th>
-                        <th>Gestión</a><!--</th><a href="<th></th>">-->
-                        <th>Factúra</a>
-                        <th>Fecha</th>
-                        <th>Cliente</th>
-                        <th>Entrega</th>
-                        <th>Estado</th>
-                        <th>Pago</th>
-                        <th>Valor</th>
-                      </tr>
-                    </thead>
                     <tbody>
-                      @foreach($pedido as $emp)
+                      @foreach($sales as $fac)
                       <tr>
-                        <td>
-                          <a href="{{ route('admin.sales.show',$emp->id) }}" class="btn btn-default"> <!--ver-->
-                            <i class="fa fa-eye"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="{{ route('admin.routes.show',$emp->id) }}" class="btn btn-primary"> <!--ver-->
-                            <i class="fa fa-truck"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="{{ route('admin.sales.edit',$emp->id) }}" class="btn btn-warning"> <!--edit-->
-                            <i class="fa fa-pencil-square"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="{{ route('admin.sales.factura',$emp->id) }}"  title="VER FACTURA" class="btn btn-success"> <!--ver-->
-                            <i class="fa fa-calculator"></i>
-                          </a>
-                        </td>
-                        <td class="textsmall">{{ $emp->date }}</td> 
-                        <td class="textsmall">{{ $emp->users->name }} {{ $emp->users->apellidos }}</td> 
-                        <td class="textsmall">{{ $emp->entrega }}</td>
-                        <td class="textsmall">{{ $emp->status->statu }}</td>
-                        <td class="textsmall">{{ $emp->paymethods->namemethod }}</td>
-                        <td class="textsmall">{{ $emp->total }}</td>
+                        <td><h4># Fac</h4></td><td class="textsmall">{{ $fac->numfactura }}</td>  
+                      </tr>
+                      <tr>
+
+                        <td><h4>Firmado</h4></td><td class="textsmall">{{ $fac->fir_xml }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Autorizado</h4></td><td class="textsmall">{{ $fac->aut_xml }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Ride</h4></td><td class="textsmall">{{ $fac->convrt_ride }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Enviado xml</h4></td><td class="textsmall">{{ $fac->send_xml }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Enviado ride</h4></td><td class="textsmall">{{ $fac->send_pdf }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Clave Acceso</h4></td><td class="textsmall">{{ $fac->claveacceso }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4># Autorización</h4></td><td class="textsmall">{{ $fac->num_autoriz }}</td>
+                      </tr>
+                      <tr>
+
+                        <td><h4>Mensajes</h4></td><td class="textsmall">{{ $fac->mensaje }}</td>
+
                       </tr>
                       @endforeach
                     </tbody>
