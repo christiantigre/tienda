@@ -152,6 +152,18 @@
         'uses' => 'Admin\SalesController@factura'
         ]);
 
+      Route::get('sendxml/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.sendxml',
+        'uses' => 'Admin\SalesController@sendxml'
+        ]);
+
+      Route::get('sendpdf/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.sendpdf',
+        'uses' => 'Admin\SalesController@sendpdf'
+        ]);
+
       Route::get('cart/update/{product}/{cantt}', [
         'middleware' => 'auth', 
         'as' => 'cart-update',

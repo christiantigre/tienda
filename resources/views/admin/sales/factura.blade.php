@@ -63,57 +63,96 @@
                         <td><h4># Fac</h4></td><td class="textsmall">{{ $fac->numfactura }}</td>  
                       </tr>
                       <tr>
+                        <td><h4>Firmado</h4></td><td class="textsmall">
+                        @if($fac->fir_xml === 1)
+                        <h4>Ok</h4>
+                        @else
+                        <a href="{{ route('admin.sales.edit',$fac->id) }}" title="FIRMAR" class="btn btn-warning"> <!--edit-->
+                          <i class="fa fa-pencil-square"></i>
+                        </a>
+                        @endif
+                      </td>
+                    </tr>
+                    <tr>
 
-                        <td><h4>Firmado</h4></td><td class="textsmall">{{ $fac->fir_xml }}</td>
-                      </tr>
-                      <tr>
+                      <td><h4>Autorizado</h4></td><td class="textsmall">
+                      @if($fac->aut_xml === 1)
+                      <h4>Ok</h4>
+                      @else
+                      <a href="{{ route('admin.sales.edit',$fac->id) }}" title="AUTORIZAR" class="btn btn-warning"> <!--edit-->
+                        <i class="fa fa-pencil-square"></i>
+                      </a>
+                      @endif
+                    </td>
+                  </tr>
+                  <tr>
 
-                        <td><h4>Autorizado</h4></td><td class="textsmall">{{ $fac->aut_xml }}</td>
-                      </tr>
-                      <tr>
+                    <td><h4>Ride</h4></td><td class="textsmall">
+                    @if($fac->convrt_ride === 1)
+                    <h4>Ok</h4>
+                    @else
+                    <a href="{{ route('admin.sales.edit',$fac->id) }}" title="CONVERTIR" class="btn btn-warning"> <!--edit-->
+                      <i class="fa fa-pencil-square"></i>
+                    </a>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
 
-                        <td><h4>Ride</h4></td><td class="textsmall">{{ $fac->convrt_ride }}</td>
-                      </tr>
-                      <tr>
+                  <td><h4>Enviado xml</h4></td><td class="textsmall">
+                  @if($fac->send_xml === 1)
+                    <h4>Ok</h4>
+                    @else
+                    <a href="{{ route('admin.sales.sendxml',$fac->claveacceso) }}" title="ENVIAR"  class="btn btn-warning"> <!--edit-->
+                      <i class="fa fa-pencil-square"></i>
+                    </a>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
 
-                        <td><h4>Enviado xml</h4></td><td class="textsmall">{{ $fac->send_xml }}</td>
-                      </tr>
-                      <tr>
+                  <td><h4>Enviado ride</h4></td><td class="textsmall">
+                  @if($fac->send_pdf === 1)
+                    <h4>Ok</h4>
+                    @else
+                    <a href="{{ route('admin.sales.sendpdf',$fac->claveacceso) }}" title="ENVIAR" class="btn btn-warning"> <!--edit-->
+                      <i class="fa fa-pencil-square"></i>
+                    </a>
+                    @endif
+                  </td>
+                </tr>
+                <tr>
 
-                        <td><h4>Enviado ride</h4></td><td class="textsmall">{{ $fac->send_pdf }}</td>
-                      </tr>
-                      <tr>
+                  <td><h4>Clave Acceso</h4></td><td class="textsmall">{{ $fac->claveacceso }}</td>
+                </tr>
+                <tr>
 
-                        <td><h4>Clave Acceso</h4></td><td class="textsmall">{{ $fac->claveacceso }}</td>
-                      </tr>
-                      <tr>
+                  <td><h4># Autorización</h4></td><td class="textsmall">{{ $fac->num_autoriz }}</td>
+                </tr>
+                <tr>
 
-                        <td><h4># Autorización</h4></td><td class="textsmall">{{ $fac->num_autoriz }}</td>
-                      </tr>
-                      <tr>
+                  <td><h4>Mensajes</h4></td><td class="textsmall">{{ $fac->mensaje }}</td>
 
-                        <td><h4>Mensajes</h4></td><td class="textsmall">{{ $fac->mensaje }}</td>
+                </tr>
+                @endforeach
+              </tbody>
 
-                      </tr>
-                      @endforeach
-                    </tbody>
-
-                  </table>
-                  <style type="text/css">
-                    .textsmall{
-                      font-size: 14px;
-                    }
-                  </style>
-                </div>
-              </div>
-            </div>
+            </table>
+            <style type="text/css">
+              .textsmall{
+                font-size: 14px;
+              }
+            </style>
           </div>
-
         </div>
       </div>
-
     </div>
+
   </div>
+</div>
+
+</div>
+</div>
 
 </div>
 <!-- /page content -->
