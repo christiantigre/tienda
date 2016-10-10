@@ -90,21 +90,26 @@
                           </a>
                         </td>
                         <td>
-                          <a href="{{ route('admin.routes.show',$emp->id) }}"  title="VER FACTURA" class="btn btn-success"> <!--ver-->
+                          <a href="{{ route('admin.sales.factura',$emp->id) }}"  title="VER FACTURA" class="btn btn-success"> <!--ver-->
                             <i class="fa fa-calculator"></i>
                           </a>
                         </td>
-                        <td><h3>{{ $emp->date }}</h3></td> 
-                        <td><h3>{{ $emp->users->name }} {{ $emp->users->apellidos }}</h3></td> 
-                        <td><h3>{{ $emp->entrega }}</h3></td>
-                        <td><h3>{{ $emp->status->statu }}</h3></td>
-                        <td><h3>{{ $emp->paymethods->namemethod }}</h3></td>
-                        <td><h3>{{ $emp->total }}</h3></td>
+                        <td class="textsmall">{{ $emp->date }}</td> 
+                        <td class="textsmall">{{ $emp->users->name }} {{ $emp->users->apellidos }}</td> 
+                        <td class="textsmall">{{ $emp->entrega }}</td>
+                        <td class="textsmall">{{ $emp->status->statu }}</td>
+                        <td class="textsmall">{{ $emp->paymethods->namemethod }}</td>
+                        <td class="textsmall">{{ $emp->total }}</td>
                       </tr>
                       @endforeach
                     </tbody>
 
                   </table>
+                  <style type="text/css">
+                    .textsmall{
+                      font-size: 14px;
+                    }
+                  </style>
                 </div>
               </div>
             </div>
