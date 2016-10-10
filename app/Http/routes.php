@@ -132,152 +132,198 @@
       'uses'=> 'SalesController@edit'
       ]);
 
-    Route::get('cart/update/{product}/{cantt}', [
+    /*SALES
+
+    Route::get('sales/factura/{$id}', [
       'middleware' => 'auth', 
-      'as' => 'cart-update',
-      'uses' => 'CarritoController@update'
+      'as'=> 'sales/factura',
+      'uses'=> 'SalesController@factura'
       ]);
-
-    Route::get('order-detail/{idus}', [
-      'middleware' => 'auth',
-      'as' => 'order-detail',
-      'uses' => 'CarritoController@orderDetail'
-      ]);
-
-    Route::get('confir_comp', [
-      'middleware' => 'auth',
-      'as' => 'confir_comp',
-      'uses' => 'CarritoController@saveOrder'
-      ]);
-
-    Route::post('confir_comp', [
-      'middleware' => 'auth',
-      'as' => 'confir_comp',
-      'uses' => 'CarritoController@saveOrder'
-      ]);
-
-    Route::bind('Sections', function($seccion){
-      return App\Sections::find($seccion);
-    });
-    Route::bind('category', function($category){
-      return App\Category::find($category);
-    });
-    Route::bind('brand', function($brand){
-      return App\Brand::find($brand);
-    });
-    Route::bind('available', function($available){
-      return App\available::find($available);
-    });
-    Route::bind('size', function($size){
-      return App\Size::find($size);
-    });
-    Route::bind('statu', function($statu){
-      return App\Statu::find($statu);
-    });
-    Route::bind('position', function($position){
-      return App\Position::find($position);
-    });
-    Route::bind('employ', function($employ){
-      return App\Employ::find($employ);
-    });
-    Route::bind('seguridad', function($seguridad){
-      return App\Seguridad::find($seguridad);
-    });
-
-    Route::get('perfil/{idus}', [
+    Route::post('sales/factura/{$id}', [
       'middleware' => 'auth', 
-      'as'=> 'perfil',
-      'uses'=> 'PerfilController@show'
+      'as'=> 'sales/factura',
+      'uses'=> 'SalesController@factura'
       ]);
 
-    /*cambio de clave*/
-    Route::get('password/cambiar', [
-      'middleware' => 'auth', 
-      'as'=> 'password/cambiar',
-      'uses'=> 'PerfilController@changepass'
-      ]);
-    Route::get('password/update', [
-      'middleware' => 'auth', 
-      'as'=> 'password/update',
-      'uses'=> 'PerfilController@updatepass'
-      ]);
+      SALES*/
+      Route::get('factura/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.factura',
+        'uses' => 'Admin\SalesController@factura'
+        ]);
+
+      Route::get('sendxml/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.sendxml',
+        'uses' => 'Admin\SalesController@sendxml'
+        ]);
+
+      Route::get('sendpdf/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.sendpdf',
+        'uses' => 'Admin\SalesController@sendpdf'
+        ]);
+
+      Route::get('Genfiles/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.convrtride',
+        'uses' => 'Admin\SalesController@revisarXml'
+        ]);
+
+      Route::get('generaArchivos/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.generaarchivos',
+        'uses' => 'Admin\SalesController@generaArchivos'
+        ]);
+
+      Route::get('cart/update/{product}/{cantt}', [
+        'middleware' => 'auth', 
+        'as' => 'cart-update',
+        'uses' => 'CarritoController@update'
+        ]);
+
+      Route::get('order-detail/{idus}', [
+        'middleware' => 'auth',
+        'as' => 'order-detail',
+        'uses' => 'CarritoController@orderDetail'
+        ]);
+
+      Route::get('confir_comp', [
+        'middleware' => 'auth',
+        'as' => 'confir_comp',
+        'uses' => 'CarritoController@saveOrder'
+        ]);
+
+      Route::post('confir_comp', [
+        'middleware' => 'auth',
+        'as' => 'confir_comp',
+        'uses' => 'CarritoController@saveOrder'
+        ]);
+
+      Route::bind('Sections', function($seccion){
+        return App\Sections::find($seccion);
+      });
+      Route::bind('category', function($category){
+        return App\Category::find($category);
+      });
+      Route::bind('brand', function($brand){
+        return App\Brand::find($brand);
+      });
+      Route::bind('available', function($available){
+        return App\available::find($available);
+      });
+      Route::bind('size', function($size){
+        return App\Size::find($size);
+      });
+      Route::bind('statu', function($statu){
+        return App\Statu::find($statu);
+      });
+      Route::bind('position', function($position){
+        return App\Position::find($position);
+      });
+      Route::bind('employ', function($employ){
+        return App\Employ::find($employ);
+      });
+      Route::bind('seguridad', function($seguridad){
+        return App\Seguridad::find($seguridad);
+      });
+
+      Route::get('perfil/{idus}', [
+        'middleware' => 'auth', 
+        'as'=> 'perfil',
+        'uses'=> 'PerfilController@show'
+        ]);
+
+      /*cambio de clave*/
+      Route::get('password/cambiar', [
+        'middleware' => 'auth', 
+        'as'=> 'password/cambiar',
+        'uses'=> 'PerfilController@changepass'
+        ]);
+      Route::get('password/update', [
+        'middleware' => 'auth', 
+        'as'=> 'password/update',
+        'uses'=> 'PerfilController@updatepass'
+        ]);
 
 
-    Route::resource('store/perfil','PerfilController');
-    Route::resource('store/partials/order-detal','carritoController');
-    /*ADMIN*/
-    Route::group(['prefix' => 'administracion', 'middleware' => ['auth', 'is_admin']], function(){
-      Route::get('/', 'AdminController@index');
-    });
-    /*inicio*/
-    Route::get('inicio', [
-      'as'=> 'inicio',
-      'uses'=> 'InicioController@index'
-      ]);
-
-    Route::resource('contact','ContactController');
-    /*contact*/
-    Route::get('contact', [
-      'as'=> 'contact',
-      'uses'=> 'ContactController@index'
-      ]);
-    /*mis compras*/
-    Route::get('mysales', [
-      'middleware' => 'auth', 
-      'as'=> 'mysales',
-      'uses'=> 'MysalesController@index'
-      ]);
-    Route::get('mysales/{id}', [
-      'middleware' => 'auth', 
-      'as'=> 'mysalesshow',
-      'uses'=> 'MysalesController@show'
-      ]);
 
 
-    Route::get('/api/v1/coordinates/{name}', function($name) {
-      try {
-        $geocode = Geocoder::geocode("$name, Tanzania")->toArray();
-        return Response::json($geocode);
-      } catch (\Exception $e) {
-        echo $e->getMessage();
-      }
-    });
+      Route::resource('store/perfil','PerfilController');
+      Route::resource('store/partials/order-detal','carritoController');
+      /*ADMIN*/
+      Route::group(['prefix' => 'administracion', 'middleware' => ['auth', 'is_admin']], function(){
+        Route::get('/', 'AdminController@index');
+      });
+      /*inicio*/
+      Route::get('inicio', [
+        'as'=> 'inicio',
+        'uses'=> 'InicioController@index'
+        ]);
 
-    Route::group(['middleware' => 'auth', 'is_admin'], function()
-    {
+      Route::resource('contact','ContactController');
+      /*contact*/
+      Route::get('contact', [
+        'as'=> 'contact',
+        'uses'=> 'ContactController@index'
+        ]);
+      /*mis compras*/
+      Route::get('mysales', [
+        'middleware' => 'auth', 
+        'as'=> 'mysales',
+        'uses'=> 'MysalesController@index'
+        ]);
+      Route::get('mysales/{id}', [
+        'middleware' => 'auth', 
+        'as'=> 'mysalesshow',
+        'uses'=> 'MysalesController@show'
+        ]);
+
+
+      Route::get('/api/v1/coordinates/{name}', function($name) {
+        try {
+          $geocode = Geocoder::geocode("$name, Tanzania")->toArray();
+          return Response::json($geocode);
+        } catch (\Exception $e) {
+          echo $e->getMessage();
+        }
+      });
+
+      Route::group(['middleware' => 'auth', 'is_admin'], function()
+      {
     //ute::resource('todo', 'TodoController', ['only' => ['index']]);
 
-      Route::resource('admin/category','Admin\CategoryController');
-      Route::resource('admin/brand','Admin\BrandController');
-      Route::resource('admin/proveedor','Admin\ProveedorController');
-      Route::resource('admin/catalogo','Admin\ProductController@catalogoindex');
-      Route::resource('admin/product','Admin\ProductController');
-      Route::resource('admin/productos','Admin\ProductController');
-      Route::resource('admin/status','Admin\EstadosPedidoController');
-      Route::resource('admin/department','Admin\DepartmentController');
-      Route::resource('admin/position','Admin\CargoController');
-      Route::resource('admin/emp','Admin\EmpController');
-      Route::resource('admin/entiti','Admin\EmpresaController');
-      Route::resource('admin/pay','Admin\PayController');
-      Route::resource('admin/sales','Admin\SalesController');
-      Route::resource('admin/routes','Admin\RutasController');
-      Route::resource('admin/moneda','Admin\MonedaController');
-      Route::resource('admin/iva','Admin\IvaController');
-      Route::resource('admin/seccion','Admin\SeccionesController');
-      Route::resource('admin/size','Admin\SizeController');
-      Route::resource('admin/available','Admin\AvailableController');
-      Route::resource('admin/numbersize','Admin\numbersizeController');
-      Route::resource('admin/productnumbersize','Admin\productnumbersizeController');
-      Route::resource('admin/productsize','Admin\productsizeController');
-      Route::resource('admin/productavailables','Admin\availableproductController');
+        Route::resource('admin/category','Admin\CategoryController');
+        Route::resource('admin/brand','Admin\BrandController');
+        Route::resource('admin/proveedor','Admin\ProveedorController');
+        Route::resource('admin/catalogo','Admin\ProductController@catalogoindex');
+        Route::resource('admin/product','Admin\ProductController');
+        Route::resource('admin/productos','Admin\ProductController');
+        Route::resource('admin/status','Admin\EstadosPedidoController');
+        Route::resource('admin/department','Admin\DepartmentController');
+        Route::resource('admin/position','Admin\CargoController');
+        Route::resource('admin/emp','Admin\EmpController');
+        Route::resource('admin/entiti','Admin\EmpresaController');
+        Route::resource('admin/pay','Admin\PayController');
+        Route::resource('admin/sales','Admin\SalesController');
+        Route::resource('admin/routes','Admin\RutasController');
+        Route::resource('admin/moneda','Admin\MonedaController');
+        Route::resource('admin/iva','Admin\IvaController');
+        Route::resource('admin/seccion','Admin\SeccionesController');
+        Route::resource('admin/size','Admin\SizeController');
+        Route::resource('admin/available','Admin\AvailableController');
+        Route::resource('admin/numbersize','Admin\numbersizeController');
+        Route::resource('admin/productnumbersize','Admin\productnumbersizeController');
+        Route::resource('admin/productsize','Admin\productsizeController');
+        Route::resource('admin/productavailables','Admin\availableproductController');
 //SEGURIDAD//
-      Route::resource('admin/seguridad/intentos','Admin\IntentosController');
-      Route::resource('admin/seguridad','Admin\ModuloSegController');
-      Route::resource('admin/person','Admin\PersonController');
+        Route::resource('admin/seguridad/intentos','Admin\IntentosController');
+        Route::resource('admin/seguridad','Admin\ModuloSegController');
+        Route::resource('admin/person','Admin\PersonController');
 
 
 
-    });
+      });
 
 
 //Route::get('administracion', 'Admin\AdministratorController@showLoginForm');
@@ -286,121 +332,126 @@
 //Route::resource('admin/status','Admin\StsController'); 
 
 
-    Route::get('routes/{$id}', [
-      'as'=> 'routes',
-      'uses'=> 'RutasController@show'
-      ]);
+      Route::get('routes/{$id}', [
+        'as'=> 'routes',
+        'uses'=> 'RutasController@show'
+        ]);
 
-    Route::auth();
+      Route::auth();
 
-    Route::get('/home', 'StoreController@index');
-    Route::get('confirm/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@confregister');
-    Route::get('recupera/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@recuperaCuenta');
-    Route::post('inactive', 'Auth\AuthController@activar');
+      Route::get('/home', 'StoreController@index');
+      Route::get('confirm/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@confregister');
+      Route::get('recupera/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@recuperaCuenta');
+      Route::post('inactive', 'Auth\AuthController@activar');
 
-    Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+      Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 
 
 // PRUEBAS     firma 
-    Route::get('deleteFile/{directorio}/{archivoconextencion}', [
-      'as' => 'deleteFile',
-      'uses' => 'CarritoController@deleteFile'
-      ]);
+      Route::get('deleteFile/{directorio}/{archivoconextencion}', [
+        'as' => 'deleteFile',
+        'uses' => 'CarritoController@deleteFile'
+        ]);
 
-    Route::get('firma/{id}', [
-      'as' => 'firma',
-      'uses' => 'FirmaController@firma'
-      ]);
+      Route::get('firma/{id}', [
+        'as' => 'firma',
+        'uses' => 'FirmaController@firma'
+        ]);
     //genera xml
-    Route::get('xml/', [
-      'as' => 'firma',
-      'uses' => 'CarritoController@generaclaveacceso'
-      ]);
-    
-    Route::get('sendEmail/{clavedeacceso}', [
-      'as' => 'sendEmail',
-      'uses' => 'CarritoController@sendEmail'
-      ]);
+      Route::get('generaFiles/{id}', [
+        'as' => 'generaFiles',
+        'uses' => 'Admin\SalesController@generaArchivos'
+        ]);
 
-    Route::get('generaxml/{id}', [
-      'as' => 'firma',
-      'uses' => 'CarritoController@generaXml'
-      ]);
+      Route::get('xml/', [
+        'as' => 'firma',
+        'uses' => 'CarritoController@generaclaveacceso'
+        ]);
 
-    Route::get('firmar/{nombrexml}', [
-      'as' => 'firma',
-      'uses' => 'CarritoController@firmarXml'
-      ]);
+      Route::get('sendEmail/{clavedeacceso}', [
+        'as' => 'sendEmail',
+        'uses' => 'CarritoController@sendEmail'
+        ]);
 
-    Route::get('revisar/{var}', [
-      'as' => 'revisar',
-      'uses' => 'CarritoController@revisarXml'
-      ]);
+      Route::get('generaxml/{id}', [
+        'as' => 'firma',
+        'uses' => 'CarritoController@generaXml'
+        ]);
 
-    Route::get('existFile/{var}', [
-      'as' => 'revisar',
-      'uses' => 'CarritoController@existFile'
-      ]);
+      Route::get('firmar/{nombrexml}', [
+        'as' => 'firma',
+        'uses' => 'CarritoController@firmarXml'
+        ]);
 
-    Route::get('generapdf/{clave}', [
-      'as' => 'generapdf',
-      'uses' => 'CarritoController@generaPdf'
-      ]);
+      Route::get('revisar/{var}', [
+        'as' => 'revisar',
+        'uses' => 'CarritoController@revisarXml'
+        ]);
 
-    Route::get('redis', function ()
-    {
-      $redis = app()->make('redis');
-      $redis->set("key1","testValue");
-      return $redis->get("key1");
-    });
+      Route::get('existFile/{var}', [
+        'as' => 'revisar',
+        'uses' => 'CarritoController@existFile'
+        ]);
 
-    Route::get('vista', function ()
-    {
-      return View::make('pdf/vista');
-    });
+      Route::get('generapdf/{clave}', [
+        'as' => 'generapdf',
+        'uses' => 'CarritoController@generaPdf'
+        ]);
 
-    Route::get('artisan', function ()
-    {
-      Artisan::call('log:ride'); 
-   });
+      Route::get('redis', function ()
+      {
+        $redis = app()->make('redis');
+        $redis->set("key1","testValue");
+        return $redis->get("key1");
+      });
 
-    Route::any('/server', 'SoapController@demo');
+      Route::get('vista', function ()
+      {
+        return View::make('pdf/vista');
+      });
+
+      Route::get('artisan', function ()
+      {
+        Artisan::call('log:ride'); 
+      });
+
+      Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas
 
-    
+
 
 //movimiento de despachador con direction service directions
 
-    Route::get('/hidden', ['before' => 'auth', function(){
-      $contents = View::make('hidden');
-      $response = Response::make($contents, 200);
-      $response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
-      $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-      $response->header('Pragma', 'no-cache');
-      return $response;
-    }]);
+      Route::get('/hidden', ['before' => 'auth', function(){
+        $contents = View::make('hidden');
+        $response = Response::make($contents, 200);
+        $response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
+        $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+        $response->header('Pragma', 'no-cache');
+        return $response;
+      }]);
 
-    /*DESPACHO*/
-    Route::group(['middleware' => 'web'], function(){
-      Route::get('person','PersonalController@showLoginForm'); 
-      Route::post('person/login','PersonalController@login'); 
-      Route::get('person/zone','PersonalController@secret'); 
-    });
-    /*pruebas*/
-    Route::get('lista', [
-      'as' => 'lista',
-      'uses' => 'PruebasController@index'
-      ]);
-
-    Route::get("test-email", function() {
-      Mail::send("emails.bienvenido", [], function($message) {
-        $message->to("andrescondo17@gmail.com", "christian ")
-        ->subject("Mensaje de prueba!");
-        $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
-        $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
-        $message->attach($rutaXml);
-        $message->attach($rutaPdf);
+      /*DESPACHO*/
+      Route::group(['middleware' => 'web'], function(){
+        Route::get('person','PersonalController@showLoginForm'); 
+        Route::post('person/login','PersonalController@login'); 
+        Route::get('person/zone','PersonalController@secret'); 
       });
-    });
+      /*pruebas*/
+      Route::get('lista', [
+        'as' => 'lista',
+        'uses' => 'PruebasController@index'
+        ]);
+
+      Route::get("test-email", function() {
+        Mail::send("emails.bienvenido", [], function($message) {
+          $message->to("andrescondo17@gmail.com", "christian ")
+          ->subject("Mensaje de prueba!");
+          $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
+          $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
+          $message->attach($rutaXml);
+          $message->attach($rutaPdf);
+        });
+      });

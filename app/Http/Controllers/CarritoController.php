@@ -266,6 +266,7 @@ class CarritoController extends Controller
          /*dd($cartordaux);*/
           //$this->revisarXml($codigogenerado)
          //Queue::later(180, $this->retorno($codigogenerado));
+         $codigogenerado = '0';
          return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux','codigogenerado','rutaPdf'));
        }
 
@@ -718,6 +719,7 @@ class CarritoController extends Controller
       //$this->deleteDir("firmados");
       //$this->deleteDir("temp");
     }
+
     public function sendEmail($clavedeacceso)
     {
       $dt_empress = new Empresaa;
