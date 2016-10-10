@@ -67,7 +67,7 @@
                         @if($fac->fir_xml === 1)
                         <h4>Ok</h4>
                         @else
-                        <a href="{{ route('admin.sales.edit',$fac->id) }}" title="FIRMAR" class="btn btn-warning"> <!--edit-->
+                        <a href="{{ route('admin.sales.generaarchivos',$fac->id) }}" title="FIRMAR" class="btn btn-warning"> <!--edit-->
                           <i class="fa fa-pencil-square"></i>
                         </a>
                         @endif
@@ -91,7 +91,7 @@
                     @if($fac->convrt_ride === 1)
                     <h4>Ok</h4>
                     @else
-                    <a href="{{ route('admin.sales.edit',$fac->id) }}" title="CONVERTIR" class="btn btn-warning"> <!--edit-->
+                    <a href="{{ route('admin.sales.convrtride',$fac->claveacceso) }}" title="CONVERTIR" class="btn btn-warning"> <!--edit-->
                       <i class="fa fa-pencil-square"></i>
                     </a>
                     @endif
@@ -138,6 +138,12 @@
               </tbody>
 
             </table>
+            <div class="col-md-12">
+                <div class="form-group">                      
+                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>  
+
+                </div>
+              </div>
             <style type="text/css">
               .textsmall{
                 font-size: 14px;

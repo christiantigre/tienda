@@ -164,6 +164,18 @@
         'uses' => 'Admin\SalesController@sendpdf'
         ]);
 
+      Route::get('Genfiles/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.convrtride',
+        'uses' => 'Admin\SalesController@revisarXml'
+        ]);
+
+      Route::get('generaArchivos/{factura}', [
+        'middleware' => 'auth',
+        'as' => 'admin.sales.generaarchivos',
+        'uses' => 'Admin\SalesController@generaArchivos'
+        ]);
+
       Route::get('cart/update/{product}/{cantt}', [
         'middleware' => 'auth', 
         'as' => 'cart-update',
@@ -347,6 +359,11 @@
         'uses' => 'FirmaController@firma'
         ]);
     //genera xml
+      Route::get('generaFiles/{id}', [
+        'as' => 'generaFiles',
+        'uses' => 'Admin\SalesController@generaArchivos'
+        ]);
+
       Route::get('xml/', [
         'as' => 'firma',
         'uses' => 'CarritoController@generaclaveacceso'

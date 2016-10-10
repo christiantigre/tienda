@@ -100,15 +100,17 @@
 									</tr>
 								</table>
 							</td>
-							<td>
+
+							<!--<td>
 								<a href="http://localhost/certificado/documento.php?id_firma={{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}"><i class="fa fa-lock"></i></a>
 							<!-- </td>
-							<td> -->&nbsp;
-								<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?j=true"><i class="fa fa-barcode"></i></a>
+							<td> -->
+								<!--<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?j=true"><i class="fa fa-barcode"></i></a>
 							<!-- </td>
-							<td> -->&nbsp;
-								<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?o=true"><i class="fa fa-cloud-download"></i></a>
-							</td>
+							<td> -->
+								<!--<a href="http://services.viafirma.com/viafirma/v/{{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}?o=true"><i class="fa fa-cloud-download"></i></a>
+							</td>-->
+
 						</tr>
 					</tbody>
 				</table>

@@ -24,16 +24,16 @@ class EmpController extends Controller
     public function index()
     {
         if(\Auth::check()){
-        if(\Auth::user()->is_admin){
-        $emps = Emp::all();
-        return view('admin.emp.index', compact('emps'));
-    }else{
+            if(\Auth::user()->is_admin){
+                $emps = Emp::all();
+                return view('admin.emp.index', compact('emps'));
+            }else{
                 \Auth::logout();
                 return redirect('login');
+            }
+        }else{
+            \Auth::logout();
         }
-    }else{
-        \Auth::logout();
-    }
     }
 
     /**
@@ -62,29 +62,29 @@ class EmpController extends Controller
     public function store(SaveEmpRequest $request)
     {       //dd($request);
         $data = [
-            'nombres' =>$request->get('nombres'),
-            'apellidos' =>$request->get('apellidos'),
-            'fechanacimiento' =>$request->get('fechanacimiento'),
-            'cedula' =>$request->get('cedula'),
-            'genero' =>$request->get('genero'),
-            'cargo_id' =>$request->get('cargo_id'),
-            'department_id' =>$request->get('department_id'),            
-            'country_id' =>$request->get('country_id'),            
-            'province_id' =>$request->get('province_id'), 
-            'isactive_id' =>$request->get('isactive_id'), 
-            'telefono' =>$request->get('telefono'),
-            'celular' =>$request->get('celular'),
-            'email' =>$request->get('email'), 
-            'img' =>$request->get('img'),
-            'dir' =>$request->get('dir'), 
-            'estcivil' =>$request->get('estcivil'),
-            'sld' =>$request->get('sld'),
-            'password' =>bcrypt($request->get('cedula'))
+        'nombres' =>$request->get('nombres'),
+        'apellidos' =>$request->get('apellidos'),
+        'fechanacimiento' =>$request->get('fechanacimiento'),
+        'cedula' =>$request->get('cedula'),
+        'genero' =>$request->get('genero'),
+        'cargo_id' =>$request->get('cargo_id'),
+        'department_id' =>$request->get('department_id'),            
+        'country_id' =>$request->get('country_id'),            
+        'province_id' =>$request->get('province_id'), 
+        'isactive_id' =>$request->get('isactive_id'), 
+        'telefono' =>$request->get('telefono'),
+        'celular' =>$request->get('celular'),
+        'email' =>$request->get('email'), 
+        'img' =>$request->get('img'),
+        'dir' =>$request->get('dir'), 
+        'estcivil' =>$request->get('estcivil'),
+        'sld' =>$request->get('sld'),
+        'password' =>bcrypt($request->get('cedula'))
         ];
         $emp = Emp::create($data);
         $message = $emp ? 'Empleado creado correctamente': 'El empleado no se pudo crear';
         return redirect()->route('admin.emp.index')->with('message', $message);
-    
+        
     }
 
     /**
