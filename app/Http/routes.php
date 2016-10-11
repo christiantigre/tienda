@@ -126,11 +126,13 @@
       'uses'=> 'CarritoController@trash'
       ]);
 
+    /*
     Route::post('sales/edit', [
       'middleware' => 'auth', 
       'as'=> 'sales-edit',
       'uses'=> 'SalesController@edit'
       ]);
+    */
 
     /*SALES
 
@@ -332,91 +334,91 @@
 //Route::resource('admin/status','Admin\StsController'); 
 
 
-      Route::get('routes/{$id}', [
+      /*Route::get('routes/{$id}', [
         'as'=> 'routes',
         'uses'=> 'RutasController@show'
-        ]);
+        ]);*/
 
-      Route::auth();
+        Route::auth();
 
-      Route::get('/home', 'StoreController@index');
-      Route::get('confirm/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@confregister');
-      Route::get('recupera/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@recuperaCuenta');
-      Route::post('inactive', 'Auth\AuthController@activar');
+        Route::get('/home', 'StoreController@index');
+        Route::get('confirm/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@confregister');
+        Route::get('recupera/comfirm_token/{comfirm_token}/email/{email}', 'Auth\AuthController@recuperaCuenta');
+        Route::post('inactive', 'Auth\AuthController@activar');
 
-      Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+        Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 
 
 // PRUEBAS     firma 
-      Route::get('deleteFile/{directorio}/{archivoconextencion}', [
-        'as' => 'deleteFile',
-        'uses' => 'CarritoController@deleteFile'
-        ]);
+        Route::get('deleteFile/{directorio}/{archivoconextencion}', [
+          'as' => 'deleteFile',
+          'uses' => 'CarritoController@deleteFile'
+          ]);
 
-      Route::get('firma/{id}', [
-        'as' => 'firma',
-        'uses' => 'FirmaController@firma'
-        ]);
+        Route::get('firma/{id}', [
+          'as' => 'firma',
+          'uses' => 'FirmaController@firma'
+          ]);
     //genera xml
-      Route::get('generaFiles/{id}', [
-        'as' => 'generaFiles',
-        'uses' => 'Admin\SalesController@generaArchivos'
-        ]);
+        Route::get('generaFiles/{id}', [
+          'as' => 'generaFiles',
+          'uses' => 'Admin\SalesController@generaArchivos'
+          ]);
 
-      Route::get('xml/', [
-        'as' => 'firma',
-        'uses' => 'CarritoController@generaclaveacceso'
-        ]);
+        Route::get('xml/', [
+          'as' => 'firma',
+          'uses' => 'CarritoController@generaclaveacceso'
+          ]);
 
-      Route::get('sendEmail/{clavedeacceso}', [
-        'as' => 'sendEmail',
-        'uses' => 'CarritoController@sendEmail'
-        ]);
+        Route::get('sendEmail/{clavedeacceso}', [
+          'as' => 'sendEmail',
+          'uses' => 'CarritoController@sendEmail'
+          ]);
 
-      Route::get('generaxml/{id}', [
-        'as' => 'firma',
-        'uses' => 'CarritoController@generaXml'
-        ]);
+        Route::get('generaxml/{id}', [
+          'as' => 'firma',
+          'uses' => 'CarritoController@generaXml'
+          ]);
 
-      Route::get('firmar/{nombrexml}', [
-        'as' => 'firma',
-        'uses' => 'CarritoController@firmarXml'
-        ]);
+        Route::get('firmar/{nombrexml}', [
+          'as' => 'firma',
+          'uses' => 'CarritoController@firmarXml'
+          ]);
 
-      Route::get('revisar/{var}', [
-        'as' => 'revisar',
-        'uses' => 'CarritoController@revisarXml'
-        ]);
+        Route::get('revisar/{var}', [
+          'as' => 'revisar',
+          'uses' => 'CarritoController@revisarXml'
+          ]);
 
-      Route::get('existFile/{var}', [
-        'as' => 'revisar',
-        'uses' => 'CarritoController@existFile'
-        ]);
+        Route::get('existFile/{var}', [
+          'as' => 'revisar',
+          'uses' => 'CarritoController@existFile'
+          ]);
 
-      Route::get('generapdf/{clave}', [
-        'as' => 'generapdf',
-        'uses' => 'CarritoController@generaPdf'
-        ]);
+        Route::get('generapdf/{clave}', [
+          'as' => 'generapdf',
+          'uses' => 'CarritoController@generaPdf'
+          ]);
 
-      Route::get('redis', function ()
-      {
-        $redis = app()->make('redis');
-        $redis->set("key1","testValue");
-        return $redis->get("key1");
-      });
+        Route::get('redis', function ()
+        {
+          $redis = app()->make('redis');
+          $redis->set("key1","testValue");
+          return $redis->get("key1");
+        });
 
-      Route::get('vista', function ()
-      {
-        return View::make('pdf/vista');
-      });
+        Route::get('vista', function ()
+        {
+          return View::make('pdf/vista');
+        });
 
-      Route::get('artisan', function ()
-      {
-        Artisan::call('log:ride'); 
-      });
+        Route::get('artisan', function ()
+        {
+          Artisan::call('log:ride'); 
+        });
 
-      Route::any('/server', 'SoapController@demo');
+        Route::any('/server', 'SoapController@demo');
 
     //cierre pruebas
 
@@ -424,34 +426,39 @@
 
 //movimiento de despachador con direction service directions
 
-      Route::get('/hidden', ['before' => 'auth', function(){
-        $contents = View::make('hidden');
-        $response = Response::make($contents, 200);
-        $response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
-        $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-        $response->header('Pragma', 'no-cache');
-        return $response;
-      }]);
+        Route::get('/hidden', ['before' => 'auth', function(){
+          $contents = View::make('hidden');
+          $response = Response::make($contents, 200);
+          $response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
+          $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+          $response->header('Pragma', 'no-cache');
+          return $response;
+        }]);
 
-      /*DESPACHO*/
-      Route::group(['middleware' => 'web'], function(){
-        Route::get('person','PersonalController@showLoginForm'); 
-        Route::post('person/login','PersonalController@login'); 
-        Route::get('person/zone','PersonalController@secret'); 
-      });
-      /*pruebas*/
-      Route::get('lista', [
-        'as' => 'lista',
-        'uses' => 'PruebasController@index'
-        ]);
 
-      Route::get("test-email", function() {
-        Mail::send("emails.bienvenido", [], function($message) {
-          $message->to("andrescondo17@gmail.com", "christian ")
-          ->subject("Mensaje de prueba!");
-          $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
-          $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
-          $message->attach($rutaXml);
-          $message->attach($rutaPdf);
+        /*No funciona*/
+        //Route::group(['middleware' => 'iddesp'], function(){
+          Route::get('person','PersonalController@showLoginForm'); 
+          Route::post('person/login','PersonalController@postLogin'); 
+          Route::get('person/zone','PersonalController@secret'); 
+          /*No funciona*/
+        //});
+
+
+
+        /*pruebas*/
+        Route::get('lista', [
+          'as' => 'lista',
+          'uses' => 'PruebasController@index'
+          ]);
+
+        Route::get("test-email", function() {
+          Mail::send("emails.bienvenido", [], function($message) {
+            $message->to("andrescondo17@gmail.com", "christian ")
+            ->subject("Mensaje de prueba!");
+            $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
+            $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
+            $message->attach($rutaXml);
+            $message->attach($rutaPdf);
+          });
         });
-      });

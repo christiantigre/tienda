@@ -15,20 +15,22 @@ class PersonalController extends Controller
     protected $loginView = 'personal.login';
     protected $guard ='personals';
 
-    function __construct(){
-    	$this->middleware('auth:personals',['only'=>['secret']]);
-    }
+    //function __construct(){
+    // 	$this->middleware('auth:personals',['only'=>['secret']]);
+    //}
 
     public function authenticated(){
+        return "hola mundo";
     	return redirect('person/zone');
     }
 
     public function secret(){
-        $rutas = Pedido::select()->where('id','=',1)->first();
-        //dd($rutas);
-        $empresa = Empresaa::select()->get();
-        return view('personal.despacho.index',compact('rutas','empresa'));
+        //$rutas = Pedido::select()->where('id','=',1)->first();
+        
+        //$empresa = Empresaa::select()->get();
+        //return view('personal.despacho.index',compact('rutas','empresa'));
         //return redirect('despacho/index',compact('rutas','empresa'));
-    	//return 'Hola '. auth('personals')->user()->name;
+    	return 'Hola '. auth('personals')->user()->name;
     }
+
 }

@@ -95,10 +95,10 @@
                       				<i class="fa fa-pencil-square"></i>
                       			</a>
                       		</td>
-                          <td><h3>{{ $emp->nombres }} {{ $emp->apellidos }}</h3></td>
-                          <td><h3>{{ $emp->cargo->poss }}</h3></td>
-                          <td><h3>{{ $emp->department->depart }} </h3></td>
-                          <td><h3>{{ $emp->isactive_id ==1 ? "Si" : "No" }}</h3></td>
+                          <td>{{ $emp->nombres }} {{ $emp->apellidos }}</td>
+                          <td>{{ $emp->cargo->poss }}</td>
+                          <td>{{ $emp->department->depart }} </td>
+                          <td>{{ $emp->isactive_id ==1 ? "Si" : "No" }}</td>
                       </tr>
 						@endforeach
 			      </tbody>

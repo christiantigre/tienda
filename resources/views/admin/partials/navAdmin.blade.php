@@ -17,7 +17,7 @@
        <span>Sesion caducada</span>
        <!--<h2>John Doe</h2>-->
        @else  
-       <span>Ninguno Welcome,</span>
+       <span>Admin Welcome,</span>
        <h2>{{ Auth::user()->name }}</h2>
        @endif
      </div>
@@ -54,6 +54,12 @@
             </li>
             <li><a href="media_gallery.html">Facturas</a>
             </li>                  
+          </ul>
+        </li>
+        <li><a><i class="fa fa-truck"></i> Rutas <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu" style="display: none">
+            <li><a href="{{ route('admin.sales.index') }}">Filtros</a>
+            </li>                 
           </ul>
         </li>
         <li><a><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
