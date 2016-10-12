@@ -58,7 +58,7 @@
         </li>
         <li><a><i class="fa fa-truck"></i> Rutas <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.sales.index') }}">Filtros</a>
+            <li><a href="{{ route('admin.mapa.index') }}">Filtros</a>
             </li>                 
           </ul>
         </li>

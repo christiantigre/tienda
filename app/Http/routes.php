@@ -318,11 +318,12 @@
         Route::resource('admin/productnumbersize','Admin\productnumbersizeController');
         Route::resource('admin/productsize','Admin\productsizeController');
         Route::resource('admin/productavailables','Admin\availableproductController');
-//SEGURIDAD//
+        //SEGURIDAD//
         Route::resource('admin/seguridad/intentos','Admin\IntentosController');
         Route::resource('admin/seguridad','Admin\ModuloSegController');
         Route::resource('admin/person','Admin\PersonController');
-
+        //PUNTOS DE ENTREGA//
+        Route::resource('admin/mapa','Admin\MapController');
 
 
       });
@@ -438,10 +439,10 @@
 
         /*No funciona*/
         //Route::group(['middleware' => 'iddesp'], function(){
-          Route::get('person','PersonalController@showLoginForm'); 
-          Route::post('person/login','PersonalController@postLogin'); 
-          Route::get('person/zone','PersonalController@secret'); 
-          /*No funciona*/
+        Route::get('person','PersonalController@showLoginForm'); 
+        Route::post('person/login','PersonalController@postLogin'); 
+        Route::get('person/zone','PersonalController@secret'); 
+        /*No funciona*/
         //});
 
 

@@ -1,0 +1,2 @@
+CREATE VIEW locations AS
+SELECT `ubiclt` as lat, `ubiclg` as lng, entrega,date FROM `pedido` WHERE `ubiclt`!='0' or `ubiclg`!='0'
