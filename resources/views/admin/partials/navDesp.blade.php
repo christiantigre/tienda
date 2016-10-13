@@ -48,6 +48,16 @@
             </li>                  
           </ul>
         </li>
+        <li><a><i class="fa fa-truck"></i> Rutas <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu" style="display: none">
+          <li><a href="{{ route('admin.despacho.index') }}">Realizar entrega</a>
+            </li>                 
+          </ul>
+          <ul class="nav child_menu" style="display: none">
+            <li><a href="{{ route('admin.mapa.index') }}">Solicitud de pedidos</a>
+            </li>                 
+          </ul>
+        </li>
         <li><a><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
             <li><a href="tables.html">Tables</a>

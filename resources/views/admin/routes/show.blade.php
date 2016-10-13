@@ -1,6 +1,25 @@
 @extends('admin.template')
 @section('content')
 <!-- page content -->
+<style type="text/css">
+	.estilo{
+		width: 950px; 
+		height: 500px;
+	}
+	.google-maps {
+		position: relative;
+		padding-bottom: 75%; // This is the aspect ratio
+		height: 0;
+		overflow: hidden;
+	}
+	.google-maps iframe {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100% !important;
+		height: 100% !important;
+	}
+</style>
 <div class="right_col" role="main" >
 
 	<div class="">
@@ -64,70 +83,78 @@
 								<input type="hidden" id="ubiclt" name="ubiclt" value="{{ $rutas->ubiclt }}">
 								<!--coordenadas de cliente-->
 								{!! Form::hidden(
-								'ubiclg',
-								null,
-								array(
-								'class'=>'form-control',
-								'required'=>'required',
-								'placeholder'=>'Ingrese nombre de la compania',
-								'autofocus'=>'autofocus'
-								)
-								) 
-								!!}
-								{!! Form::hidden(
-								'ubiclt',
-								null,
-								array(
-								'class'=>'form-control',
-								'required'=>'required',
-								'placeholder'=>'Ingrese nombre de la compania',
-								'autofocus'=>'autofocus'
-								)
-								) 
-								!!}
-								<!--Coordenadas de empresa-->
-								@foreach($empresa as $emp)
-								<input type="hidden" id="nom" name="nom" value="{{ $emp->nom }}">                        
-								<input type="hidden" id="ln" name="ln" value="{{ $emp->ln }}">
-								<input type="hidden" id="lg" name="lg" value="{{ $emp->lg }}">
-								@endforeach
+									'ubiclg',
+									null,
+									array(
+										'class'=>'form-control',
+										'required'=>'required',
+										'placeholder'=>'Ingrese nombre de la compania',
+										'autofocus'=>'autofocus'
+										)
+									) 
+									!!}
+									{!! Form::hidden(
+										'ubiclt',
+										null,
+										array(
+											'class'=>'form-control',
+											'required'=>'required',
+											'placeholder'=>'Ingrese nombre de la compania',
+											'autofocus'=>'autofocus'
+											)
+										) 
+										!!}
+										<!--Coordenadas de empresa-->
+										@foreach($empresa as $emp)
+										<input type="hidden" id="nom" name="nom" value="{{ $emp->nom }}">                        
+										<input type="hidden" id="ln" name="ln" value="{{ $emp->ln }}">
+										<input type="hidden" id="lg" name="lg" value="{{ $emp->lg }}">
+										@endforeach
 
 
 
-								<div class="form-group">
-									<div class="control-label col-md-3 col-sm-3 col-xs-12">  
-										<div id='ubicacion' style='display:none;'></div>
-										<div id="demo" style="width: 950px; height: 500px;">
+										<div class="form-group">
+											<div class="control-label col-md-3 col-sm-3 col-xs-12">  
 
+
+												<div id='ubicacion' style='display:none;'></div>
+												
+												<div id="mapholder"></div>
+
+
+											</div>
 										</div>
-										<div id="mapholder"></div>
 									</div>
+
+
+									<div class="col-md-12">
+										<div class="form-group">              
+											@if (Auth::user()->rol===1)
+											<a href="{{ route('admin.sales.index') }}" class="btn btn-primary">REGRESAR</a>  
+											@elseif (Auth::user()->rol===3)											
+											<a href="{{ route('admin.despacho.index') }}" class="btn btn-primary">REGRESAR</a>  
+											@endif        
+										</div>
+									</div>
+
+
+
+
+								</section>   
+								{{ Form::close() }} 
+								<div id="demo" class="google-maps">
+
 								</div>
-							</div>
-
-
-							<div class="col-md-12">
-								<div class="form-group">                      
-									<a href="{{ route('admin.sales.index') }}" class="btn btn-primary">REGRESAR</a>  
-								</div>
-							</div>
-
-
-							
-
-						</section>   
-						{{ Form::close() }} 
-
-						<!--Geolocalización-->
+								<!--Geolocalización-->
 
 
 
-						<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>
-						<!--<script src="http://maps.googleapis.com/maps/api/js?v3"></script>-->
-						<script>
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>
+								<!--<script src="http://maps.googleapis.com/maps/api/js?v3"></script>-->
+								<script>
 
-						</script>
-						<script>
+								</script>
+								<script>
 						//mostrar_objeto(navigator.geolocation);
 							//navigator.geolocation.getCurrentPosition();
 

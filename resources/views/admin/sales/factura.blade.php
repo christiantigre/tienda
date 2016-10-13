@@ -140,10 +140,9 @@
             </table>
             <div class="col-md-12">
                 <div class="form-group">                      
-                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>  
-
+                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>   
                 </div>
-              </div>
+            </div>
             <style type="text/css">
               .textsmall{
                 font-size: 14px;
