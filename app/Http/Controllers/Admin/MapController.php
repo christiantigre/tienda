@@ -17,9 +17,11 @@ class MapController extends Controller
 				$date = Carbon::now();
 				$date->timezone = new \DateTimeZone('America/Guayaquil');
 				$date = $date->format('d/m/Y');
-				$locations = \DB::table('pedido')->select(\DB::raw('entrega,ubiclt as lat ,ubiclg as lng'))->where('date','=',$date)->where('ubiclg','!=','0')->where('ubiclt','!=','0')->get();
-
-				return view('admin.mapa.index',compact('locations'));
+				$locations = \DB::table('pedido')
+				->join('status','pedido.status_id','=','status.id')
+				->select(\DB::raw('pedido.id as pedido,pedido.entrega, pedido.ubiclt as lat ,pedido.ubiclg as lng,status.statu as estado'))->where('pedido.date','=',$date)->where('pedido.ubiclg','!=','0')->where('pedido.ubiclt','!=','0')->get();
+				$contadorpedidos =count($locations);
+				return view('admin.mapa.index',compact('locations','contadorpedidos'));
 			}else{
 				\Auth::logout();
 				return redirect('login');

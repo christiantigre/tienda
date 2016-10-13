@@ -83,7 +83,7 @@ height: 100% !important;
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="card-box table-responsive">
                   <p class="text-muted font-13 m-b-30">
-
+                    Se encontraron {!! $contadorpedidos !!} puntos de entrega.
                   </p>
 
                   <div id="mymap" class="google-maps"></div>
@@ -118,9 +118,13 @@ height: 100% !important;
 
                         title: value.entrega,
 
+                        num: value.pedido,
+
+                        std: value.estado,
+
                         click: function(e) {
 
-                          alert('Detalle '+value.city+'.');
+                          alert('Pedido '+value.pedido+' estado('+value.estado+')'+'.');
 
                         }
 

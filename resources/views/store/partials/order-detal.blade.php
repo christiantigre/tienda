@@ -10,7 +10,8 @@
       'class'=>'form-horizontal form-label-left',
       'method'=>'POST',
       'role'=>'form',
-      'id'=>'formulario'
+      'id'=>'formulario',
+      'name'=>'formulario'
       ))
       !!}
       <div class="web-application">
@@ -30,7 +31,6 @@
             <input type="hidden" name="lt" id="lt" value="{{ $perfil->lt }}"/>
             <input type="hidden" name="lg" id="lg" value="{{ $perfil->lg }}"/> 
             <input type="hidden" name="latlng" id="latlng" value="{{ $perfil->lt }}, {{ $perfil->lg }}"/> 
-
             <input type="hidden" name="ln" id="ln" value="{{ $dt_empress->ln }}"/>
             <input type="hidden" name="lgemp" id="lgemp" value="{{ $dt_empress->lg }}"/>
 
@@ -46,9 +46,18 @@
           <h4 class="brief"><i><small>Selecione tipo de Entrega</small></i></h4>
           <div class="row fontawesome-icon-list">
             <ul class="list-unstyled">
-              <li><i class="fa fa-map-marker"></i> Ubicación actual : <input type="radio" name="rad" id="rad" value="UBICACION" onclick="cargarmap()"/></li>
-              <li><i class="fa fa-automobile"></i> Envío a domicilio : <input type="radio" name="rad" id="submit" value="DOMICILIO" onclick="domicilio()"/></li>
-              <li><i class="fa fa-child"></i> Voy por mi pedido : <input type="radio" name="rad" id="rad" value="RETIRO" onclick="localStore()" checked="" required/></li>
+              <li>
+                <i class="fa fa-map-marker"></i> Ubicación actual : 
+                <input type="radio" name="rad" id="rad" value="UBICACION" onclick="ordermap()"/>
+              </li>
+              <li>
+                <i class="fa fa-automobile"></i> Envío a domicilio : 
+                <input type="radio" name="rad" id="submit" value="DOMICILIO" onclick="domicilio()"/>
+              </li>
+              <li>
+                <i class="fa fa-child"></i> Voy por mi pedido : 
+                <input type="radio" name="rad" id="rad" value="RETIRO" onclick="localStore()" checked="" required/>
+              </li>
               {!! Form::hidden('lat', '0', array('id' => 'lat')) !!}
               {!! Form::hidden('long', '0', array('id' => 'long')) !!}
               {!! Form::hidden('entrega', 'Retiro personal', array('id' => 'entrega')) !!}
@@ -80,11 +89,12 @@
       <div class="web-application">
         <h4 class="brief"><i><small>Lugar de entrega</small></i></h4>
         <!-- Se determina y escribe la localizacion -->
-        <div id='ubicacion' style='display:none;'></div> 
+        <div id='ubicacion' class="col-md-6 col-sm-6 col-xs-12" style='display:none;'></div> 
         <!---->
-        <div class="col-md-3 col-sm-4 col-xs-12" id="demo"></div>
+        <div class="col-md-6 col-sm-6 col-xs-12" id="demo"></div>
+        <div class="col-md-6 col-sm-6 col-xs-12" id="domicilio"></div>
         <div class="row fontawesome-icon-list" id="mapholder"></div>
-        <div class="row fontawesome-icon-list" id="floating-panel">
+        <div style='display:none;' class="row fontawesome-icon-list" id="floating-panel">
           <b>Mode of Travel: </b>
           <select id="mode">
             <option value="DRIVING">Driving</option>
@@ -107,7 +117,7 @@
       </div>
       <div class="x_content">
 
-        <table class="table">
+        <table class="col-md-6 col-sm-6 col-xs-12" class="table">
           <thead>
             <tr>
               <th>ITEM</th>
@@ -126,20 +136,20 @@
             </td>
           </td>
           <td> 
-          <h6>         
-            @if(count($item->sizes)>0)
-            Talla :
-            {{ $item->sizes }}<br />
-            @else
-            @endif
-            @if(count($item->preferences)>0)
-            Color :{{ $item->preferences }}<br />
-            @else
-            @endif
-            @if(count($item->numbers)>0)
-            Número :{{ $item->numbers }}
-            @else
-            @endif
+            <h6>         
+              @if(count($item->sizes)>0)
+              Talla :
+              {{ $item->sizes }}<br />
+              @else
+              @endif
+              @if(count($item->preferences)>0)
+              Color :{{ $item->preferences }}<br />
+              @else
+              @endif
+              @if(count($item->numbers)>0)
+              Número :{{ $item->numbers }}
+              @else
+              @endif
             </h6>
           </td>
           <td>
@@ -158,7 +168,7 @@
       <tr>
         <td colspan="2">&nbsp;</td>
         <td colspan="2">
-          <table class="table table-condensed total-result">
+          <table class="col-md-6 col-sm-6 col-xs-12" class="table table-condensed total-result">
             <tr>
               <td><h6>Sub Total</h6></td>
               <td><h6>${{ number_format($sub,2) }}</h6></td>
@@ -181,10 +191,10 @@
           <table>
            <tr>
              <hr>
-             {{ Form::input('submit',null,'CONFIRMAR COMPRA', array('class'=>'btn btn-primary fa fa-shopping-cart','tittle'=>'CONFIRMAR COMPRA','id' => 'btn','onclick'=>'jsShowWindowLoad("Cargando")' )) }}
+             {{ Form::input('submit',null,'CONFIRMAR COMPRA', array('class'=>'btn btn-primary fa fa-shopping-cart','tittle'=>'CONFIRMAR COMPRA','id' => 'btn','onclick'=>'jsShowWindowLoad("Cargando");' )) }}
              <!--<input type="button" onclick="jsShowWindowLoad('Cargando')" name="">-->
              <br>
-          </tr>
+           </tr>
          </table>
        </td>
      </tr>
@@ -194,36 +204,88 @@
  </div>
 </div>
 </div>
-<script>
-function jsRemoveWindowLoad() {
+
+
+<script type="text/javascript">
+
+  var x=document.getElementById("demo");
+
+  function ordermap(){
+    navigator.geolocation.getCurrentPosition(showPosition,showError);
+    jsShowWindowLoad("Estamos obtediendo tu ubicación");
+    function showPosition(position)
+    {
+      lat=position.coords.latitude;
+      lon=position.coords.longitude;
+      latlon=new google.maps.LatLng(lat, lon)
+      mapholder=document.getElementById('demo')
+      mapholder.style.height='250px';
+      mapholder.style.width='500px';
+      document.getElementById("entrega").value = "Ubicacion actual";
+      document.getElementById("lat").value = ""+lat;
+      document.getElementById("long").value = ""+lon;
+      var myOptions={
+        center:latlon,zoom:15,
+        mapTypeId:google.maps.MapTypeId.ROADMAP,
+        mapTypeControl:false,
+        navigationControlOptions:{style:google.maps.NavigationControlStyle.SMALL}
+      };
+      var map=new google.maps.Map(document.getElementById("demo"),myOptions);
+      var marker=new google.maps.Marker({position:latlon,map:map,title:"You are here!"});
+      jsRemoveWindowLoad();
+    }
+
+    function showError(error)
+    {
+      switch(error.code) 
+      {
+        case error.PERMISSION_DENIED:
+        x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
+        break;
+        case error.POSITION_UNAVAILABLE:
+        x.innerHTML="La información de la localización no esta disponible."
+        break;
+        case error.TIMEOUT:
+        x.innerHTML="El tiempo de petición ha expirado."
+        break;
+        case error.UNKNOWN_ERROR:
+        x.innerHTML="Ha ocurrido un error desconocido."
+        break;
+      }
+    }}
+  </script>
+
+  <script>
+
+    function jsRemoveWindowLoad() {
   // eliminamos el div que bloquea pantalla
-    $("#WindowLoad").remove();
+  $("#WindowLoad").remove();
 
 }
 
 function jsShowWindowLoad(mensaje) {
   //eliminamos si existe un div ya bloqueando
-    jsRemoveWindowLoad();
-   
+  jsRemoveWindowLoad();
+
     //si no enviamos mensaje se pondra este por defecto
     if (mensaje === undefined) mensaje = "Procesando la información<br>Espere por favor";
-   
+
     //centrar imagen gif
     height = 20;//El div del titulo, para que se vea mas arriba (H)
     var ancho = 0;
     var alto = 0;
-  
+
   //obtenemos el ancho y alto de la ventana de nuestro navegador, compatible con todos los navegadores
-    if (window.innerWidth == undefined) ancho = window.screen.width;
-    else ancho = window.innerWidth;
-    if (window.innerHeight == undefined) alto = window.screen.height;
-    else alto = window.innerHeight;
-    
+  if (window.innerWidth == undefined) ancho = window.screen.width;
+  else ancho = window.innerWidth;
+  if (window.innerHeight == undefined) alto = window.screen.height;
+  else alto = window.innerHeight;
+
   //operación necesaria para centrar el div que muestra el mensaje
     var heightdivsito = alto/2 - parseInt(height)/2;//Se utiliza en el margen superior, para centrar
-  
+
    //imagen que aparece mientras nuestro div es mostrado y da apariencia de cargando
-    imgCentro = "<div class='web-application' style='text-align:center;height:" + alto + "px;'><div class='eb-application'  style='color:#F5E2E2;margin-top:" + heightdivsito + "px; font-size:20px;font-weight:bold'>" + mensaje + "</div><img  src='../img/load2.gif'></div>";
+   imgCentro = "<div class='web-application' style='text-align:center;height:" + alto + "px;'><div class='eb-application'  style='color:#F5E2E2;margin-top:" + heightdivsito + "px; font-size:20px;font-weight:bold'>" + mensaje + "</div><img  src='../img/load2.gif'></div>";
 
         //creamos el div que bloquea grande------------------------------------------
         div = document.createElement("div");
@@ -238,29 +300,29 @@ function jsShowWindowLoad(mensaje) {
         input.type = "text"
 
     //asignamos el div que bloquea
-        $("#WindowLoad").append(input);
-        
+    $("#WindowLoad").append(input);
+
     //asignamos el foco y ocultamos el input text 
-        $("#focusInput").focus();
-        $("#focusInput").hide();
+    $("#focusInput").focus();
+    $("#focusInput").hide();
     
     //centramos el div del texto
-        $("#WindowLoad").html(imgCentro);
+    $("#WindowLoad").html(imgCentro);
 
-}
+  }
 </script>
 <style>
-#WindowLoad
-{
+  #WindowLoad
+  {
     position:fixed;
     top:0px;
     left:0px;
     z-index:3200;
     filter:alpha(opacity=65);   
-   -moz-opacity:65;   
+    -moz-opacity:65;   
     opacity:0.65;
     background:#999;
-}
+  }
 </style>
 {{ Form::close() }}
 
