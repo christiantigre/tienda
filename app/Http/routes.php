@@ -352,6 +352,11 @@
 
 
 // PRUEBAS     firma 
+        Route::get('file/{dir}', [
+          'as' => 'file',
+          'uses' => 'CarritoController@makeDir'
+          ]);
+
         Route::get('deleteFile/{directorio}/{archivoconextencion}', [
           'as' => 'deleteFile',
           'uses' => 'CarritoController@deleteFile'

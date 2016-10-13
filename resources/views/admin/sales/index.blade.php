@@ -63,6 +63,7 @@
                         <th>Rutas</th>
                         <th>Gestión</a><!--</th><a href="<th></th>">-->
                         <th>Factúra</a>
+                        <th># Num</th>
                         <th>Fecha</th>
                         <th>Cliente</th>
                         <th>Entrega</th>
@@ -94,6 +95,7 @@
                             <i class="fa fa-calculator"></i>
                           </a>
                         </td>
+                        <td class="textsmall">{{ $emp->id }}</td> 
                         <td class="textsmall">{{ $emp->date }}</td> 
                         <td class="textsmall">{{ $emp->users->name }} {{ $emp->users->apellidos }}</td> 
                         <td class="textsmall">{{ $emp->entrega }}</td>
