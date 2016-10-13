@@ -101,59 +101,63 @@
 
                   <td><h4>Enviado xml</h4></td><td class="textsmall">
                   @if($fac->send_xml === 1)
-                    <h4>Ok</h4>
-                    @else
-                    <a href="{{ route('admin.sales.sendxml',$fac->claveacceso) }}" title="ENVIAR"  class="btn btn-warning"> <!--edit-->
-                      <i class="fa fa-pencil-square"></i>
-                    </a>
-                    @endif
-                  </td>
-                </tr>
-                <tr>
+                  <h4>Ok</h4>
+                  @else
+                  <a href="{{ route('admin.sales.sendxml',$fac->claveacceso) }}" title="ENVIAR"  class="btn btn-warning"> <!--edit-->
+                    <i class="fa fa-pencil-square"></i>
+                  </a>
+                  @endif
+                </td>
+              </tr>
+              <tr>
 
-                  <td><h4>Enviado ride</h4></td><td class="textsmall">
-                  @if($fac->send_pdf === 1)
-                    <h4>Ok</h4>
-                    @else
-                    <a href="{{ route('admin.sales.sendpdf',$fac->claveacceso) }}" title="ENVIAR" class="btn btn-warning"> <!--edit-->
-                      <i class="fa fa-pencil-square"></i>
-                    </a>
-                    @endif
-                  </td>
-                </tr>
-                <tr>
+                <td><h4>Enviado ride</h4></td><td class="textsmall">
+                @if($fac->send_pdf === 1)
+                <h4>Ok</h4>
+                @else
+                <a href="{{ route('admin.sales.sendpdf',$fac->claveacceso) }}" title="ENVIAR" class="btn btn-warning"> <!--edit-->
+                  <i class="fa fa-pencil-square"></i>
+                </a>
+                @endif
+              </td>
+            </tr>
+            <tr>
 
-                  <td><h4>Clave Acceso</h4></td><td class="textsmall">{{ $fac->claveacceso }}</td>
-                </tr>
-                <tr>
+              <td><h4>Clave Acceso</h4></td><td class="textsmall">{{ $fac->claveacceso }}</td>
+            </tr>
+            <tr>
 
-                  <td><h4># Autorización</h4></td><td class="textsmall">{{ $fac->num_autoriz }}</td>
-                </tr>
-                <tr>
+              <td><h4># Autorización</h4></td><td class="textsmall">{{ $fac->num_autoriz }}</td>
+            </tr>
+            <tr>
 
-                  <td><h4>Mensajes</h4></td><td class="textsmall">{{ $fac->mensaje }}</td>
+              <td><h4>Mensajes</h4></td><td class="textsmall">{{ $fac->mensaje }}</td>
 
-                </tr>
-                @endforeach
-              </tbody>
+            </tr>
+            @endforeach
+          </tbody>
 
-            </table>
-            <div class="col-md-12">
-                <div class="form-group">                      
-                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>   
-                </div>
-            </div>
-            <style type="text/css">
-              .textsmall{
-                font-size: 14px;
-              }
-            </style>
+        </table>
+        <div class="col-md-12">
+          <div class="form-group">     
+            @if (Auth::user()->rol===1)
+            <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>   
+            @elseif (Auth::user()->rol===3)
+            <a href="{{ route('admin.mapa.index') }}" class="btn btn-primary">Entrega</a>   
+            @endif                 
           </div>
         </div>
+        <style type="text/css">
+          .textsmall{
+            font-size: 14px;
+          }
+        </style>
       </div>
     </div>
-
   </div>
+</div>
+
+</div>
 </div>
 
 </div>

@@ -177,8 +177,12 @@
 
 
               <div class="col-md-12">
-                <div class="form-group">                      
-                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>  
+                <div class="form-group">     
+                  @if (Auth::user()->rol===1)
+                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>     
+                  @elseif (Auth::user()->rol===3)
+                  <a href="{{ route('admin.despacho.index') }}" class="btn btn-primary">Entregas</a>   
+                  @endif                 
 
                 </div>
               </div>
