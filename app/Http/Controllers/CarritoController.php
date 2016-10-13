@@ -233,9 +233,9 @@ class CarritoController extends Controller
              if ($firmado = $this->firmarXml($codigogenerado)) {
                $pos = explode(",", $firmado, 4);
                $this->deleteDir("generados");
-               \DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '1']);
+               //\DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '1']);
              } else {
-               \DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '0']);
+               //\DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '0']);
              }
 
            } else {
@@ -507,6 +507,8 @@ class CarritoController extends Controller
       \DB::table('sales')
       ->where('pedido_id', $idpedido)
       ->update(['gen_xml' => '1']);
+      $rout = $this->makeDir('generados');
+
       $xml->save('archivos/generados/'.$sale->claveacceso.'.xml');
 
       htmlentities($el_xml);
@@ -517,6 +519,11 @@ class CarritoController extends Controller
       $dt_empress = Empresaa::select()->get();
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
+      $rout = $this->makeDir('firmados');
+      $rout = $this->makeDir('noautorizados');
+      $rout = $this->makeDir('autorizados');
+      $rout = $this->makeDir('temp');
+      $rout = $this->makeDir('pdf');
       $autorizados = $ruta.'//archivos//'.'autorizados'.'//';
       $enviados = $ruta.'//'.'enviados'.'//';
       $firmados = $ruta.'//archivos//firmados//';
@@ -544,6 +551,9 @@ class CarritoController extends Controller
     }
 
     public function enviarautorizar($pathXmlFirmado,$claveAcceso,$autorizados,$rechazados){
+      \DB::table('sales')
+      ->where('claveacceso', $claveAcceso)
+      ->update(['fir_xml' => '1']);
       $start_time = microtime(true);
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
@@ -630,7 +640,11 @@ class CarritoController extends Controller
 
     public function revisarXml($claveacceso){
       $claveAcceso = $claveacceso;
-      $xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
+      $rutai = public_path();
+      $ruta = str_replace("\\", "\\", $rutai);
+      //$autorizados = $ruta.'//archivos//'.'autorizados'.'//';
+
+      $xmlPath = $ruta."\\archivos\\autorizados\\".$claveAcceso.".xml";
       if (file_exists($xmlPath)){     
 
        //lee el xml y decodifica
@@ -639,10 +653,10 @@ class CarritoController extends Controller
         $cont = (integer) $xml['counter'];
         $xml['counter'] = $cont + 1;
         //guarda temporalmente el xml decodificado
-        $xml->asXML("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
+        $xml->asXML($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
         //obtiene los valores de los campos del archivo temporal decodificado
         $doc = new \DOMDocument();
-        $doc->load("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\temp\\".$claveAcceso.".xml");
+        $doc->load($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
             // Reading tag's value.
         $estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
         if ($estado == "AUTORIZADO") {
@@ -673,6 +687,7 @@ class CarritoController extends Controller
     public function generaPdf($claveacceso){
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
+      $rutasl = str_replace("\\", "\\", $rutai);
       $dt_empress = Empresaa::select()->get();
       //$claveAcceso = "2909201601010511850900110010010000000777687155819";
       $claveAcceso = $claveacceso;
@@ -696,7 +711,7 @@ class CarritoController extends Controller
       \DB::table('sales')
       ->where('claveacceso', $claveAcceso)
       ->update(['convrt_ride' => '1']);
-      $pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
+      $pdf->save($rutasl."\\archivos\\pdf\\".$claveAcceso.".pdf");
       //return $pdf->download('prueba.pdf');
       //$this->deleteDir("generados");
       //$this->deleteDir("firmados");
@@ -764,6 +779,7 @@ class CarritoController extends Controller
           ->update(['send_xml' => '1','send_pdf'=>'1']);
           $pdfdelete = $clavedeacceso.".pdf"; 
           $xmldelete = $clavedeacceso.".xml"; 
+          $this->moveFile($clavedeacceso);
           $this->deleteFile("generados",$xmldelete);
           $this->deleteFile("firmados",$xmldelete);
           $this->deleteFile("autorizados",$xmldelete);
@@ -911,22 +927,41 @@ class CarritoController extends Controller
     $archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
     if (file_exists($archivo)) {
       unlink($archivo);
-   }
- }
-
- public function deleteDir($dir){
-  $rutai = public_path();
-  $ruta = str_replace("\\", "\\", $rutai);
-  $dir = $ruta."\\archivos\\".$dir."\\";
-  $handle = opendir($dir);
-
-  while ($file = readdir($handle)) {
-    if (is_file($dir . $file)) {
-        //echo $file;
-      unlink($dir . $file);
     }
   }
-}
+
+  private function moveFile($clavedeacceso){
+    $rutai = public_path();
+    $ruta = str_replace("\\", "//", $rutai);
+    $origen = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
+    $destino = $ruta.'//archivos//'.'enviados'.'//'.$clavedeacceso.'.pdf';
+    copy($origen, $destino);
+  }
+
+  public function deleteDir($dir){
+    $rutai = public_path();
+    $ruta = str_replace("\\", "\\", $rutai);
+    $dir = $ruta."\\archivos\\".$dir."\\";
+    $handle = opendir($dir);
+
+    while ($file = readdir($handle)) {
+      if (is_file($dir . $file)) {
+        //echo $file;
+        unlink($dir . $file);
+      }
+    }
+  }
+
+  public function makeDir($nameDir)
+  {
+    $rutai = public_path();
+    $ruta = str_replace("\\", "\\", $rutai);
+    $dir = $ruta.'\\archivos\\'.$nameDir.'';
+    if (!file_exists($dir)) {
+      mkdir($dir, 0777, true);
+    }
+    return $dir;
+  }
 
 
 }
