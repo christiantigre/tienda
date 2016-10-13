@@ -712,5 +712,4 @@ public function makeDir($nameDir)
 	return $dir;
 }
 
-
 }
