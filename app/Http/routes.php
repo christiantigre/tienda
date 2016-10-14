@@ -341,7 +341,7 @@
 // PRUEBAS     firma 
       Route::get('gen/', [
         'as' => 'gen',
-        'uses' => 'Admin\logsController@gen'
+        'uses' => 'Admin\logsController@genLog'
         ]);
 
       Route::get('file/{dir}', [

@@ -10,6 +10,7 @@ use App\Svlog;
 
 class logsController extends Controller
 {
+
 	public function index()
 	{
 		$mensaje = "Ingreso en index";
@@ -42,10 +43,10 @@ class logsController extends Controller
 
 
 
-	public function gen()
+	public function genLog()
 	{
+		$area = 'Test';
 		$mensaje = 'Instancia mensaje';
-		$area = 'Nueva Area';
 		$logs = Svlog::log($mensaje,$area);
 		dd($logs);
 	}

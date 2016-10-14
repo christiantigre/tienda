@@ -13,6 +13,7 @@ use App\Department;
 use App\Country;
 use App\Province;
 use App\Isactive;
+use App\Svlog;
 
 class EmpController extends Controller
 {
@@ -26,9 +27,12 @@ class EmpController extends Controller
         if(\Auth::check()){
             if(\Auth::user()->is_admin){
                 $emps = Emp::all();
+                $this->genLog("Ingresó a gestión de personal");
+
                 return view('admin.emp.index', compact('emps'));
             }else{
                 \Auth::logout();
+                $this->genLog("No autorizado en gestión de personal");
                 return redirect('login');
             }
         }else{
@@ -48,7 +52,7 @@ class EmpController extends Controller
         $countries = Country::orderBy('id', 'asc')->lists('country','id');
         $provinces = Province::orderBy('id', 'desc')->lists('prov','id');
         $isactives = Isactive::orderBy('id', 'asc')->lists('name','val');
-        //dd($isactives);
+        $this->genLog("Ingresó a registro de personal");
         return view('admin.emp.create',compact('positions','departments','countries','isactives','provinces'));
         //return view('admin.emp.create', compact('emps'));
     }
@@ -83,6 +87,7 @@ class EmpController extends Controller
         ];
         $emp = Emp::create($data);
         $message = $emp ? 'Empleado creado correctamente': 'El empleado no se pudo crear';
+        $this->genLog("Registró personal ".$emp->cedula);
         return redirect()->route('admin.emp.index')->with('message', $message);
         
     }
@@ -147,5 +152,11 @@ class EmpController extends Controller
 
         $message = $deleted ? 'El empleado se elimino correctamente': 'empleadoproducto no se pudo eliminar';
         return redirect()->route('admin.emp.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 }

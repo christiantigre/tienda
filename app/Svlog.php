@@ -28,7 +28,7 @@ class Svlog extends Model
 			if(fwrite($archivo, "# ".$datesegundos. " ". $mensaje. "\n")){
 				$res  = "Registrado un evento";
 			}else{
-				$res = "problema al crear el archivo";
+				$res = "Problema al crear el archivo";
 			}
 			fclose($archivo);
 		}  

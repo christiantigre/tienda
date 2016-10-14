@@ -19,6 +19,7 @@ use App\availablesproducts;
 use App\productsnumbersizes;
 use App\numbersize;
 use Validator;
+use App\Svlog;
 
 class ProductController extends Controller
 {
@@ -26,9 +27,11 @@ class ProductController extends Controller
         if(\Auth::check()){
             if(\Auth::user()->is_admin){
              $products = Product::orderBy('id', 'desc')->paginate(10);
+             $this->genLog("Ingresó a gestión productos");
              return view('admin.product.index', compact('products'));
          }else{
             \Auth::logout();
+            $this->genLog("No autorizado a gestión productos");            
             return redirect('login');
         }
     }else{
@@ -46,9 +49,11 @@ public function create(){
          $sizes = Size::all();
          $availables = available::all();
          $numbers = numbersize::all();
+         $this->genLog("Ingresó a nuevo producto");           
          return view('admin.product.create', compact('categories','isactives','brands','Secciones','sizes','availables','numbers'));
      }else{                
         \Auth::logout();
+         $this->genLog("No autorizado en nuevo producto");           
         return redirect('login');
     }
 }else{
@@ -119,7 +124,8 @@ public function store(SaveProductoRequest $request){
     }
 
     $message = $product ? 'Producto creado correctamente': 'El producto no se pudo crear';
-    return redirect()->route('admin.product.index')->with('message', $message);     
+         $this->genLog("Registro el producto con id ".$idproducto);           
+         return redirect()->route('admin.product.index')->with('message', $message);     
     
 }
 
@@ -127,6 +133,7 @@ public function show(Product $product){
     $sizes = productsize::where('product_id',$product->id)->get();
     $availables = availablesproducts::where('products_id',$product->id)->get();
     $numbers = productsnumbersizes::where('products_id',$product->id)->get();
+         $this->genLog("Visualiso producto ".$product->slug);           
     return view('admin.product.show',compact('product','sizes','availables','numbers'));
 }
 
@@ -141,8 +148,8 @@ public function edit(Product $product){
     $sizes = productsize::where('product_id',$product->id)->get();
     $availables = availablesproducts::where('products_id',$product->id)->get();
     $numbers = productsnumbersizes::where('products_id',$product->id)->get();
-
-    return view('admin.product.edit',compact('product','categories','isactives','brands','Secciones','sizes','availables','numbers','nsizes','numbersizes','pavailables'));
+         $this->genLog("Ingresó a editar el producto ".$product->slug);           
+         return view('admin.product.edit',compact('product','categories','isactives','brands','Secciones','sizes','availables','numbers','nsizes','numbersizes','pavailables'));
 }
 
 public function update(Request $request, Product $product){
@@ -164,27 +171,39 @@ public function update(Request $request, Product $product){
     
     $updated = $product->save();
     $message = $updated ? 'Producto actualizado correctamente': 'El producto no se pudo actualizar';
-    return redirect()->route('admin.product.index')->with('message', $message);
+         $this->genLog("Actualizó el producto ".$product->slug);           
+         return redirect()->route('admin.product.index')->with('message', $message);
 }
 
 public function destroy(Product $product){
     $deleted = $product->delete();
     $message = $deleted ? 'El producto se elimino correctamente': 'El producto no se pudo eliminar';
-    return redirect()->route('admin.product.index')->with('message', $message);
+         $this->genLog("Eliminó producto ".$product->slug);           
+         return redirect()->route('admin.product.index')->with('message', $message);
 }
 
 public function catalogoindex(){
     if(\Auth::check()){
         if(\Auth::user()->is_admin){
          $products = Product::orderBy('id', 'desc')->where('catalogo','1')->paginate(12);
+         $this->genLog("Ingresó a catalogo de producto");           
+
          return view('admin.product.catalogo', compact('products'));
      }else{
         \Auth::logout();
+         $this->genLog("No autorizado en catalogo de productos");           
+
         return redirect('login');
     }
 }else{
     \Auth::logout();
 }
+}
+
+public function genLog($mensaje)
+{
+    $area = 'Administracion';
+    $logs = Svlog::log($mensaje,$area);
 }
 
 
