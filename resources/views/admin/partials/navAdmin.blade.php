@@ -52,7 +52,7 @@
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.sales.index') }}">Ventas</a>
             </li>
-            <li><a href="media_gallery.html">Facturas</a>
+            <li><a href="{{ route('admin.facturas.index') }}">Facturas</a>
             </li>                  
           </ul>
         </li>

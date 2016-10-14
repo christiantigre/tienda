@@ -126,28 +126,6 @@
       'uses'=> 'CarritoController@trash'
       ]);
 
-    /*
-    Route::post('sales/edit', [
-      'middleware' => 'auth', 
-      'as'=> 'sales-edit',
-      'uses'=> 'SalesController@edit'
-      ]);
-    */
-
-    /*SALES
-
-    Route::get('sales/factura/{$id}', [
-      'middleware' => 'auth', 
-      'as'=> 'sales/factura',
-      'uses'=> 'SalesController@factura'
-      ]);
-    Route::post('sales/factura/{$id}', [
-      'middleware' => 'auth', 
-      'as'=> 'sales/factura',
-      'uses'=> 'SalesController@factura'
-      ]);
-
-      SALES*/
       Route::get('factura/{factura}', [
         'middleware' => 'auth',
         'as' => 'admin.sales.factura',
@@ -280,7 +258,19 @@
         'as'=> 'mysalesshow',
         'uses'=> 'MysalesController@show'
         ]);
+      /*FACTURAS*/
 
+      Route::get('buscar/', [
+        'middleware' => 'auth', 
+        'as'=> 'admin.facturas.searh',
+        'uses'=> 'Admin\factureController@search'
+        ]);
+
+      Route::post('buscar/', [
+        'middleware' => 'auth', 
+        'as'=> 'admin.facturas.buscar',
+        'uses'=> 'Admin\factureController@buscar'
+        ]);
 
       Route::get('/api/v1/coordinates/{name}', function($name) {
         try {
@@ -325,6 +315,8 @@
         //PUNTOS DE ENTREGA//
         Route::resource('admin/mapa','Admin\MapController');
         Route::resource('admin/despacho','Admin\MapController');
+        /*FCATURAS*/
+        Route::resource('admin/facturas','Admin\factureController');
 
       });
 

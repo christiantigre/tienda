@@ -32,7 +32,7 @@
             </div>
             <br/>
 
-            <span style="font-size:18px;"><strong>BANCO DEL LITORAL S.A.</strong></span><br/>
+            <span style="font-size:18px;"><strong>{{ $dt_empres->nom }}</strong></span><br/>
 
             <span style="font-size:12px;"><strong>Dir. MATRIZ: </strong>{{ $dt_empres->dirmatriz }}<br/>
 
