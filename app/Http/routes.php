@@ -339,6 +339,11 @@
 
 
 // PRUEBAS     firma 
+      Route::get('gen/', [
+        'as' => 'gen',
+        'uses' => 'Admin\logsController@gen'
+        ]);
+
       Route::get('file/{dir}', [
         'as' => 'file',
         'uses' => 'CarritoController@makeDir'
