@@ -56,7 +56,7 @@
         </p>
 
         <!--tab-->
-        {!! Form::open(['route'=>'admin.facturas.buscar'])!!}
+        {!! Form::open(['route'=>'admin.facturas.buscar'],['url'=>'buscar'],['method'=>'GET'],['role'=>'search'])!!}
         <div class="form-group">
           <label class="control-label col-md-3 col-sm-3 col-xs-12">Numero de factura :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form-group">
-        <label class="control-label col-md-3 col-sm-3 col-xs-12">Clave de acceso :</label>
+          <label class="control-label col-md-3 col-sm-3 col-xs-12">Clave de acceso :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
             {!! Form::text('claveacceso',null,array('class'=>'form-control', 'placeholder'=>'Ingrese datos...', 'autofocus'=>'autofocus','autocomplete'=>'off'
               )
@@ -87,19 +87,19 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <!--<div class="form-group">
           <label class="control-label col-md-3 col-sm-3 col-xs-12">Fecha de emisión :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('date',null,array('class'=>'form-control', 'placeholder'=>'Ingrese datos...', 'autofocus'=>'autofocus','autocomplete'=>'off'
+          {!! Form::text('date',null,array('class'=>'form-control datepicker', 'placeholder'=>'Seleccione la fecha...', 'autofocus'=>'autofocus','autocomplete'=>'off'
               )
             ) 
             !!}
           </div>
-        </div>
+        </div>-->
 
         <div class="ln_solid"></div>
         <div class="form-group">
-        <br/>
+          <br/>
           <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
             {!! Form::submit('Buscar', array('class'=>'btn btn-success')) !!}
           </div>
@@ -111,4 +111,11 @@
 </div>
 </div>
 </div>
+<script type="text/javascript">
+  $('.datepicker').datepicker({
+    format: "dd/mm/yyyy",
+    language: "es",
+    autoclose: true
+  });
+</script>
 @stop

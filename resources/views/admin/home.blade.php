@@ -23,8 +23,20 @@
   <link href="{{ asset('admin/css/icheck/flat/green.css') }}" rel="stylesheet" />
   <link href="{{ asset('admin/css/floatexamples.css') }}" rel="stylesheet" type="text/css" />
 
+  <!--Jquery-->
   <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
+  <script
+        src="https://code.jquery.com/jquery-1.11.3.min.js"
+        integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
+        crossorigin="anonymous"></script>
 
+  <!--Datepicker bootsrap 1.6.4 en fuscar facturas por fecha-->
+  
+  <link href="{{ asset('botstrapdatepicker1.6.4/css/bootstrap-datepicker3.css') }}" rel="stylesheet">
+  <link href="{{ asset('botstrapdatepicker1.6.4/css/bootstrap-datepicker3-standalone.css') }}" rel="stylesheet">
+  <script src="{{ asset('botstrapdatepicker1.6.4/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ asset('botstrapdatepicker1.6.4/locales/bootstrap-datepicker.es.min.js') }}"></script>
+  
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -41,7 +53,6 @@
         <body class="nav-md">
 
           <div class="container body">
-
 
             <div class="main_container">
               @if (Auth::user()->rol===1)
