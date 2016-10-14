@@ -76,7 +76,36 @@ class factureController extends Controller
 
 	public function buscar(Request $request)
 	{
-		dd($request);
+		$the_sales = new sales;
+
+		$numfactura = trim($request->get('numfactura'));
+		$claveacceso = trim($request->get('claveacceso'));
+		$num_autoriz = trim($request->get('num_autoriz'));
+		if ($numfactura=="") {
+			$numfactura = "0";
+		}else{
+			$sales = \DB::table('sales')->where('numfactura','LIKE','%'.$numfactura.'%')
+			->orderBy('id','asc')
+			->get();
+			return view('admin.facturas.detall',compact('sales'));
+		}
+		if ($claveacceso=="") {
+			$claveacceso = "0";
+		}else{
+			$sales = \DB::table('sales')->where('claveacceso','LIKE','%'.$claveacceso.'%')
+			->orderBy('id','asc')
+			->get();
+			return view('admin.facturas.detall',compact('sales'));
+		}
+		if ($num_autoriz=="") {
+			$num_autoriz = "0";
+		}else{
+			$sales = \DB::table('sales')->where('num_autoriz','LIKE','%'.$num_autoriz.'%')
+			->orderBy('id','asc')
+			->get();
+			return view('admin.facturas.detall',compact('sales'));
+		}
+
 	}
 
 

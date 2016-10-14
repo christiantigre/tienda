@@ -33,7 +33,18 @@
   <link href="{{ asset('admin/js/datatables/fixedHeader.bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('admin/js/datatables/responsive.bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
   <link href="{{ asset('admin/js/datatables/scroller.bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+  <!--JQUERY-->
+  <script
+  src="https://code.jquery.com/jquery-1.11.3.min.js"
+  integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
+  crossorigin="anonymous"></script>
 
+  <!--Datepicker bootsrap 1.6.4 en fuscar facturas por fecha-->
+  
+  <link href="{{ asset('botstrapdatepicker1.6.4/css/bootstrap-datepicker3.css') }}" rel="stylesheet">
+  <link href="{{ asset('botstrapdatepicker1.6.4/css/bootstrap-datepicker3-standalone.css') }}" rel="stylesheet">
+  <script src="{{ asset('botstrapdatepicker1.6.4/js/bootstrap-datepicker.js') }}"></script>
+  <script src="{{ asset('botstrapdatepicker1.6.4/locales/bootstrap-datepicker.es.min.js') }}"></script>
 
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
@@ -59,8 +70,8 @@
             @endif
 
             <div class="main_container">
-            <!--Roles-->
-            
+              <!--Roles-->
+              
               @if (Auth::user()->rol===1)
               @include('admin.partials.navAdmin')
               @elseif (Auth::user()->rol===3)
