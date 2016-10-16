@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Moneda;
 use App\isactive;
+use App\Svlog;
 
 class MonedaController extends Controller
 {
@@ -15,6 +16,9 @@ class MonedaController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
     	$monedas = Moneda::all();
+
+               $this->genLog("Ingresó en gestión de monedas");
+
     	return view('admin.moneda.index', compact('monedas'));}else{
                 \Auth::logout();
                 return redirect('login');
@@ -58,6 +62,12 @@ class MonedaController extends Controller
     		]);
     	$message = $moneda ? 'Moneda creada correctamente': 'La moneda no se pudo crear';
     	return redirect()->route('admin.moneda.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
 }

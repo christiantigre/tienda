@@ -9,19 +9,23 @@ use App\Http\Controllers\Controller;
 use App\intentos;
 use App\Seguridad;
 use App\isactive;
+use App\Svlog;
 
 class ModuloSegController extends Controller
 {
     public function index(){
     	$seguridades = Seguridad::all();
-    	//dd($seguridad);
-    	return view('admin.seguridad.index',compact('seguridades'));
+        $this->genLog("Ingresó a configuración del modulo de seguridad");
+        return view('admin.seguridad.index',compact('seguridades'));
     }
+
 
     public function create(){
     	$intentos = intentos::orderBy('id', 'desc')->lists('intentos','id');
+        $this->genLog("Ingresó a crear perfíl de intentos de login");
     	return view('admin.seguridad.create', compact('intentos'));
     }
+
 
     public function store(Request $request){
     	$this->validate($request, [
@@ -34,24 +38,32 @@ class ModuloSegController extends Controller
     		]);
 
     	$message = $seguridad ? 'Nuevo perfíl creado correctamente': 'El perfíl no se pudo crear';
+        $this->genLog("Creó a nuevo perfíl");
     	return redirect()->route('admin.seguridad.index')->with('message', $message);
     }
 
+
     public function edit(Seguridad $seguridad){
-    	//dd($seguridad);
     	$intentos = intentos::orderBy('id', 'desc')->lists('intentos','id');
-    	//dd($intentos);
+        $this->genLog("Ingresó a editar perfíl id ".$seguridad->id);
     	return view('admin.seguridad.edit', compact('intentos','seguridad'));
     }
 
+
     public function update(Request $request, Seguridad $seguridad){
-        //dd($request->all());
         $seguridad->fill($request->all());
-        //$brand->$request->get('statu_id');
         $updated = $seguridad->save();
 
         $message = $updated ? 'Cambios realizados correctamente': 'No se puedioeron realizar los cambios';
+        $this->genLog("Actualizó perfíl con id ".$seguridad->id);
         return redirect()->route('admin.seguridad.index')->with('message', $message);
+    }
+
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
 }

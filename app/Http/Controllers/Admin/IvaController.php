@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Iva;
 use App\isactive;
+use App\Svlog;
 
 class IvaController extends Controller
 {
@@ -15,6 +16,9 @@ class IvaController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
     	$ivas = Iva::all();
+
+               $this->genLog("Ingresó en gestión de iva que maneja la empresa");
+
     	return view('admin.iva.index', compact('ivas'));}else{
                 \Auth::logout();
                 return redirect('login');
@@ -60,6 +64,12 @@ class IvaController extends Controller
     	$updated = $iva->save();
     	$message = $updated ? 'Iva actualizado correctamente': 'El valor no se pudo actualizar';
     	return redirect()->route('admin.iva.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
     

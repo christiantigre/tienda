@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Position;
+use App\Svlog;
 
 class CargoController extends Controller
 {
@@ -14,6 +15,8 @@ class CargoController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
     	$positions = Position::orderBy('id','poss')->paginate(5);
+               $this->genLog("Ingresó en gestión de cargos en la empresa");
+
     	return view('admin.position.index', compact('positions'));
     }else{
                 \Auth::logout();
@@ -66,6 +69,12 @@ class CargoController extends Controller
 
     	$message = $deleted ? 'El cargo se elimino correctamente': 'El cargo no se pudo eliminar';
     	return redirect()->route('admin.position.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
 }

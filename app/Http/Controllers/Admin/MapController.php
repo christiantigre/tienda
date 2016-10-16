@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Pedido;
 use Carbon\Carbon;
+use App\Svlog;
 
 class MapController extends Controller
 {
@@ -21,6 +22,7 @@ class MapController extends Controller
 				->join('status','pedido.status_id','=','status.id')
 				->select(\DB::raw('pedido.id as pedido,pedido.entrega, pedido.ubiclt as lat ,pedido.ubiclg as lng,status.statu as estado'))->where('pedido.date','=',$date)->where('pedido.ubiclg','!=','0')->where('pedido.ubiclt','!=','0')->get();
 				$contadorpedidos =count($locations);
+				$this->genLog("Ingresó a visualizar los puntos de entregas del dia ".$date);
 				return view('admin.mapa.today',compact('locations','contadorpedidos'));
 			}else{
 				\Auth::logout();
@@ -43,11 +45,16 @@ class MapController extends Controller
 		->where('status_id','!=','7')
 		->orderBy('id','asc')
 		->get();
-		//dd($pedido);
+		$this->genLog("Ingresó a realizar entregas");
 		return view('admin.despacho.index',compact('pedidos'));
 	}
 
 
+	public function genLog($mensaje)
+	{
+		$area = 'Administracion';
+		$logs = Svlog::log($mensaje,$area);
+	}
 
 
 }

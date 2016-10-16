@@ -11,6 +11,7 @@ use App\Proveedor;
 use App\Country;
 use App\Province;
 use App\Isactive;
+use App\Svlog;
 
 class ProveedorController extends Controller
 {
@@ -18,6 +19,7 @@ class ProveedorController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
             	$proveedors = Proveedor::all();
+                $this->genLog("Ingresó a gestión de proveedores");
             	return view('admin.proveedor.index', compact('proveedors'));
             }else{
                 \Auth::logout();
@@ -85,4 +87,12 @@ class ProveedorController extends Controller
     	$message = $deleted ? 'El proveedor se elimino correctamente': 'El proveedor no se pudo eliminar';
     	return redirect()->route('admin.proveedor.index')->with('message', $message);
     }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
+    }
+
+
 }

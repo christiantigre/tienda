@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\availablesproducts;
+use App\Svlog;
 
 class availableproductController extends Controller
 {
@@ -26,4 +27,10 @@ class availableproductController extends Controller
 		    	return back();
 		    }
 		}
+
+		public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
+    }
 }

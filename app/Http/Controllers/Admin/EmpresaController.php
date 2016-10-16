@@ -11,6 +11,7 @@ use App\Empresaa;
 use App\Moneda;
 use App\Iva;
 use Validator;
+use App\Svlog;
 
 class EmpresaController extends Controller
 {
@@ -18,6 +19,7 @@ class EmpresaController extends Controller
         if(\Auth::check()){
             if(\Auth::user()->is_admin){
                $data = Empresaa::select()->first();
+                $this->genLog("Ingresó en panel Tienda, inf de empresa");
                return view('admin.entiti.index', compact('data'));
            }else{
             \Auth::logout();
@@ -90,5 +92,12 @@ public function update(SaveEmpresaRequest $request,$id){
 public function updated(Request $request,$id){
     dd($request);
 }
+
+public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
+    }
+
 
 }

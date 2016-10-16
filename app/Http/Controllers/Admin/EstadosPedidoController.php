@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Statu;
+use App\Svlog;
 
 class EstadosPedidoController extends Controller
 {
@@ -15,6 +16,7 @@ class EstadosPedidoController extends Controller
         if(\Auth::user()->is_admin){
     	$status = Statu::all();
         $status = Statu::orderBy('id','statu')->paginate(10);
+               $this->genLog("Ingresó en gestión de estados del pedido");
     	return view('admin.status.index', compact('status'));
     }else{
                 \Auth::logout();
@@ -65,6 +67,12 @@ class EstadosPedidoController extends Controller
 
         $message = $deleted ? 'El estado se elimino correctamente': 'El estado no se pudo eliminar';
         return redirect()->route('admin.status.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
 }

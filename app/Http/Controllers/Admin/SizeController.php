@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Size;
+use App\Svlog;
 
 class SizeController extends Controller
 {
@@ -14,6 +15,7 @@ class SizeController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$sizes = Size::all();
+               $this->genLog("Ingresó en gestión de tamaño de productos");
 				return view('admin.size.index', compact('sizes'));
 			}else{
 				\Auth::logout();
@@ -57,4 +59,10 @@ class SizeController extends Controller
 		$message = $deleted ? 'El Tamaño se elimino correctamente': 'El tamaño no se pudo eliminar';
 		return redirect()->route('admin.size.index')->with('message', $message);
 	}
+
+	public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
+    }
 }

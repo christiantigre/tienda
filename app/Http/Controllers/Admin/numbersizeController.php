@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\numbersize;
 use validate;
+use App\Svlog;
 
 class numbersizeController extends Controller
 {
@@ -15,6 +16,8 @@ class numbersizeController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$numbers = numbersize::all();
+               $this->genLog("Ingresó en gestión de numero de productos");
+
 				return view('admin.numbersize.index', compact('numbers'));
 			}else{
 				\Auth::logout();
@@ -55,6 +58,12 @@ class numbersizeController extends Controller
     	$deleted = $numbersize->delete();
     	$message = $deleted ? 'El registro se elimino correctamente': 'El registro no se pudo eliminar';
     	return redirect()->route('admin.numbersize.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 
 

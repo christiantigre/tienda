@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\available;
 use App\validate;
+use App\Svlog;
 
 class AvailableController extends Controller
 {
@@ -15,6 +16,8 @@ class AvailableController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$availables = available::all();
+               $this->genLog("Ingresó en gestión de disponibles de productos");
+
 				return view('admin.available.index', compact('availables'));
 			}else{
 				\Auth::logout();
@@ -68,4 +71,10 @@ class AvailableController extends Controller
     $message = $deleted ? 'El disponible se elimino correctamente': 'El disponible no se pudo eliminar';
     return redirect()->route('admin.available.index')->with('message', $message);
 }
+
+public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
+    }
 }

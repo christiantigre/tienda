@@ -8,14 +8,16 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\intentos;
 use App\isactive;
+use App\Svlog;
 
 class IntentosController extends Controller
 {
     public function index(){
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
+
     	$intentos = intentos::all();
-    	//dd($intentos);
+        $this->genLog("Ingresó a gestión de intentos de login");
     	return view('admin.seguridad.intentos.index', compact('intentos'));
     }else{
         \Auth::logout();
@@ -28,11 +30,11 @@ class IntentosController extends Controller
 
     public function create(){
     	$status = isactive::orderBy('val', 'desc')->lists('name','val');
+        $this->genLog("Ingresó a crear nuevo intento de login");
     	return view('admin.seguridad.intentos.create', compact('status'));
     }
 
     public function store(Request $request){
-    	//return $request->all();
 
     	$this->validate($request, [
     		'intentos'=>'required|unique:intentos|max:255'
@@ -43,7 +45,8 @@ class IntentosController extends Controller
     		'isactive_id'=>$request->get('statu_id')
     		]);
 
-    	$message = $intentos ? 'Nuevo intento cread correctamente': 'El intento no se pudo crear';
+    	$message = $intentos ? 'Nuevo intento cread correctamente': 'El intento no se pudo crear';        
+        $this->genLog("Creó intento de login");
     	return redirect()->route('admin.seguridad.intentos.index')->with('message', $message);
     }
 
@@ -53,18 +56,16 @@ class IntentosController extends Controller
     }
 
     public function edit(intentos $intentos){
-    	$status = isactive::orderBy('val', 'desc')->lists('name','val');
-    	//dd($intentos);
+    	$status = isactive::orderBy('val', 'desc')->lists('name','val');    	
+        $this->genLog("Ingresó a editar intentos con id ".$intentos->id);
     	return view('admin.seguridad.intentos.edit', compact('status','intentos'));
     }
 
     public function update(Request $request, intentos $intento){
-    	//dd($request->all());
     	$intento->fill($request->all());
-    	//$brand->$request->get('statu_id');
     	$updated = $intento->save();
-
     	$message = $updated ? 'Intento actualizado correctamente': 'El intento no se pudo actualizar';
+        $this->genLog("Actualizó intento de login con id ".$intento->id);
     	return redirect()->route('admin.seguridad.intentos.index')->with('message', $message);
     }
 
@@ -72,6 +73,13 @@ class IntentosController extends Controller
     	$deleted = $intentos->delete();
 
     	$message = $deleted ? 'El intento se elimino correctamente': 'El intento no se pudo eliminar';
+        $this->genLog("Eliminó intentos de login con id ".$intentos->id);
     	return redirect()->route('admin.seguridad.intentos.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Department;
+use App\Svlog;
 
 class DepartmentController extends Controller
 {
@@ -14,6 +15,7 @@ class DepartmentController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
     	$departments = Department::orderBy('id','depart')->paginate(5);
+               $this->genLog("Ingresó en gestión de departamentos");
     	return view('admin.department.index', compact('departments'));
     }else{
                 \Auth::logout();
@@ -66,5 +68,11 @@ class DepartmentController extends Controller
 
     	$message = $deleted ? 'El departamento se elimino correctamente': 'El Departamento no se pudo eliminar';
     	return redirect()->route('admin.department.index')->with('message', $message);
+    }
+
+    public function genLog($mensaje)
+    {
+        $area = 'Administracion';
+        $logs = Svlog::log($mensaje,$area);
     }
 }

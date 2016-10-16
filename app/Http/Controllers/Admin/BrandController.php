@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Brand;
 use App\isactive;
+use App\Svlog;
 
 class BrandController extends Controller
 {
@@ -15,6 +16,7 @@ class BrandController extends Controller
         if(\Auth::check()){
         if(\Auth::user()->is_admin){
     	$brands = Brand::all();
+               $this->genLog("Ingresó en gestión de marcas");
     	return view('admin.brand.index', compact('brands'));
     }else{
         \Auth::logout();
@@ -57,12 +59,16 @@ class BrandController extends Controller
     }
 
     public function update(Request $request, Brand $brand){
-    	//dd($request->all());
     	$brand->fill($request->all());
-    	//$brand->$request->get('statu_id');
     	$updated = $brand->save();
 
     	$message = $updated ? 'Marca actualizada correctamente': 'La marca no se pudo actualizar';
     	return redirect()->route('admin.brand.index')->with('message', $message);
     }
+
+    public function genLog($mensaje)
+{
+    $area = 'Administracion';
+    $logs = Svlog::log($mensaje,$area);
+}
 }

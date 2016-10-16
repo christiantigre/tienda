@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use App\Iva;
 use App\Moneda;
 use App\product;
+use App\Svlog;
 
 class SalesController extends Controller
 {
@@ -26,336 +27,344 @@ class SalesController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$pedido = Pedido::orderBy('id', 'desc')->get();
-				return view('admin.sales.index', compact('pedido'));}else{
-					\Auth::logout();
-					return redirect('login');
-				}
+
+				$this->genLog("Ingresó a gestión de ventas");
+				return view('admin.sales.index', compact('pedido'));
 			}else{
 				\Auth::logout();
+				return redirect('login');
 			}
+		}else{
+			\Auth::logout();
+		}
+	}
+
+	public function edit(Pedido $pedido, $id)
+	{
+		$pedido = Pedido::select()->where('id','=',$id)->first();
+		$item = ItemPedido::where('pedido_id','=',$pedido->id)->orderBy('id', 'asc')->get();
+		$perfil = client::select()->where('id','=',$pedido->users_id)->get();
+		$dt_empress = Empresaa::select()->get();
+		$status = statu::orderBy('id', 'asc')->lists('statu','id');
+		$this->genLog("Ingresó a editar venta #".$pedido->id);
+
+		return view('admin.sales.edit',compact('pedido','item','perfil','dt_empress','status'));
+	}
+
+	public function update(Request $request,$id)
+	{
+		$pedido = Pedido::orderBy('id', 'desc')->get();
+		$p= Pedido::find($id);
+		$data = ['status_id' => $request->get('status_id')];
+		if ($data['status_id'] === '8') {
+			$this->generaArchivos($id);
 		}
 
-		public function edit(Pedido $pedido, $id)
-		{
-			$pedido = Pedido::select()->where('id','=',$id)->first();
-			$item = ItemPedido::where('pedido_id','=',$pedido->id)->orderBy('id', 'asc')->get();
-			$perfil = client::select()->where('id','=',$pedido->users_id)->get();
-			$dt_empress = Empresaa::select()->get();
-			$status = statu::orderBy('id', 'asc')->lists('statu','id');
-			return view('admin.sales.edit',compact('pedido','item','perfil','dt_empress','status'));
-		}
+		$p->fill($data);
+		$updated = $p->save();
+		$pedidoshow = Pedido::select()->where('id','=',$id)->first();
+		$item = ItemPedido::where('pedido_id','=',$id)->orderBy('id', 'asc')->get();
+		$perfil = client::select()->where('id','=',$p->users_id)->get();
+		$dt_empress = Empresaa::select()->get();
+		$message = $updated ? 'Pedido actualizado correctamente': 'El pedido no se pudo actualizar';
+		$this->genLog("Actualizó a venta #".$id);
+		return view('admin.sales.show',compact('pedidoshow','item','perfil','dt_empress'));
+	}
 
-		public function update(Request $request,$id)
-		{
-			$pedido = Pedido::orderBy('id', 'desc')->get();
-			$p= Pedido::find($id);
-			$data = ['status_id' => $request->get('status_id')];
-			if ($data['status_id'] === '8') {
-				$this->generaArchivos($id);
-			}
 
-			$p->fill($data);
-			$updated = $p->save();
-			$pedidoshow = Pedido::select()->where('id','=',$id)->first();
-			$item = ItemPedido::where('pedido_id','=',$id)->orderBy('id', 'asc')->get();
-			$perfil = client::select()->where('id','=',$p->users_id)->get();
-			$dt_empress = Empresaa::select()->get();
-			$message = $updated ? 'Pedido actualizado correctamente': 'El pedido no se pudo actualizar';
-			return view('admin.sales.show',compact('pedidoshow','item','perfil','dt_empress'));
-			/*return view('admin.sales.index',compact('pedido'))->with('message', $message);*/
-		}
+	public function generaArchivos($id){
+		$sales = \DB::table('sales')->where('pedido_id', '=', $id)->get();
+		$factura = $this->generanumerofactura();
+		$claveacceso = $this->generaclaveacceso($factura);
+		$verificador = $this->generaDigitoModulo11($claveacceso);
+		$codigogenerado = $claveacceso.''.$verificador.'';
+		$sale = sales::create(
+			[
+			'pedido_id'=>$id,
+			'numfactura'=>$factura,
+			'claveacceso'=>$codigogenerado,
+			'gen_xml'=>'0',
+			'fir_xml'=>'0',
+			'aut_xml'=>'0',
+			'convrt_ride'=>'0',
+			'send_xml'=>'0',
+			'send_pdf'=>'0'        
+			]);
+		$this->generaXml($id);
+		$this->firmarXml($codigogenerado);
+		$this->genLog("Se generó archivo xml ".$id);			
+		return view('admin.sales.factura',compact('sales'));      
+	}
 
-		public function generaArchivos($id){
-			$sales = \DB::table('sales')->where('pedido_id', '=', $id)->get();
-      //dd($id);
-			$factura = $this->generanumerofactura();
-			$claveacceso = $this->generaclaveacceso($factura);
-			$verificador = $this->generaDigitoModulo11($claveacceso);
-      //dd($verificador);
-			$codigogenerado = $claveacceso.''.$verificador.'';
-			$sale = sales::create(
-				[
-				'pedido_id'=>$id,
-				'numfactura'=>$factura,
-				'claveacceso'=>$codigogenerado,
-				'gen_xml'=>'0',
-				'fir_xml'=>'0',
-				'aut_xml'=>'0',
-				'convrt_ride'=>'0',
-				'send_xml'=>'0',
-				'send_pdf'=>'0'        
-				]);
-			$this->generaXml($id);
-			$this->firmarXml($codigogenerado);
-			return view('admin.sales.factura',compact('sales'));      
-		}
 
-		public function show(Pedido $pedido, $id)
-		{
-			$pedidoshow = Pedido::select()->where('id','=',$id)->first();
-			$item = ItemPedido::where('pedido_id','=',$pedidoshow->id)->orderBy('id', 'asc')->get();
-			$perfil = client::select()->where('id','=',$pedidoshow->users_id)->get();
-			$dt_empress = Empresaa::select()->get();
-			$status = statu::orderBy('id', 'asc')->lists('statu','id');
-			return view('admin.sales.show',compact('pedidoshow','item','perfil','dt_empress','status'));
-		}
+	public function show(Pedido $pedido, $id)
+	{
+		$pedidoshow = Pedido::select()->where('id','=',$id)->first();
+		$item = ItemPedido::where('pedido_id','=',$pedidoshow->id)->orderBy('id', 'asc')->get();
+		$perfil = client::select()->where('id','=',$pedidoshow->users_id)->get();
+		$dt_empress = Empresaa::select()->get();
+		$status = statu::orderBy('id', 'asc')->lists('statu','id');
+                $this->genLog("Visualizó venta #".$pedido->id);			
+				return view('admin.sales.show',compact('pedidoshow','item','perfil','dt_empress','status'));
+	}
 
-		public function sendxml($claveacceso)
-		{
-			$sales = \DB::table('sales')->where('claveacceso', '=', $claveacceso)->get();
-			$this->sendEmail($claveacceso);
-			return view('admin.sales.factura',compact('sales'));
-		}
 
-		public function sendpdf($claveacceso)
-		{
-			$sales = \DB::table('sales')->where('claveacceso', '=', $claveacceso)->get();
-			$this->sendEmail($claveacceso);
-			return view('admin.sales.factura',compact('sales'));
-		}
+	public function sendxml($claveacceso)
+	{
+		$sales = \DB::table('sales')->where('claveacceso', '=', $claveacceso)->get();
+		$this->sendEmail($claveacceso);
+                $this->genLog("Envió archivo xml".$claveacceso);			
+				return view('admin.sales.factura',compact('sales'));
+	}
 
-		public function factura($idpedido)
-		{
 
-			$sales = \DB::table('sales')->where('pedido_id', '=', $idpedido)->get();
+	public function sendpdf($claveacceso)
+	{
+		$sales = \DB::table('sales')->where('claveacceso', '=', $claveacceso)->get();
+		$this->sendEmail($claveacceso);
+                $this->genLog("Envió archivo pdf".$claveacceso);			
+				return view('admin.sales.factura',compact('sales'));
+	}
 
-        //$sales = sales::select()->where('pedido_id','=',$idpedido)->first();
 
-        //$the_sale = new sales;
-        //$sales = $the_sale->select()->where('pedido_id','=',$idpedido)->first();
-			return view('admin.sales.factura',compact('sales'));
-		}
+	public function factura($idpedido)
+	{
 
-		public function sendEmail($clavedeacceso)
-		{
-			$dt_empress = new Empresaa;
-			$the_sales = new sales;
-			$the_user = new User;
-			$the_pedido = new pedido;
-			$the_cliente = new client;
-			$empresa = $dt_empress->select()->first();
-			$sales = $the_sales->select()->where('claveacceso', '=', $clavedeacceso)->first();
+		$sales = \DB::table('sales')->where('pedido_id', '=', $idpedido)->get();
+                $this->genLog("Visualizó factura de venta #".$idpedido);			
+				return view('admin.sales.factura',compact('sales'));
+	}
 
-			$pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
-			$orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
-			$users = $the_user->select()->where('id', '=', $orders->users_id)->first();
-			$clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
-			$data['empresa'] = $emp = $empresa->nom;
-			$data['tlfun'] = $tlfun = $empresa->tlfun;
-			$data['tlfds'] = $tlfds = $empresa->tlfds;
-			$data['cel'] = $cel = $empresa->cel;
-			$data['dir'] = $dir = $empresa->dir;
-			$data['pagweb'] = $pagweb = $empresa->pagweb;
-			$data['email'] = $email = $empresa->email;
-			$data['count'] = $count = $empresa->count;
-			$data['ciu'] = $ciu = $empresa->ciu;
-			$data['email_cliente'] = $emailcliente = $clientes->email;
-			$data['name'] = $nombrecliente = $clientes->name;
-			$rutai = public_path();
-			$ruta = str_replace("\\", "//", $rutai);
-			$data['xml'] = $autorizados = $ruta.'//archivos//'.'autorizados'.'//'.$clavedeacceso.'.xml';
-			$data['pdf'] =         $convertidos = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
-			$data['clave'] = $clavedeacceso;
-			if (file_exists($autorizados)){ 
-				if (file_exists($convertidos)){ 
-					\Mail::send("emails.comprobantesMail", ['data'=>$data], function($message) use($data){
-						$message->to($data['email_cliente'], "christian ")
-						->subject("Comprobante Electrónico");
-						$rutaPdf=$data['xml'];
-						$rutaXml=$data['pdf'];
-						$message->attach($rutaXml);
-						$message->attach($rutaPdf);
-					});
-					\DB::table('sales')
-					->where('claveacceso', $clavedeacceso)
-					->update(['send_xml' => '1','send_pdf'=>'1']);
-					$pdfdelete = $clavedeacceso.".pdf"; 
-					$xmldelete = $clavedeacceso.".xml"; 
-					$this->moveFile($clavedeacceso);
-					$this->deleteFile("generados",$xmldelete);
-					$this->deleteFile("firmados",$xmldelete);
-					$this->deleteFile("autorizados",$xmldelete);
-					$this->deleteFile("noautorizados",$xmldelete);
-					$this->deleteFile("temp",$xmldelete);
-					$this->deleteFile("pdf",$pdfdelete);
+	public function sendEmail($clavedeacceso)
+	{
+		$dt_empress = new Empresaa;
+		$the_sales = new sales;
+		$the_user = new User;
+		$the_pedido = new pedido;
+		$the_cliente = new client;
+		$empresa = $dt_empress->select()->first();
+		$sales = $the_sales->select()->where('claveacceso', '=', $clavedeacceso)->first();
 
-					$message = 'Enviado correctamente';
-				}else{
-					\DB::table('sales')
-					->where('claveacceso', $clavedeacceso)
-					->update(['send_pdf' => '0']);
-					$message = 'No se pudo enviar correctamente';
-				}
+		$pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
+		$orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
+		$users = $the_user->select()->where('id', '=', $orders->users_id)->first();
+		$clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
+		$data['empresa'] = $emp = $empresa->nom;
+		$data['tlfun'] = $tlfun = $empresa->tlfun;
+		$data['tlfds'] = $tlfds = $empresa->tlfds;
+		$data['cel'] = $cel = $empresa->cel;
+		$data['dir'] = $dir = $empresa->dir;
+		$data['pagweb'] = $pagweb = $empresa->pagweb;
+		$data['email'] = $email = $empresa->email;
+		$data['count'] = $count = $empresa->count;
+		$data['ciu'] = $ciu = $empresa->ciu;
+		$data['email_cliente'] = $emailcliente = $clientes->email;
+		$data['name'] = $nombrecliente = $clientes->name;
+		$rutai = public_path();
+		$ruta = str_replace("\\", "//", $rutai);
+		$data['xml'] = $autorizados = $ruta.'//archivos//'.'autorizados'.'//'.$clavedeacceso.'.xml';
+		$data['pdf'] =         $convertidos = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
+		$data['clave'] = $clavedeacceso;
+		if (file_exists($autorizados)){ 
+			if (file_exists($convertidos)){ 
+				\Mail::send("emails.comprobantesMail", ['data'=>$data], function($message) use($data){
+					$message->to($data['email_cliente'], "christian ")
+					->subject("Comprobante Electrónico");
+					$rutaPdf=$data['xml'];
+					$rutaXml=$data['pdf'];
+					$message->attach($rutaXml);
+					$message->attach($rutaPdf);
+				});
+				\DB::table('sales')
+				->where('claveacceso', $clavedeacceso)
+				->update(['send_xml' => '1','send_pdf'=>'1']);
+				$pdfdelete = $clavedeacceso.".pdf"; 
+				$xmldelete = $clavedeacceso.".xml"; 
+				$this->moveFile($clavedeacceso);
+				$this->deleteFile("generados",$xmldelete);
+				$this->deleteFile("firmados",$xmldelete);
+				$this->deleteFile("autorizados",$xmldelete);
+				$this->deleteFile("noautorizados",$xmldelete);
+				$this->deleteFile("temp",$xmldelete);
+				$this->deleteFile("pdf",$pdfdelete);
+
+				$message = 'Enviado correctamente';
 			}else{
 				\DB::table('sales')
 				->where('claveacceso', $clavedeacceso)
-				->update(['send_xml' => '0']);
+				->update(['send_pdf' => '0']);
 				$message = 'No se pudo enviar correctamente';
 			}
-			return view('admin.sales.factura',compact('sales'));
+		}else{
+			\DB::table('sales')
+			->where('claveacceso', $clavedeacceso)
+			->update(['send_xml' => '0']);
+			$message = 'No se pudo enviar correctamente';
+		}
+		return view('admin.sales.factura',compact('sales'));
+	}
+
+	private function moveFile($clavedeacceso){
+		$rutai = public_path();
+		$ruta = str_replace("\\", "//", $rutai);
+		$origen = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
+		$destino = $ruta.'//archivos//'.'enviados'.'//'.$clavedeacceso.'.pdf';
+		copy($origen, $destino);
+	}
+
+	protected function deleteFile($directorio,$archivo){
+		$rutai = public_path();
+		$ruta = str_replace("\\", "\\", $rutai);
+		$archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
+		if (file_exists($archivo)) {
+			unlink($archivo);
+		}
+	}
+
+	public function firmarXml($nombrexml){
+		$dt_empress = Empresaa::select()->get();
+		$rutai = public_path();
+		$ruta = str_replace("\\", "//", $rutai);
+		$rout = $this->makeDir('firmados');
+		$rout = $this->makeDir('noautorizados');
+		$rout = $this->makeDir('autorizados');
+		$rout = $this->makeDir('temp');
+		$rout = $this->makeDir('pdf');
+		$autorizados = $ruta.'//archivos//'.'autorizados'.'//';
+		$enviados = $ruta.'//'.'enviados'.'//';
+		$firmados = $ruta.'//archivos//firmados//';
+		$generados = $ruta.'/archivos//generados'.'/';
+		$noautorizados = $ruta.'//archivos//'.'noautorizados'.'//';
+		$certificado = $ruta.'//archivos//certificado//';
+		$WshShell = new \COM("WScript.Shell");
+		foreach ($dt_empress as $dt_empres) {
+			$rutafirma = $dt_empres->pathcertificate;
+			$passcertificate = $dt_empres->passcertificate;
+			$pass = '"'.$passcertificate.'"';
+			$pathfirma = '"'.$certificado.$rutafirma.'"';
+			$xml = $nombrexml.'.xml';
+			$pathsalida = $firmados;
+			$pathgenerado = $generados.$nombrexml.'.xml';
+			$jar = $ruta.'//DevelopedSignature/dist/firmaJava.jar';
+			$cmd = 'cmd /C java -jar '.$jar.' '.$pathfirma.' '.$pass.' '.$pathgenerado.' '.$pathsalida.' '.$xml.' ';
+			$oExec = $WshShell->Run($cmd, 0, false);   
+			$pathxmlfirmado = $pathsalida.''.$xml;
+			$xmlautorizados = $autorizados.$nombrexml.'.xml';
+			$xmlNoautorizados = $noautorizados.$nombrexml.'.xml'; 
+			\DB::table('sales')->where('claveacceso', $nombrexml)->update(['fir_xml' => '1']);
+			$this->enviarautorizar($pathxmlfirmado,$nombrexml,$xmlautorizados,$xmlNoautorizados);         
+		}
+	}
+
+	public function enviarautorizar($pathXmlFirmado,$claveAcceso,$autorizados,$rechazados){
+		$start_time = microtime(true);
+		$rutai = public_path();
+		$ruta = str_replace("\\", "//", $rutai);
+		$WshShell = new \COM("WScript.Shell");
+		$linkRecepcion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
+		$linkAutorizacion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
+		$jar = $ruta.'//SRI//dist//SRI.jar';
+		$cmd = 'cmd /C java -jar '.$jar.' '.$pathXmlFirmado.' '.$claveAcceso.' '.$autorizados.' '.$rechazados.' '.$linkRecepcion.' '.$linkAutorizacion. ' ';
+		$oExec = $WshShell->Run($cmd, 0, false);
+		if ($oExec=='0') {
+			\DB::table('sales')
+			->where('claveacceso', $claveAcceso)
+			->update(['aut_xml' => '1']);
+			sleep(30);
+			$this->revisarXml($claveAcceso);   
+		} else {
+			\DB::table('sales')
+			->where('claveacceso', $claveAcceso)
+			->update(['aut_xml' => '0']);
 		}
 
-		private function moveFile($clavedeacceso){
-			$rutai = public_path();
-			$ruta = str_replace("\\", "//", $rutai);
-			$origen = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
-			$destino = $ruta.'//archivos//'.'enviados'.'//'.$clavedeacceso.'.pdf';
-			copy($origen, $destino);
-		}
 
-		protected function deleteFile($directorio,$archivo){
-			$rutai = public_path();
-			$ruta = str_replace("\\", "\\", $rutai);
-			$archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
-			if (file_exists($archivo)) {
-				unlink($archivo);
-			}
-		}
+	}
 
-		public function firmarXml($nombrexml){
-			$dt_empress = Empresaa::select()->get();
-			$rutai = public_path();
-			$ruta = str_replace("\\", "//", $rutai);
-			$rout = $this->makeDir('firmados');
-			$rout = $this->makeDir('noautorizados');
-			$rout = $this->makeDir('autorizados');
-			$rout = $this->makeDir('temp');
-			$rout = $this->makeDir('pdf');
-			$autorizados = $ruta.'//archivos//'.'autorizados'.'//';
-			$enviados = $ruta.'//'.'enviados'.'//';
-			$firmados = $ruta.'//archivos//firmados//';
-			$generados = $ruta.'/archivos//generados'.'/';
-			$noautorizados = $ruta.'//archivos//'.'noautorizados'.'//';
-			$certificado = $ruta.'//archivos//certificado//';
-			$WshShell = new \COM("WScript.Shell");
-			foreach ($dt_empress as $dt_empres) {
-				$rutafirma = $dt_empres->pathcertificate;
-				$passcertificate = $dt_empres->passcertificate;
-				$pass = '"'.$passcertificate.'"';
-				$pathfirma = '"'.$certificado.$rutafirma.'"';
-				$xml = $nombrexml.'.xml';
-				$pathsalida = $firmados;
-				$pathgenerado = $generados.$nombrexml.'.xml';
-				$jar = $ruta.'//DevelopedSignature/dist/firmaJava.jar';
-				$cmd = 'cmd /C java -jar '.$jar.' '.$pathfirma.' '.$pass.' '.$pathgenerado.' '.$pathsalida.' '.$xml.' ';
-				$oExec = $WshShell->Run($cmd, 0, false);   
-				$pathxmlfirmado = $pathsalida.''.$xml;
-				$xmlautorizados = $autorizados.$nombrexml.'.xml';
-				$xmlNoautorizados = $noautorizados.$nombrexml.'.xml'; 
-				\DB::table('sales')->where('claveacceso', $nombrexml)->update(['fir_xml' => '1']);
-				$this->enviarautorizar($pathxmlfirmado,$nombrexml,$xmlautorizados,$xmlNoautorizados);         
-			}
-		}
-
-		public function enviarautorizar($pathXmlFirmado,$claveAcceso,$autorizados,$rechazados){
-			$start_time = microtime(true);
-			$rutai = public_path();
-			$ruta = str_replace("\\", "//", $rutai);
-			$WshShell = new \COM("WScript.Shell");
-			$linkRecepcion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
-			$linkAutorizacion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
-			$jar = $ruta.'//SRI//dist//SRI.jar';
-			$cmd = 'cmd /C java -jar '.$jar.' '.$pathXmlFirmado.' '.$claveAcceso.' '.$autorizados.' '.$rechazados.' '.$linkRecepcion.' '.$linkAutorizacion. ' ';
-			$oExec = $WshShell->Run($cmd, 0, false);
-			if ($oExec=='0') {
-				\DB::table('sales')
-				->where('claveacceso', $claveAcceso)
-				->update(['aut_xml' => '1']);
-				sleep(30);
-				$this->revisarXml($claveAcceso);   
-			} else {
-				\DB::table('sales')
-				->where('claveacceso', $claveAcceso)
-				->update(['aut_xml' => '0']);
-			}
-
-
-		}
-
-		public function revisarXml($claveacceso){
-			$claveAcceso = $claveacceso;
-			$rutai = public_path();
-			$ruta = str_replace("\\", "\\", $rutai);
+	public function revisarXml($claveacceso){
+		$claveAcceso = $claveacceso;
+		$rutai = public_path();
+		$ruta = str_replace("\\", "\\", $rutai);
 			//$xmlPath = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\".$claveAcceso.".xml";
-			$xmlPath = $ruta."\\archivos\\autorizados\\".$claveAcceso.".xml";
-			if (file_exists($xmlPath)){     
+		$xmlPath = $ruta."\\archivos\\autorizados\\".$claveAcceso.".xml";
+		if (file_exists($xmlPath)){     
 
        //lee el xml y decodifica
-				$content = utf8_encode(file_get_contents($xmlPath));
-				$xml = \simplexml_load_string($content);
-				$cont = (integer) $xml['counter'];
-				$xml['counter'] = $cont + 1;
+			$content = utf8_encode(file_get_contents($xmlPath));
+			$xml = \simplexml_load_string($content);
+			$cont = (integer) $xml['counter'];
+			$xml['counter'] = $cont + 1;
         //guarda temporalmente el xml decodificado
-				$xml->asXML($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
+			$xml->asXML($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
         //obtiene los valores de los campos del archivo temporal decodificado
-				$doc = new \DOMDocument();
-				$doc->load($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
+			$doc = new \DOMDocument();
+			$doc->load($ruta."\\archivos\\temp\\".$claveAcceso.".xml");
             // Reading tag's value.
-				$estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
-				if ($estado == "AUTORIZADO") {
-					$numAut = $doc->getElementsByTagName("numeroAutorizacion")->item(0)->nodeValue;
-					$fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;  
-					\DB::table('sales')
-					->where('claveacceso', $claveAcceso)
-					->update(['num_autoriz' => $numAut,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
-					$this->generaPdf($claveAcceso); 
-				} else {
-					$fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
-					$mensaje = $doc->getElementsByTagName("mensajes")->item(0)->nodeValue; 
-					$estado="NO AUTORIZADO";
-					\DB::table('sales')
-					->where('claveacceso', $claveAcceso)
-					->update(['mensaje' => $mensaje,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
-				} 
-			}else{ 
-				$this->firmarXml($claveacceso);
-				$message = 'Se ha generado correctamente el comprobante electrónico.';
+			$estado = $doc->getElementsByTagName("estado")->item(0)->nodeValue;
+			if ($estado == "AUTORIZADO") {
+				$numAut = $doc->getElementsByTagName("numeroAutorizacion")->item(0)->nodeValue;
+				$fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;  
+				\DB::table('sales')
+				->where('claveacceso', $claveAcceso)
+				->update(['num_autoriz' => $numAut,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
+				$this->generaPdf($claveAcceso); 
+			} else {
+				$fechAut = $doc->getElementsByTagName("fechaAutorizacion")->item(0)->nodeValue;
+				$mensaje = $doc->getElementsByTagName("mensajes")->item(0)->nodeValue; 
+				$estado="NO AUTORIZADO";
+				\DB::table('sales')
+				->where('claveacceso', $claveAcceso)
+				->update(['mensaje' => $mensaje,'fech_autoriz'=>$fechAut,'estado_aprob'=>$estado]);
+			} 
+		}else{ 
+			$this->firmarXml($claveacceso);
+			$message = 'Se ha generado correctamente el comprobante electrónico.';
 
-				\Session::flash('flash_message', $message); 
-			}
-
+			\Session::flash('flash_message', $message); 
 		}
 
-		public function generaPdf($claveacceso){
-			$rutai = public_path();
-			$ruta = str_replace("\\", "//", $rutai);
-			$rutasl = str_replace("\\", "\\", $rutai);
-			$dt_empress = Empresaa::select()->get();
-			$claveAcceso = $claveacceso;
-			$the_sales = new sales;
-			$the_user = new User;
-			$the_pedido = new pedido;
-			$the_cliente = new client;
-			$the_item = new ItemPedido;
-			$date = Carbon::now();
-			$date->timezone = new \DateTimeZone('America/Guayaquil');
-			$date = $date->format('d/m/Y');
-			$sales = $the_sales->select()->where('claveacceso', '=', $claveAcceso)->first();
-			$aux_sales = \DB::table('sales')->where('claveacceso', '=', $claveAcceso)->get();
-			$orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
-			$pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
-			$users = $the_user->select()->where('id', '=', $orders->users_id)->first();
-			$clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
-			$aux_clientes = \DB::table('clients')->where('id', '=', $users->id)->get();
-			$items = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
-			$pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress,'aux_sales'=>$aux_sales,'aux_clientes'=>$aux_clientes,'date'=>$date,'items'=>$items,'pedidos'=>$pedidos]);
+	}
+
+	public function generaPdf($claveacceso){
+		$rutai = public_path();
+		$ruta = str_replace("\\", "//", $rutai);
+		$rutasl = str_replace("\\", "\\", $rutai);
+		$dt_empress = Empresaa::select()->get();
+		$claveAcceso = $claveacceso;
+		$the_sales = new sales;
+		$the_user = new User;
+		$the_pedido = new pedido;
+		$the_cliente = new client;
+		$the_item = new ItemPedido;
+		$date = Carbon::now();
+		$date->timezone = new \DateTimeZone('America/Guayaquil');
+		$date = $date->format('d/m/Y');
+		$sales = $the_sales->select()->where('claveacceso', '=', $claveAcceso)->first();
+		$aux_sales = \DB::table('sales')->where('claveacceso', '=', $claveAcceso)->get();
+		$orders = $the_pedido->select()->where('id',$sales->pedido_id)->first();
+		$pedidos = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
+		$users = $the_user->select()->where('id', '=', $orders->users_id)->first();
+		$clientes = $the_cliente->select()->where('id', '=', $users->id)->first();
+		$aux_clientes = \DB::table('clients')->where('id', '=', $users->id)->get();
+		$items = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
+		$pdf = \PDF::loadView('pdf/vista',['dt_empress'=>$dt_empress,'aux_sales'=>$aux_sales,'aux_clientes'=>$aux_clientes,'date'=>$date,'items'=>$items,'pedidos'=>$pedidos]);
+		\DB::table('sales')
+		->where('claveacceso', $claveAcceso)
+		->update(['convrt_ride' => '1']);
+			//$pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
+		$pdf->save($rutasl."\\archivos\\pdf\\".$claveAcceso.".pdf");
+
+		$rutaPdf = $ruta."//archivos//pdf//".$claveAcceso.".pdf";      
+		$pdf->save($rutaPdf);
+		if (file_exists($rutaPdf)){
 			\DB::table('sales')
 			->where('claveacceso', $claveAcceso)
 			->update(['convrt_ride' => '1']);
-			//$pdf->save("C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\".$claveAcceso.".pdf");
-			$pdf->save($rutasl."\\archivos\\pdf\\".$claveAcceso.".pdf");
-
-			$rutaPdf = $ruta."//archivos//pdf//".$claveAcceso.".pdf";      
-			$pdf->save($rutaPdf);
-			if (file_exists($rutaPdf)){
-				\DB::table('sales')
-				->where('claveacceso', $claveAcceso)
-				->update(['convrt_ride' => '1']);
-				$this->sendEmail($claveAcceso);
-			}else{
-				$this->firmarXml($claveAcceso);
-			}
+			$this->sendEmail($claveAcceso);
+		}else{
+			$this->firmarXml($claveAcceso);
 		}
+	}
 
 private function generaXml($idpedido){ //$this->deleteDir("autorizados");
 $pedidoshow = Pedido::select()->where('id', '=', $idpedido)->first();
@@ -710,6 +719,12 @@ public function makeDir($nameDir)
 		mkdir($dir, 0777, true);
 	}
 	return $dir;
+}
+
+public function genLog($mensaje)
+{
+	$area = 'Administracion';
+	$logs = Svlog::log($mensaje,$area);
 }
 
 }

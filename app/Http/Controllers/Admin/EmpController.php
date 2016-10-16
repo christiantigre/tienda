@@ -28,7 +28,6 @@ class EmpController extends Controller
             if(\Auth::user()->is_admin){
                 $emps = Emp::all();
                 $this->genLog("Ingresó a gestión de personal");
-
                 return view('admin.emp.index', compact('emps'));
             }else{
                 \Auth::logout();
@@ -105,7 +104,8 @@ class EmpController extends Controller
         $countries = Country::orderBy('id', 'asc')->lists('country','id');
         $provinces = Province::orderBy('id', 'desc')->lists('prov','id');
         $isactives = Isactive::orderBy('id', 'asc')->lists('name','id');
-        return view('admin.emp.show', compact('emp','positions','departments','countries','provinces','isactives'));
+        $this->genLog("Visualizó personal ".$emp->cedula);
+                return view('admin.emp.show', compact('emp','positions','departments','countries','provinces','isactives'));
     }
 
     /**
@@ -121,6 +121,8 @@ class EmpController extends Controller
         $countries = Country::orderBy('id', 'asc')->lists('country','id');
         $provinces = Province::orderBy('id', 'desc')->lists('prov','id');
         $isactives = Isactive::orderBy('id', 'asc')->lists('name','id');
+        $this->genLog("Ingreso a editar personal ".$emp->cedula);
+
         return view('admin.emp.edit',compact('emp','positions','departments','countries','isactives','provinces'));
     }
 
@@ -137,6 +139,8 @@ class EmpController extends Controller
         $updated = $emp->save();
 
         $message = $updated ? 'Empleado actualizado correctamente': 'El empleado no se pudo actualizar';
+        $this->genLog("Actualizó personal ".$emp->cedula);
+
         return redirect()->route('admin.emp.index')->with('message', $message);
     }
 
@@ -151,6 +155,8 @@ class EmpController extends Controller
         $deleted = $emp->delete();
 
         $message = $deleted ? 'El empleado se elimino correctamente': 'empleadoproducto no se pudo eliminar';
+        $this->genLog("Eliminó personal ".$emp->cedula);
+
         return redirect()->route('admin.emp.index')->with('message', $message);
     }
 
