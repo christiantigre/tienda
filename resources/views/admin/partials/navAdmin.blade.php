@@ -66,6 +66,16 @@
             </li>                 
           </ul>
         </li>
+        <li><a><i class="fa fa-bar-chart"></i> Inventario <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu" style="display: none">
+            <li><a href="{{ route('admin.inventario.index') }}">Productos</a>
+            </li>
+            <li><a href="{{ route('admin.sales.index') }}">Ventas</a>
+            </li>
+            <li><a href="{{ route('admin.sales.index') }}">Entregas</a>
+            </li>                 
+          </ul>
+        </li>
         <li><a><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
             <li><a href="tables.html">Tables</a>

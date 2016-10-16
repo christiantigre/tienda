@@ -803,6 +803,7 @@ class CarritoController extends Controller
     }
 
     protected function saveOrderItem($product, $order_id){
+      //$this->actualizaInventarios($product->id, $product->cantt);
       ItemPedido::create([
         'products_id' => $product->id,
         'cant' => $product->cantt,
@@ -930,6 +931,7 @@ class CarritoController extends Controller
     }
   }
 
+
   private function moveFile($clavedeacceso){
     $rutai = public_path();
     $ruta = str_replace("\\", "//", $rutai);
@@ -937,6 +939,7 @@ class CarritoController extends Controller
     $destino = $ruta.'//archivos//'.'enviados'.'//'.$clavedeacceso.'.pdf';
     copy($origen, $destino);
   }
+
 
   public function deleteDir($dir){
     $rutai = public_path();
@@ -952,6 +955,7 @@ class CarritoController extends Controller
     }
   }
 
+
   public function makeDir($nameDir)
   {
     $rutai = public_path();
@@ -961,6 +965,18 @@ class CarritoController extends Controller
       mkdir($dir, 0777, true);
     }
     return $dir;
+  }
+
+
+  public function actualizaInventarios($idProducto, $cantidad)
+  {    
+    $the_product = new Product;
+    $modProd = $the_product->select()->where('id', '=', $idProducto)->first();  
+    $cant = $modProd->cant;
+    $nuevaCant = $cantidad - $cant;
+    \DB::table('products')
+    ->where('id', $idProducto)
+    ->update(['cant' => $nuevaCant]);
   }
 
 

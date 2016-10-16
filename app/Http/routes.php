@@ -317,6 +317,8 @@
         Route::resource('admin/despacho','Admin\MapController');
         /*FCATURAS*/
         Route::resource('admin/facturas','Admin\factureController');
+        /*INVENTARIO*/
+        Route::resource('admin/inventario','Admin\invController@index');        
 
       });
 
@@ -339,6 +341,11 @@
 
 
 // PRUEBAS     firma 
+      Route::get('admin/inv/', [
+        'as' => 'inv',
+        'uses' => 'Admin\invController@index'
+        ]);
+
       Route::get('gen/', [
         'as' => 'gen',
         'uses' => 'Admin\logsController@genLog'
