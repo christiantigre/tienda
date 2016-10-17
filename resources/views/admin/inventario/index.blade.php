@@ -50,8 +50,8 @@
         <div class="x_content">
          <h1>
 
-          <a href="{{ route('admin.product.create') }}" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Producto</a>
+          <a href="{{ route('admin.inventario.imprimir') }}" class="btn btn-success">
+           <i class="fa fa-download"></i> Producto</a>
            
          </h1>
          

@@ -8,12 +8,14 @@ use Carbon\Carbon;
 class Svlog extends Model
 {
     public function scopelog($query, $mensaje,$area){
+		
 		$date = Carbon::now();
-		$datesegundos = Carbon::now();
-		$datesegundos = $datesegundos->format('m-d-Y // H:i:s');
-
-
 		$date->timezone = new \DateTimeZone('America/Guayaquil');
+		$datesegundos = Carbon::now();
+		$datesegundos -> toDateTimeString();
+		//$datesegundos = $datesegundos->format('m-d-Y // H:i:s');
+
+
 		$date = $date->format('m-d-Y');
 
 		$rutai = public_path();

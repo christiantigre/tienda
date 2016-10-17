@@ -329,6 +329,13 @@
         'uses' => 'Admin\MapController@showRoute'
         ]);
 
+      /*INVENTARIO*/
+      Route::get('imprimir/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.imprimir',
+        'uses' => 'Admin\invController@imprimir'
+        ]);
+
       Route::auth();
 
       Route::get('/home', 'StoreController@index');

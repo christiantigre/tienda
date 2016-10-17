@@ -25,35 +25,47 @@ class invController extends Controller
 
 
 	public function index(){
+
 		if(\Auth::check()){
+
 			if(\Auth::user()->is_admin){
-				//SELECT products.slug,products.nombre,products.cant,products.pre_ven,products.category_id,products.brand_id,products.sections_id FROM `products` LEFT JOIN products_numbersizes on products_numbersizes.products_id = products.id GROUP BY products.slug 
-
-
-				//$products = Product::orderBy('id', 'desc')->paginate(10);
-				//$products = Product::orderBy('id', 'desc')->get();
-				/*$products = Product::orderBy('products.id','asc')
-				->leftJoin('products_numbersizes','products.id','=','products_numbersizes.products_id')
-				->get();*/
 
 				$products = \DB::select('SELECT products.slug,products.nombre,products.cant,products.pre_ven,categories.name,brands.brand,sections.name FROM `products` LEFT JOIN products_numbersizes on products_numbersizes.products_id = products.id join categories on products.category_id = categories.id join brands on products.brand_id = brands.id JOIN sections on products.sections_id = sections.id GROUP BY products.slug ');
-				/*
-				->join('brands','products.brand_id','=','brands.id')
-				->join('sections','products.sections_id','=','sections.id')
-				->join('categories','products.category_id','=','categories.id')
-				->join('numbersizes','products_numbersizes.numbersizes_id','=','numbersizes.id')
-				*/
+
 				$this->genLog("Ingresó a inventario de productos");
 				return view('admin.inventario.index', compact('products'));
-				//SELECT * FROM `products_numbersizes` przi left OUTER JOIN products pr on przi.products_id = pr.id 
+
 			}else{
+
 				\Auth::logout();
 				$this->genLog("No autorizado a gestión productos");            
 				return redirect('login');
+
 			}
-		}else{
-			\Auth::logout();
+
 		}
+		else
+		{
+
+			\Auth::logout();
+
+		}
+
+	}
+
+
+
+	public function imprimir()
+	{
+		$products = \DB::select('SELECT products.slug,products.nombre,products.cant,products.pre_ven,categories.name,brands.brand,sections.name FROM `products` LEFT JOIN products_numbersizes on products_numbersizes.products_id = products.id join categories on products.category_id = categories.id join brands on products.brand_id = brands.id JOIN sections on products.sections_id = sections.id GROUP BY products.slug ');
+
+		$this->genLog("Imprimió a inventario de productos");
+		$pdf = \App::make('dompdf.wrapper');
+		$pdf = \PDF::loadView('admin.inventario.imprimir',['products'=>$products]);
+
+		return $pdf->stream();
+
+		//return view('admin.inventario.index', compact('products'));
 	}
 
 
