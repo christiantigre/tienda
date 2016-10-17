@@ -63,9 +63,9 @@
        <table id="datatable" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Detalles</th>
-            <th>Dar de baja</th>
-            <th>Modificar</th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>Producto</th>
             <th>Nombre</th>
             <th>Sección</th>
@@ -82,33 +82,33 @@
          @foreach($products as $product)
          <tr>
           <td>
-            <a href="{{ route('admin.product.show',$product->slug) }}" class="btn btn-default">
+            <a href="{{ route('admin.product.show',$product->slug) }}" title="DETALLES" class="btn btn-default">
               <i class="fa fa-eye"></i>
             </a>
           </td>
           <td>
            {!! Form::open(['route'=> ['admin.product.destroy', $product->slug]]) !!}
            <input type="hidden" name="_method" value="DELETE">	
-           <button onClick="return confirm('Desea eliminar este registro?')" class="btn btn-danger">
+           <button onClick="return confirm('Desea eliminar este registro?')" title="ELIMINAR" class="btn btn-danger">
             <i class="fa fa-trash-o"></i>
           </button>
           {!! Form::close() !!}
         </td>
         <td>
-         <a href="{{ route('admin.product.edit',$product->slug) }}" class="btn btn-warning">
+         <a href="{{ route('admin.product.edit',$product->slug) }}" title="MODIFICAR" class="btn btn-warning">
           <i class="fa fa-pencil-square"></i>
         </a>
       </td>
       <td>
         <img width="75" height="75" src="/upload/products/{{ $product->img }}" alt="img" />
       </td>
-      <td><h3>{{ $product->nombre }}</h3></td>
-      <td><h3>{{ $product->sections->name }}</h3></td>
-      <td><h3>{{ $product->cant }}</h3></td>
-      <td><h3>${{ number_format($product->pre_ven,2) }}</h3></td>
-      <td><h3>{{ $product->category->name }}</h3></td>
-      <td><h3>{{ $product->isactive_id ==1 ? "Si" : "No" }}</h3></td>
-      <td><h3>{{ $product->catalogo ==1 ? "Si" : "No" }}</h3></td>
+      <td>{{ $product->nombre }}</td>
+      <td>{{ $product->sections->name }}</td>
+      <td>{{ $product->cant }}</td>
+      <td>${{ number_format($product->pre_ven,2) }}</td>
+      <td>{{ $product->category->name }}</td>
+      <td>{{ $product->isactive_id ==1 ? "Si" : "No" }}</td>
+      <td>{{ $product->catalogo ==1 ? "Si" : "No" }}</td>
     </tr>
     @endforeach
   </tbody>
