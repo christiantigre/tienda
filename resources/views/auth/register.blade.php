@@ -76,31 +76,34 @@
 
 
             <div class="form-group{{ $errors->has('terms_of_service') ? ' has-error' : '' }}">
-                <div class="col-md-8">
+                <div class="col-md-8" style="font:0.5em;">
                     <p>
-                        <span>
-                           <div class="col-md-1 col-md-offset-2">
-                                {{ Form::checkbox('terms_of_service', 1, null) }}                                           
-                            </div>        
-                                <a href="">Acepto los términos, condiciónes y la Declaración de privacidad</a>                  
+                        <span style="font-size:0.5em;">
+                         <div class="col-md-1 col-md-offset-2">
+                            {{ Form::checkbox('terms_of_service', 1, null) }}                                           
+                        </div>    
+                        Al marcar esta casilla aceptas todos nuestros 
+                        <a href="" id="ver-tyc" data-toggle="modal" data-target="#myModal">términos</a>, 
+                        <a href="" id="ver-tyc" data-toggle="modal" data-target="#myModal">condiciónes</a> y la
+                        <a href="" id="ver-tyc" data-toggle="modal" data-target="#myModal">Declaración de privacidad</a>.                                        
                         
-                        </span>
-                    </p>
-                    @if ($errors->has('terms_of_service'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('terms_of_service') }} </strong>
                     </span>
-                    @endif
-                </div>
+                </p>
+                @if ($errors->has('terms_of_service'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('terms_of_service') }} </strong>
+                </span>
+                @endif
             </div>
+        </div>
 
-            <div class="form-group">
-                <div class="col-md-8 col-md-offset-4">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-btn fa-user"></i> Registrar
-                    </button>
-                </div>
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-4">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-btn fa-user"></i> Registrar
+                </button>
             </div>
+        </div>
 
 
     </form>

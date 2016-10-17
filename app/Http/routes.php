@@ -348,6 +348,12 @@
         'uses' => 'Admin\invController@excel'
         ]);
 
+      /*TERMINOS Y CONDICIONES*/
+      Route::get('term/', [
+        'as' => 'term',
+        'uses' => 'StoreController@terminosCondiciones'
+        ]);
+
       Route::auth();
 
       Route::get('/home', 'StoreController@index');
