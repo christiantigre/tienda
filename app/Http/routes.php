@@ -335,6 +335,18 @@
         'as' => 'admin.inventario.imprimir',
         'uses' => 'Admin\invController@imprimir'
         ]);
+      
+      Route::get('download/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.download',
+        'uses' => 'Admin\invController@download'
+        ]);
+
+      Route::get('excel/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.excel',
+        'uses' => 'Admin\invController@excel'
+        ]);
 
       Route::auth();
 

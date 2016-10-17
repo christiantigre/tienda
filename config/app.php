@@ -185,6 +185,8 @@ return [
         Milon\Barcode\BarcodeServiceProvider::class,
         /*imagenes intervention*/
         Intervention\Image\ImageServiceProvider::class,
+        /*EXCEL*/
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         
         ],
 
@@ -242,6 +244,7 @@ return [
     'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
     'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
     'Image' => Intervention\Image\Facades\Image::class,
+    'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         //'LaravelOpensslEncryption' => Neoxia\LaravelOpensslEncryption::Facade::class,        
 
     ],

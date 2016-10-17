@@ -22,7 +22,8 @@
         "milon/barcode": "^5.2",
         "intervention/image": "^2.3",
         "webcraft/laravel-random": "^1.0",
-        "predis/predis": "^1.1"
+        "predis/predis": "^1.1",
+        "maatwebsite/excel": "~2.0"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
