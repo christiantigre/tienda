@@ -50,8 +50,17 @@
         <div class="x_content">
          <h1>
 
-          <a href="{{ route('admin.inventario.imprimir') }}" class="btn btn-success">
-           <i class="fa fa-download"></i> Producto</a>
+          <a href="{{ route('admin.inventario.imprimir') }}" class="btn btn-default">
+           <i class="fa fa-eye"></i> VER 
+           </a>
+
+           <a href="{{ route('admin.inventario.download') }}" class="btn btn-danger">
+           <i class="fa fa-download"></i> PDF 
+           </a>
+
+           <a href="{{ route('admin.inventario.excel') }}" class="btn btn-success">
+           <i class="fa fa-download"></i> EXCEL 
+           </a>
            
          </h1>
          

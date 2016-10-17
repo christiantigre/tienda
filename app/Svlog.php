@@ -13,8 +13,6 @@ class Svlog extends Model
 		$date->timezone = new \DateTimeZone('America/Guayaquil');
 		$datesegundos = Carbon::now();
 		$datesegundos -> toDateTimeString();
-		//$datesegundos = $datesegundos->format('m-d-Y // H:i:s');
-
 
 		$date = $date->format('m-d-Y');
 
