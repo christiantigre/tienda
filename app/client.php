@@ -21,4 +21,8 @@ class client extends Model
     	}    	
     }
 
+    public function provincia(){
+        return $this->belongsTo('App\Province');
+    }
+
 }

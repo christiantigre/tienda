@@ -318,8 +318,9 @@
         /*FCATURAS*/
         Route::resource('admin/facturas','Admin\factureController');
         /*INVENTARIO*/
-        Route::resource('admin/inventario','Admin\invController@index');        
-
+        Route::resource('admin/inventario','Admin\invController@index');     
+        /*CLIENTES*/   
+        Route::resource('admin/clients','Admin\clientController');     
       });
 
       /*DESPACHOS*/

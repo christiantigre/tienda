@@ -44,7 +44,7 @@
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.emp.index') }}">Empleados</a>
             </li>
-            <li><a href="form_advanced.html">Clientes</a>
+            <li><a href="{{ route('admin.clients.index') }}">Clientes</a>
             </li>                    
           </ul>
         </li>

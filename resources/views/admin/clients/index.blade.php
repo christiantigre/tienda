@@ -5,9 +5,9 @@
     <div class="page-title">
       <div class="title_left">
         <h3>
-          Proveedores
+          Clientes
           <small>
-            
+
           </small>
         </h3>
       </div>
@@ -29,7 +29,7 @@
      <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Proveedores <small>de productos</small></h2>
+          <h2>Clientes <small>  </small></h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a href="#"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -49,9 +49,9 @@
         </div>
         <div class="x_content">
          <h1>
-          
-          <a href="{{ route('admin.proveedor.create') }}" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Proveedores</a>
+
+          <a href="" class="btn btn-success">
+           <i class="fa fa-plus-circle"></i> Clientes</a>
            
          </h1>
          
@@ -63,51 +63,62 @@
        <table id="datatable" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Detalles</th>
-            <th>Dar de baja</th>
-            <th>Modificar</th>
-            <th>Compania</th>
-            <th>Contacto</th>
-            <th>Correo</th>
-            <th>Pais -/- Provincia</th>
+            <th></th>
+            <th></th>
+            <th>Foto</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Direcci&oacuten</th>
+            <th>Tlf</th>
+            <th>M&oacutevil</th>
             <th>Activo</th>
+            <th>Actividad</th>
           </tr>
         </thead>
 
 
         <tbody>
-         @foreach($proveedors as $proveedor)
+         @foreach($clients as $cliente)
          <tr>
           <td>
-            <a href="{{ route('admin.proveedor.show',$proveedor->id) }}" class="btn btn-default">
+            <a href="" title="DETALLES" class="btn btn-default">
               <i class="fa fa-eye"></i>
             </a>
           </td>
           <td>
-           {!! Form::open(['route'=> ['admin.proveedor.destroy', $proveedor]]) !!}
+
            <input type="hidden" name="_method" value="DELETE">	
-           <button onClick="return confirm('Desea eliminar este registro?')" class="btn btn-danger">
-            <i class="fa fa-trash-o"></i>
+           <button onClick="return confirm('Desea eliminar este registro?')" title="DESACTIVAR" class="btn btn-danger">
+            <i class="fa fa-level-down"></i>
           </button>
-          {!! Form::close() !!}
+
         </td>
         <td>
-         <a href="{{ route('admin.proveedor.edit',$proveedor->id) }}" class="btn btn-warning">
-          <i class="fa fa-pencil-square"></i>
-        </a>
-      </td>
-      <td><h4>{{ $proveedor->nom_compania }}</h4></td>
-      <td><h4>{{ $proveedor->telefono }}-/-{{ $proveedor->celular }}</h4></td>
-      <td><h4>{{ $proveedor->email }}</h4></td>
-      <td><h4>{{ $proveedor->country->country }}-/-{{ $proveedor->prov->prov }}</h4></td>
-      <td><h4>{{ $proveedor->isactive_id ==1 ? "Si" : "No" }}</h4></td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+          @if($cliente->path=="")
+            <img width="75" height="75" src="/upload/user.png" alt="img" />
+          @elseif($cliente->path!="")
+            <img width="75" height="75" src="/upload/{{ $cliente->path }}" alt="img" />
+          @endif
+        </td>
+        <td>{{ $cliente->name }} {{ $cliente->apellidos }}</td>
+        <td>{{ $cliente->email }}</td>
+        <td>{{ $cliente->dir1 }} {{ $cliente->dir2 }}({{ $cliente->prov }})</td>
+        <td>{{ $cliente->telefono }}</td>
+        <td>{{ $cliente->celular }}</td>
+        <td>{{ $cliente->status ==1 ? "Si" : "No" }}</td>
+        <td>{{ $cliente->actividad }}</td>
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+<hr>
+
+<?Php echo $clients->render(); ?>
+
 </div>
 </div>
-</div>
+
 </div>
 </div>
 </div>

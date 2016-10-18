@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -12,7 +13,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','status','is_admin','comfirm_token'
+        'name', 'email', 'password','status','is_admin','comfirm_token','rol','actividad'
     ];
 
 
@@ -28,5 +29,14 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    protected $dates = [
+        'actividad',
+    ];
+
     
+    public function scopeActividad($query)
+    {
+        $query->where('actividad','<=',Carbon::now());
+    }
 }
