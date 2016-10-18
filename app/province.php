@@ -14,4 +14,8 @@ class province extends Model
     	return $this->hasMany('App\Province');
     }
 
+    public function clients(){
+    	return $this->hasMany('App\Province');
+    }
+
 }

@@ -18,12 +18,14 @@ use Jleon\LaravelPnotify\Notify;
 use Jleon\LaravelPnotify\Notifier;
 use Laracasts\Flash\Flash;
 use Cache;
+use Carbon\Carbon;
 
 
 class StoreController extends Controller
 {
     public function index(){
-        if(\Auth::check()){            
+        if(\Auth::check()){  
+            $iduser = \Auth::user()->id;
             $key = Cache::get('key');
             Cache::forever('key','0');
             Cache::flush(); 
@@ -36,7 +38,9 @@ class StoreController extends Controller
             ->select(array('brand_id','brands.brand', \DB::raw('COUNT(brand_id) as cantidad')))
             ->groupBy('brand_id')
             ->get();
-
+            $date = Carbon::now();
+            $date->timezone = new \DateTimeZone('America/Guayaquil');
+            \DB::table('users')->where('id', $iduser)->update(['actividad' => $date]);
             return view('store.product.index', compact('products','sections','brands'));
         }else{
             $products = product::orderBy('id', 'desc')->where('catalogo','1')->paginate(6);
@@ -168,10 +172,10 @@ class StoreController extends Controller
                 return "No existe";
             }
             
-    }
+        }
 
-    public function makeDir($nameDir)
-    {
+        public function makeDir($nameDir)
+        {
             $rutai = public_path();
             $ruta = str_replace("\\", "\\", $rutai);
             $dir = $ruta.'\\'.$nameDir.'';
@@ -179,18 +183,18 @@ class StoreController extends Controller
               mkdir($dir, 0777, true);
           }
           return $dir;
-    }
+      }
 
-    public function makeFile()
-    {
+      public function makeFile()
+      {
         $termCondts = public_path();
         $termCondts = str_replace("\\", "//", $termCondts);
         $dir = $termCondts."/terminosCondiciones/terminosycondiciones.txt";
         if (!file_exists($dir)) {
           fopen($dir, "a");
-        }
-        return $dir;
-    }
+      }
+      return $dir;
+  }
 
 
 }

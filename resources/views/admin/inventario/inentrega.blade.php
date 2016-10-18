@@ -5,9 +5,9 @@
     <div class="page-title">
       <div class="title_left">
         <h3>
-          Proveedores
+          Inventario de Entregas
           <small>
-            
+
           </small>
         </h3>
       </div>
@@ -29,7 +29,7 @@
      <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Proveedores <small>de productos</small></h2>
+          <h2>Entregas <small>  </small></h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a href="#"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -49,9 +49,18 @@
         </div>
         <div class="x_content">
          <h1>
-          
-          <a href="{{ route('admin.proveedor.create') }}" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Proveedores</a>
+
+          <a href="{{ route('admin.inventario.imprimirent') }}" class="btn btn-default">
+           <i class="fa fa-eye"></i> VER 
+           </a>
+
+           <a href="{{ route('admin.inventario.downloadent') }}" class="btn btn-danger">
+           <i class="fa fa-download"></i> PDF 
+           </a>
+
+           <a href="{{ route('admin.inventario.excelent') }}" class="btn btn-success">
+           <i class="fa fa-download"></i> EXCEL 
+           </a>
            
          </h1>
          
@@ -61,53 +70,50 @@
          <!---->
        </p>
        <table id="datatable" class="table table-striped table-bordered">
+
         <thead>
           <tr>
-            <th>Detalles</th>
-            <th>Dar de baja</th>
-            <th>Modificar</th>
-            <th>Compania</th>
+            <th>#</th>
+            <th>Entrega</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
             <th>Contacto</th>
-            <th>Correo</th>
-            <th>Pais -/- Provincia</th>
-            <th>Activo</th>
+            <th>Provincia</th>
+            <th>Estado</th>
           </tr>
         </thead>
 
-
         <tbody>
-         @foreach($proveedors as $proveedor)
+        <?php $i = 1;?>
+         @foreach($entregas as $entrega)
          <tr>
+         <td><?php echo $i; ?></td>
           <td>
-            <a href="{{ route('admin.proveedor.show',$proveedor->id) }}" class="btn btn-default">
-              <i class="fa fa-eye"></i>
-            </a>
+            {{ $entrega->entrega }}
           </td>
           <td>
-           {!! Form::open(['route'=> ['admin.proveedor.destroy', $proveedor]]) !!}
-           <input type="hidden" name="_method" value="DELETE">	
-           <button onClick="return confirm('Desea eliminar este registro?')" class="btn btn-danger">
-            <i class="fa fa-trash-o"></i>
-          </button>
-          {!! Form::close() !!}
-        </td>
-        <td>
-         <a href="{{ route('admin.proveedor.edit',$proveedor->id) }}" class="btn btn-warning">
-          <i class="fa fa-pencil-square"></i>
-        </a>
-      </td>
-      <td><h4>{{ $proveedor->nom_compania }}</h4></td>
-      <td><h4>{{ $proveedor->telefono }}-/-{{ $proveedor->celular }}</h4></td>
-      <td><h4>{{ $proveedor->email }}</h4></td>
-      <td><h4>{{ $proveedor->country->country }}-/-{{ $proveedor->prov->prov }}</h4></td>
-      <td><h4>{{ $proveedor->isactive_id ==1 ? "Si" : "No" }}</h4></td>
-    </tr>
-    @endforeach
-  </tbody>
-</table>
+            {{ $entrega->date }}
+          </td>
+          <td>{{ $entrega->name }} {{ $entrega->apellidos }}</td>
+          <td>{{ $entrega->telefono }} {{ $entrega->celular }}</td>
+          <td>{{ $entrega->prov    }}</td>
+          <td>{{ $entrega->statu    }}</td>
+        </tr>
+        <?php $i++;?>
+        @endforeach
+      </tbody>
+
+    </table>
+  </div>
+  <hr>
+
+  <?Php 
+  //echo $products->render(); 
+  ?>
+
 </div>
 </div>
-</div>
+
 </div>
 </div>
 </div>
