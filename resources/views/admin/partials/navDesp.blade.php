@@ -43,9 +43,7 @@
         <li><a><i class="fa fa-pie-chart"></i> Ventas <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.sales.index') }}">Ventas</a>
-            </li>
-            <li><a href="media_gallery.html">Facturas</a>
-            </li>                  
+            </li>                 
           </ul>
         </li>
         <li><a><i class="fa fa-truck"></i> Rutas <span class="fa fa-chevron-down"></span></a>
@@ -55,6 +53,12 @@
           </ul>
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.mapa.index') }}">Solicitud de pedidos</a>
+            </li>                 
+          </ul>
+        </li>
+        <li><a><i class="fa fa-bar-chart"></i> Inventario <span class="fa fa-chevron-down"></span></a>
+          <ul class="nav child_menu" style="display: none">
+            <li><a href="{{ route('admin.inventario.inentrega') }}">Entregas</a>
             </li>                 
           </ul>
         </li>
