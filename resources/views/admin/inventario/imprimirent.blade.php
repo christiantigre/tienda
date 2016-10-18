@@ -6,7 +6,7 @@
 
   <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 
-  <title>Inventario de productos</title>
+  <title>Inventario de entregas</title>
   <link href="cssInventario/Inventario.css" rel="stylesheet"/>
   
 </head>
@@ -35,52 +35,38 @@
         @endforeach 
       </div>
     </fieldset>
-    <h1>INVENTARIO DE PRODUCTOS</h1>
+    <h1>INVENTARIO DE ENTREGAS</h1>
     <table class="detall" width="100%" border="1" cellspacing="0">
 
       <thead>
         <tr>
           <th>#</th>
-          <th>Codigo</th>
-          <th>Producto</th>
-          <th>Precio</th>
-          <th>Stock</th>
-          <th>Sección</th>
-          <th>Categoria</th>
-          <th>Marca</th>
+          <th>Entrega</th>
+          <th>Fecha</th>
+          <th>Cliente</th>
+          <th>Contacto</th>
+          <th>Provincia</th>
+          <th>Estado</th>
         </tr>
       </thead>
 
       <tbody>
-      <?php $i=1; ?>
-       @foreach($products as $product)
-       <tr>
-       <td><?php echo $i; ?></td>
-        <td>
-          {{ $product->slug }}
+        <?Php $i=1;?>
+        @foreach($entregas as $entrega)
+        <tr>
+         <td><?php echo $i; ?></td>
+         <td>
+          {{ $entrega->entrega }}
         </td>
         <td>
-          {{ $product->nombre }}
+          {{ $entrega->date }}
         </td>
-        <td>${{ number_format($product->pre_ven,2) }}</td>
-        <td>{{ $product->cant }}</td>
-        <td>{{ $product->name    }}</td>
-        <td>{{ $product->name }}</td>
-        <td>{{ $product->brand }}</td>
+        <td>{{ $entrega->name }} {{ $entrega->apellidos }}</td>
+        <td>{{ $entrega->telefono }} {{ $entrega->celular }}</td>
+        <td>{{ $entrega->prov    }}</td>
+        <td>{{ $entrega->statu    }}</td>
       </tr>
-      <?Php $i++; ?>
-      @endforeach
-      @foreach($sumas as $suma)
-       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td>${{ number_format($suma->precio,2) }}</td>
-        <td>{{ $suma->cantidad }}</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
+      <?php $i++;?>
       @endforeach
     </tbody>
   </table>

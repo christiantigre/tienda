@@ -5,7 +5,7 @@
     <div class="page-title">
       <div class="title_left">
         <h3>
-          Clientes
+          Inventario de Entregas
           <small>
 
           </small>
@@ -29,7 +29,7 @@
      <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Clientes <small>  </small></h2>
+          <h2>Entregas <small>  </small></h2>
           <ul class="nav navbar-right panel_toolbox">
             <li><a href="#"><i class="fa fa-chevron-up"></i></a>
             </li>
@@ -50,8 +50,17 @@
         <div class="x_content">
          <h1>
 
-          <a href="" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Clientes</a>
+          <a href="{{ route('admin.inventario.imprimirent') }}" class="btn btn-default">
+           <i class="fa fa-eye"></i> VER 
+           </a>
+
+           <a href="{{ route('admin.inventario.downloadent') }}" class="btn btn-danger">
+           <i class="fa fa-download"></i> PDF 
+           </a>
+
+           <a href="{{ route('admin.inventario.excelent') }}" class="btn btn-success">
+           <i class="fa fa-download"></i> EXCEL 
+           </a>
            
          </h1>
          
@@ -61,59 +70,46 @@
          <!---->
        </p>
        <table id="datatable" class="table table-striped table-bordered">
+
         <thead>
           <tr>
-            <th></th>
-            <th></th>
-            <th>Foto</th>
-            <th>Nombre</th>
-            <th>Email</th>
-            <th>Direcci&oacuten</th>
-            <th>Tlf</th>
-            <th>M&oacutevil</th>
-            <th>Activo</th>
-            <th>Actividad</th>
+            <th>#</th>
+            <th>Entrega</th>
+            <th>Fecha</th>
+            <th>Cliente</th>
+            <th>Contacto</th>
+            <th>Provincia</th>
+            <th>Estado</th>
           </tr>
         </thead>
 
-
         <tbody>
-         @foreach($clients as $cliente)
+        <?php $i = 1;?>
+         @foreach($entregas as $entrega)
          <tr>
+         <td><?php echo $i; ?></td>
           <td>
-            <a href="{{ route('admin.clients.show',$cliente->id) }}" title="DETALLES" class="btn btn-default">
-              <i class="fa fa-eye"></i>
-            </a>
+            {{ $entrega->entrega }}
           </td>
           <td>
-
-            <a href="{{ route('admin.clients.edit',$cliente->id) }}" title="EDITAR" class="btn btn-warning">
-              <i class="fa fa-pencil-square"></i>
-            </a>
-
+            {{ $entrega->date }}
           </td>
-          <td>
-            @if($cliente->path=="")
-            <img width="75" height="75" src="/upload/user.png" alt="img" />
-            @elseif($cliente->path!="")
-            <img width="75" height="75" src="/upload/{{ $cliente->path }}" alt="img" />
-            @endif
-          </td>
-          <td>{{ $cliente->name }} {{ $cliente->apellidos }}</td>
-          <td>{{ $cliente->email }}</td>
-          <td>{{ $cliente->dir1 }} {{ $cliente->dir2 }}({{ $cliente->prov }})</td>
-          <td>{{ $cliente->telefono }}</td>
-          <td>{{ $cliente->celular }}</td>
-          <td>{{ $cliente->status ==1 ? "Si" : "No" }}</td>
-          <td>{{ $cliente->actividad }}</td>
+          <td>{{ $entrega->name }} {{ $entrega->apellidos }}</td>
+          <td>{{ $entrega->telefono }} {{ $entrega->celular }}</td>
+          <td>{{ $entrega->prov    }}</td>
+          <td>{{ $entrega->statu    }}</td>
         </tr>
+        <?php $i++;?>
         @endforeach
       </tbody>
+
     </table>
   </div>
   <hr>
 
-  <?Php echo $clients->render(); ?>
+  <?Php 
+  //echo $products->render(); 
+  ?>
 
 </div>
 </div>

@@ -24,6 +24,14 @@ class User extends Authenticatable
     /**
      * The attributes that should be hidden for arrays.
      *
+     *foreach ($clients as $cliente) {
+                    //$user = User::find($cliente->id);
+                    $ultimaactiv = $user->actividad;
+                    $diffs = $ultimaactiv->diffForHumans(Carbon::now());
+                }
+
+        //$query->where('actividad','<=',Carbon::now());
+     *
      * @var array
      */
     protected $hidden = [
@@ -35,8 +43,18 @@ class User extends Authenticatable
     ];
 
     
-    public function scopeActividad($query)
+
+
+
+    public function actividad($query)
     {
-        $query->where('actividad','<=',Carbon::now());
+        $fecha = $query->diffForHumans(Carbon::now());
+        //return 1; 
+        return $fecha;
     }
+
+
+
+
+
 }

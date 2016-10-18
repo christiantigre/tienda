@@ -336,6 +336,18 @@
         'as' => 'admin.inventario.imprimir',
         'uses' => 'Admin\invController@imprimir'
         ]);
+
+      Route::get('imprimirvtn/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.imprimirvtn',
+        'uses' => 'Admin\invController@imprimirvtn'
+        ]);
+
+      Route::get('imprimirent/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.imprimirent',
+        'uses' => 'Admin\invController@imprimirent'
+        ]);      
       
       Route::get('download/', [
         'middleware' => 'auth', 
@@ -343,10 +355,46 @@
         'uses' => 'Admin\invController@download'
         ]);
 
+      Route::get('downloadvtn/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.downloadvtn',
+        'uses' => 'Admin\invController@downloadvtn'
+        ]);
+
+      Route::get('downloadent/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.downloadent',
+        'uses' => 'Admin\invController@downloadent'
+        ]);
+
       Route::get('excel/', [
         'middleware' => 'auth', 
         'as' => 'admin.inventario.excel',
         'uses' => 'Admin\invController@excel'
+        ]);
+
+      Route::get('excelvtn/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.excelvtn',
+        'uses' => 'Admin\invController@excelvtn'
+        ]);
+
+      Route::get('excelent/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.excelent',
+        'uses' => 'Admin\invController@excelent'
+        ]);
+      
+      Route::get('invventas/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.invventas',
+        'uses' => 'Admin\invController@invventas'
+        ]);
+
+      Route::get('inentrega/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.inventario.inentrega',
+        'uses' => 'Admin\invController@inentrega'
         ]);
 
       /*TERMINOS Y CONDICIONES*/

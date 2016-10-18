@@ -73,6 +73,7 @@
 
         <thead>
           <tr>
+            <th>#</th>
             <th>Codigo</th>
             <th>Producto</th>
             <th>Precio</th>
@@ -84,8 +85,10 @@
         </thead>
 
         <tbody>
+        <?Php $i=1;?>
          @foreach($products as $product)
          <tr>
+         <td><?Php echo $i;?></td>
           <td>
             {{ $product->slug }}
           </td>
@@ -98,6 +101,7 @@
           <td>{{ $product->name }}</td>
           <td>{{ $product->brand }}</td>
         </tr>
+        <?Php $i++;?>
         @endforeach
       </tbody>
 

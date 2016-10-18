@@ -70,9 +70,9 @@
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.inventario.index') }}">Productos</a>
             </li>
-            <li><a href="{{ route('admin.sales.index') }}">Ventas</a>
+            <li><a href="{{ route('admin.inventario.invventas') }}">Ventas</a>
             </li>
-            <li><a href="{{ route('admin.sales.index') }}">Entregas</a>
+            <li><a href="{{ route('admin.inventario.inentrega') }}">Entregas</a>
             </li>                 
           </ul>
         </li>
