@@ -195,6 +195,7 @@ class CarritoController extends Controller
 
           $date = Carbon::now();
           $date->timezone = new \DateTimeZone('America/Guayaquil');
+          //$date = $date->format('Y/m/d');
           $date = $date->format('d/m/Y');
 //  date('d/m/Y')
           $order = Pedido::create([

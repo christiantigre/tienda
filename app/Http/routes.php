@@ -321,6 +321,8 @@
         Route::resource('admin/inventario','Admin\invController@index');     
         /*CLIENTES*/   
         Route::resource('admin/clients','Admin\clientController');     
+        /*REPORTES*/
+        Route::resource('admin/reports/ventas','Admin\reportController');     
       });
 
       /*DESPACHOS*/
@@ -401,6 +403,12 @@
       Route::get('term/', [
         'as' => 'term',
         'uses' => 'StoreController@terminosCondiciones'
+        ]);
+
+      /*REPORTES VENTAS*/
+      Route::post('/reports/rango', [
+        'as' => 'admin.reports.rango',
+        'uses' => 'Admin\reportController@rango'
         ]);
 
       Route::auth();

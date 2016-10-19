@@ -26,9 +26,9 @@
   <!--Jquery-->
   <script src="{{ asset('admin/js/jquery.min.js') }}"></script>
   <script
-        src="https://code.jquery.com/jquery-1.11.3.min.js"
-        integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
-        crossorigin="anonymous"></script>
+  src="https://code.jquery.com/jquery-1.11.3.min.js"
+  integrity="sha256-7LkWEzqTdpEfELxcZZlS6wAx5Ff13zZ83lYO2/ujj7g="
+  crossorigin="anonymous"></script>
 
   <!--Datepicker bootsrap 1.6.4 en fuscar facturas por fecha-->
   
@@ -62,6 +62,7 @@
               @endif
               @include('admin.partials.messages')  
               <div class="right_col" role="main">    
+                @include('admin.partials.cajas')
                 <div class="">           
                   @include('admin.partials.footer')
                 </div>

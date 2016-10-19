@@ -78,7 +78,8 @@
               @include('admin.partials.navDesp')
               @endif
 
-              @include('admin.partials.messages')           
+              @include('admin.partials.messages')  
+                      
               @yield('content')        
               <!--@include('admin.partials.footer')  @include('admin.partials.content')-->
             </div>
