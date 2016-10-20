@@ -98,11 +98,19 @@
 									<i class="fa fa-shopping-cart"></i>
 									Agregar
 								</a>-->
+								@if($product->cant>0)
 								<button type="submit" name="agregar" onclick="new PNotify({
 										title: 'Agregándo...',
 										text: '',
 										type: 'success'
 									});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
+									@elseif($product->cant<=0)
+									<button type="button" name="agregar" onclick="new PNotify({
+										title: 'Agotado...',
+										text: '',
+										type: 'warnning'
+									});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
+									@endif
 							</span>
 							<p><b>Sección :</b> {{ $product->sections->name }}</p>
 							<p><b>Disponible :</b> {{ $product->cant }}</p>

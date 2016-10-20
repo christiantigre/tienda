@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
     protected $table = 'pedido';
-    protected $fillable = ['subtotal','total','iva','porc','entrega','ubiclg','ubiclt','date','users_id','status_id','paymethods_id','descuento','propina'];
+    protected $fillable = ['subtotal','total','iva','porc','entrega','ubiclg','ubiclt','date','users_id','status_id','paymethods_id','descuento','propina','created_at','updated_at','rango'];
     public $timestamps = false;
 
     public function paymethods(){

@@ -24,6 +24,7 @@ use Queue;
 use Illuminate\Queue\Events\JobFailed;
 use Illuminate\Support\ServiceProvider;
 use App\convertRide;
+use App\Svlog;
 
 class CarritoController extends Controller
 {
@@ -146,7 +147,8 @@ class CarritoController extends Controller
 
         }
 
-        public function orderDetail(Request $request, $idus){
+        public function orderDetail(Request $request, $idus)
+        {
           if(Auth::check()){
 
             $client = new client;
@@ -197,6 +199,7 @@ class CarritoController extends Controller
           $date->timezone = new \DateTimeZone('America/Guayaquil');
           //$date = $date->format('Y/m/d');
           $date = $date->format('d/m/Y');
+          $date2 = Carbon::now();
 //  date('d/m/Y')
           $order = Pedido::create([
             'subtotal' => $sub,
@@ -209,12 +212,16 @@ class CarritoController extends Controller
             'users_id' => $id_us,
             'status_id' => $var,
             'paymethods_id' => $request->get('id'),
-            'porc'=> $ivaporcentaje
+            'porc'=> $ivaporcentaje,
+            'created_at'=>$date2,
+            'rango'=>$date2
             ]);
 
           foreach ($cart as $product) {
             $this->saveOrderItem($product,$order->id);
           }
+          //ACTUALIZA INVENTARIO
+          $this->actualizaInventario($order->id);
 
           if($var==8){
            $factura = $this->generanumerofactura();
@@ -271,7 +278,8 @@ class CarritoController extends Controller
          return view('store.partials.detallsale',compact('order','dt_empress','perfil','cartord','cartordaux','codigogenerado','rutaPdf'));
        }
 
-       private function generaXml($idpedido){ //$this->deleteDir("autorizados");
+       private function generaXml($idpedido)
+       { //$this->deleteDir("autorizados");
        $pedidoshow = Pedido::select()->where('id', '=', $idpedido)->first();
        $items = ItemPedido::where('pedido_id', '=', $pedidoshow->id)->orderBy('id', 'asc')->get();
        $perfils = client::select()->where('id', '=', $pedidoshow->users_id)->get();
@@ -490,11 +498,29 @@ class CarritoController extends Controller
       $infoAdicional = $xml->createElement('infoAdicional');
       $infoAdicional = $factura->appendChild($infoAdicional);
       foreach ($perfils as $adicionalperson) {
-        $campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->dir1.' y '.$adicionalperson->dir2);
+        if ($adicionalperson->dir1=="") {
+          $direccionuno = "n/s";
+        } else {
+          $direccionuno = $adicionalperson->dir1;
+        }
+        if ($adicionalperson->dir2=="") {
+          $direcciondos = "n/s";
+        } else {
+          $direcciondos = $adicionalperson->dir2;
+        }
+        
+        //$campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->dir1.' y '.$adicionalperson->dir2);
+        $campoAdicional = $xml->createElement('campoAdicional',$direccionuno.' y '.$direcciondos);
         $campoAdicional->setAttribute('nombre','Direccion');
         $campoAdicional = $infoAdicional->appendChild($campoAdicional);
-
-        $campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->telefono);
+        if ($adicionalperson->telefono=="") {
+          $telefonocli = "n/s";
+        } else {
+          $telefonocli = $adicionalperson->telefono;
+        }
+        
+        //$campoAdicional = $xml->createElement('campoAdicional',$adicionalperson->telefono);
+        $campoAdicional = $xml->createElement('campoAdicional',$telefonocli);
         $campoAdicional->setAttribute('nombre','Telefono');        
         $campoAdicional = $infoAdicional->appendChild($campoAdicional);
 
@@ -516,7 +542,8 @@ class CarritoController extends Controller
       return response($el_xml)->header('Content-Type', 'text/xml');   
     }
 
-    public function firmarXml($nombrexml){
+    public function firmarXml($nombrexml)
+    {
       $dt_empress = Empresaa::select()->get();
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
@@ -551,7 +578,8 @@ class CarritoController extends Controller
       }
     }
 
-    public function enviarautorizar($pathXmlFirmado,$claveAcceso,$autorizados,$rechazados){
+    public function enviarautorizar($pathXmlFirmado,$claveAcceso,$autorizados,$rechazados)
+    {
       \DB::table('sales')
       ->where('claveacceso', $claveAcceso)
       ->update(['fir_xml' => '1']);
@@ -579,7 +607,8 @@ class CarritoController extends Controller
 
     }
 
-    public function fileExist($claveacceso){
+    public function fileExist($claveacceso)
+    {
       $rutai = public_path();
       $ruta = str_replace("\\", "\\", $rutai);
       $claveAcceso = $claveacceso;
@@ -599,7 +628,8 @@ class CarritoController extends Controller
 
     }
 
-    public function existFile($claveacceso){
+    public function existFile($claveacceso)
+    {
       $rutai = public_path();
       $ruta = str_replace("\\", "\\", $rutai);
       $claveAcceso = $claveacceso;
@@ -635,11 +665,14 @@ class CarritoController extends Controller
     //}
     }
 
-    public function retorno($claveacceso){
+    public function retorno($claveacceso)
+    {
       $this->existFile($claveacceso);
     }
 
-    public function revisarXml($claveacceso){
+
+    public function revisarXml($claveacceso)
+    {
       $claveAcceso = $claveacceso;
       $rutai = public_path();
       $ruta = str_replace("\\", "\\", $rutai);
@@ -685,7 +718,9 @@ class CarritoController extends Controller
 
     }
 
-    public function generaPdf($claveacceso){
+
+    public function generaPdf($claveacceso)
+    {
       $rutai = public_path();
       $ruta = str_replace("\\", "//", $rutai);
       $rutasl = str_replace("\\", "\\", $rutai);
@@ -735,6 +770,7 @@ class CarritoController extends Controller
       //$this->deleteDir("firmados");
       //$this->deleteDir("temp");
     }
+
 
     public function sendEmail($clavedeacceso)
     {
@@ -799,12 +835,16 @@ class CarritoController extends Controller
       }
     }
 
+
+
     public function almacenaError(){
 
     }
 
-    protected function saveOrderItem($product, $order_id){
-      //$this->actualizaInventarios($product->id, $product->cantt);
+
+
+    protected function saveOrderItem($product, $order_id)
+    {
       ItemPedido::create([
         'products_id' => $product->id,
         'cant' => $product->cantt,
@@ -814,13 +854,20 @@ class CarritoController extends Controller
         'preference'=>$product->preferences,
         'number'=>$product->numbers
         ]);
+      
+      //$this->actualizaInventarios($product->id, $product->cantt);
     }
+
+
 
     public function firmar(){
       return "Firmar";
     }
 
-    public function generanumerofactura(){
+
+
+    public function generanumerofactura()
+    {
       $contsales = \DB::table('sales')->count();
       $sales = $contsales+1;
       $longitud = strlen($sales);
@@ -845,7 +892,10 @@ class CarritoController extends Controller
       return $factura;
     }
 
-    public function randomlongitud($longitud){
+
+
+    public function randomlongitud($longitud)
+    {
       $generado = '';
       $collection = '123456789';
       $max = strlen($collection) - 1;
@@ -854,10 +904,13 @@ class CarritoController extends Controller
       return $generado;
     }
 
-    public function generaclaveacceso($factura){
-    //fecha
+
+
+    public function generaclaveacceso($factura)
+    {
       $date = Carbon::now();
       $date->timezone = new \DateTimeZone('America/Guayaquil');
+    //fecha
     //$date = $date->format('d/m/Y');
       $d = $date->format('d');
       $m = $date->format('m');
@@ -891,7 +944,8 @@ class CarritoController extends Controller
     //dd($clavedeacceso);
   }
 
-  public function generaDigitoModulo11($cadena){
+  public function generaDigitoModulo11($cadena)
+  {
     $cadena = trim($cadena);
     $baseMultiplicador =7;
     $aux=new \SplFixedArray(strlen($cadena));
@@ -923,7 +977,8 @@ class CarritoController extends Controller
 
   }
 
-  protected function deleteFile($directorio,$archivo){
+  protected function deleteFile($directorio,$archivo)
+  {
     $rutai = public_path();
     $ruta = str_replace("\\", "\\", $rutai);
     $archivo = $ruta."\\archivos\\".$directorio."\\".$archivo;
@@ -933,7 +988,8 @@ class CarritoController extends Controller
   }
 
 
-  private function moveFile($clavedeacceso){
+  private function moveFile($clavedeacceso)
+  {
     $rutai = public_path();
     $ruta = str_replace("\\", "//", $rutai);
     $origen = $ruta.'//archivos//'.'pdf'.'//'.$clavedeacceso.'.pdf';
@@ -942,7 +998,8 @@ class CarritoController extends Controller
   }
 
 
-  public function deleteDir($dir){
+  public function deleteDir($dir)
+  {
     $rutai = public_path();
     $ruta = str_replace("\\", "\\", $rutai);
     $dir = $ruta."\\archivos\\".$dir."\\";
@@ -969,19 +1026,47 @@ class CarritoController extends Controller
   }
 
 
-  public function actualizaInventarios($idProducto, $cantidad)
-  {    
-    $the_product = new Product;
-    $modProd = $the_product->select()->where('id', '=', $idProducto)->first();  
-    $cant = $modProd->cant;
-    $nuevaCant = $cantidad - $cant;
-    \DB::table('products')
-    ->where('id', $idProducto)
-    ->update(['cant' => $nuevaCant]);
+  public function actualizaInventario($order_id)
+  {
+    $the_pedido = ItemPedido::select('products_id','cant')->where('pedido_id',$order_id)->get();
+    foreach ($the_pedido as $item) {
+      //\DB::table('products')->where('id',$item->products_id)->decrement('cant', $item->cant);
+      $obj= Product::find($item->products_id);
+      if(!is_null($obj)){
+        $cant=$obj->cant;
+        $cantidad=$item->cant;
+        $new_cant=$cantidad-$cant;
+        if($new_cant<0){
+          $new_cant=$cant-$cantidad;
+          $this->genLog("Actualizó a stock producto id ".$item->products_id.'/pedido/'.$cantidad.'/stock/'.$cant.'/nuevoStock/'.$new_cant);
+        }
+        $obj->cant=$new_cant;
+        $obj->update();
+      }
+    }
   }
 
 
+  public function genLog($mensaje)
+  {
+    $area = 'Administracion';
+    $logs = Svlog::log($mensaje,$area);
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

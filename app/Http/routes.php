@@ -235,6 +235,12 @@
       Route::group(['prefix' => 'administracion', 'middleware' => ['auth', 'is_admin']], function(){
         Route::get('/', 'AdminController@index');
       });
+      
+      Route::get('adminindex', [
+        'middleware' => ['auth', 'is_admin'],
+        'as'=> 'admin.adminindex',
+        'uses'=> 'AdminController@index'
+        ]);
       /*inicio*/
       Route::get('inicio', [
         'as'=> 'inicio',
@@ -324,6 +330,17 @@
         /*REPORTES*/
         Route::resource('admin/reports/ventas','Admin\reportController');     
       });
+      /*BUSCAR PRODUCTO*/
+      
+      Route::get('searchproduct/', [
+        'middleware' => 'auth', 
+        'as' => 'admin.product.searchproduct',
+        'uses' => 'Admin\productController@searchproduct'
+        ]);
+      Route::post('searchproduct', [
+        'as' => 'admin.product.searchadvance',
+        'uses' => 'Admin\productController@searchadvanceproduct'
+        ]);
 
       /*DESPACHOS*/
       Route::get('ruta/', [
@@ -410,6 +427,47 @@
         'as' => 'admin.reports.rango',
         'uses' => 'Admin\reportController@rango'
         ]);
+      
+
+
+      Route::post('/reports/before', [
+        'as' => 'admin.reports.before',
+        'uses' => 'Admin\reportController@before'
+        ]);
+
+      Route::post('/reports/during', [
+        'as' => 'admin.reports.during',
+        'uses' => 'Admin\reportController@during'
+        ]);
+
+      Route::post('/reports/after', [
+        'as' => 'admin.reports.after',
+        'uses' => 'Admin\reportController@after'
+        ]);
+      
+      Route::post('/reportes', [
+        'as' => 'admin.reports.contvcli',
+        'uses' => 'Admin\reportController@ventasporclientes'
+        ]);
+      Route::post('/ventasdelmes', [
+        'as' => 'admin.reports.contvmes',
+        'uses' => 'Admin\reportController@contvmes'
+        ]);
+      
+      Route::post('/ventasdelmessuperiores', [
+        'as' => 'admin.reports.contvvalsuprr',
+        'uses' => 'Admin\reportController@contvvalsuprr'
+        ]);
+
+      Route::post('/ventasdelmesinferiores', [
+        'as' => 'admin.reports.contvvalinf',
+        'uses' => 'Admin\reportController@contvvalinf'
+        ]);
+      
+      Route::post('/contadorventasentregangos', [
+        'as' => 'admin.reports.contvvalrangos',
+        'uses' => 'Admin\reportController@contvvalrangos'
+        ]);
 
       Route::auth();
 
@@ -423,6 +481,7 @@
 
 
 // PRUEBAS     firma 
+
       Route::get('admin/inv/', [
         'as' => 'inv',
         'uses' => 'Admin\invController@index'

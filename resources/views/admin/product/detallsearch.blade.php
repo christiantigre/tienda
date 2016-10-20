@@ -7,7 +7,7 @@
         <h3>
           Productos
           <small>
-            
+
           </small>
         </h3>
       </div>
@@ -49,11 +49,9 @@
         </div>
         <div class="x_content">
          <h1>          
-          <a href="{{ route('admin.product.create') }}" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Producto</a>           
-                   
-          <a href="{{ route('admin.product.searchproduct') }}" class="btn btn-default">
-           <i class="fa fa-search"></i> B&uacutesqueda avanzada</a>           
+          <a href="{{ route('admin.product.searchproduct') }}" class="btn btn-primary">
+          <i class="fa fa-reply"></i> Regresar</a>           
+
          </h1>
          
        </div>
@@ -69,7 +67,7 @@
             <th></th>
             <th>Producto</th>
             <th>Nombre</th>
-            <th>Sección</th>
+            <th>Cod barra</th>
             <th>Stock</th>
             <th>Precio</th>
             <th>Categoria</th>
@@ -104,7 +102,7 @@
         <img width="75" height="75" src="/upload/products/{{ $product->img }}" alt="img" />
       </td>
       <td>{{ $product->nombre }}</td>
-      <td>{{ $product->sections->name }}</td>
+      <td>{{ $product->codbarra }}</td>
       <td>{{ $product->cant }}</td>
       <td>${{ number_format($product->pre_ven,2) }}</td>
       <td>{{ $product->category->name }}</td>
@@ -117,7 +115,7 @@
 </div>
 <hr>
 
-<?Php echo $products->render(); ?>
+
 
 </div>
 </div>

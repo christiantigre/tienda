@@ -63,6 +63,11 @@
               @include('admin.partials.messages')  
               <div class="right_col" role="main">    
                 @include('admin.partials.cajas')
+                <div class="">
+                  @include('admin.partials.tabs')
+                  @include('admin.partials.notifysales')
+                </div>
+                
                 <div class="">           
                   @include('admin.partials.footer')
                 </div>

@@ -212,7 +212,7 @@
 
   function ordermap(){
     navigator.geolocation.getCurrentPosition(showPosition,showError);
-    jsShowWindowLoad("Estamos obtediendo tu ubicación");
+    jsShowWindowLoad("Porfavor compartír su ubicación");
     function showPosition(position)
     {
       lat=position.coords.latitude;

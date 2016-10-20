@@ -46,16 +46,16 @@
 							<td>		
 								<div class="cart_quantity_button">					
 									<input 
-										type="number"
-										class="btn-update-item"
-										min="1"
-										max="{{ $item->cant }}"
-										value="{{ $item->cantt }}"
-										id="product_{{ $item->id }}"
-										data-href="{{ route('cart-update',[ $item->slug, null] )}}"
-										data-id = "{{ $item->id }}"
-										required="required" 
-										size="2"
+									type="number"
+									class="btn-update-item"
+									min="1"
+									max="{{ $item->cant }}"
+									value="{{ $item->cantt }}"
+									id="product_{{ $item->id }}"
+									data-href="{{ route('cart-update',[ $item->slug, null] )}}"
+									data-id = "{{ $item->id }}"
+									required="required" 
+									size="2"
 									>
 								</div>
 							</td>
@@ -85,21 +85,21 @@
 										<td><span>${{ number_format($total,2) }}</span></td>
 									</tr>
 									<tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td colspan="4">&nbsp;</td>
-							<td colspan="4">
-								<table>
-									<tr>
-									<hr>
-										<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> SEGUIR COMPRANDO</a>
-										<br>
-										<a class="btn btn-primary" href="{{ route('order-detail',Auth::user()->id) }}"><i class="fa fa-dollar"></i> DETALLE DE PEDIDO</a>
-									</tr>
-								</table>
-							</td>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">&nbsp;</td>
+								<td colspan="4">
+									<table>
+										<tr>
+											<hr>
+											<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> SEGUIR COMPRANDO</a>
+											<br>
+											<a class="btn btn-primary" href="{{ route('order-detail',Auth::user()->id) }}"><i class="fa fa-dollar"></i> DETALLE DE PEDIDO</a>
+										</tr>
+									</table>
+								</td>
 
 							<!--<td>
 								<a href="http://localhost/certificado/documento.php?id_firma={{ 'NN0O-AGOF-4OTF-RYT1-4286-6927-7907' }}"><i class="fa fa-lock"></i></a>
@@ -123,22 +123,22 @@
 					</div>
 				</section>	
 				@else
-					<h3>No hay Items en su carrito</h3>
-					<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> IR DE COMPRAS</a>
-					<h2></h2>
+				<h3>No hay Items en su carrito</h3>
+				<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> IR DE COMPRAS</a>
+				<h2></h2>
 				@endif				
 			</div>
 			<script>
-	            $(document).ready(function(){
-		            $(".btn-update-item").on('click', function(e){
-			            e.preventDefault();        
-			            var id = $(this).data('id');
-			            var href = $(this).data('href');
-			            var cant = $('#product_' + id).val();
-			            window.location.href = href + "/" + cant;        	
-		            });
-	            });
-        	</script>
+				$(document).ready(function(){
+					$(".btn-update-item").on('click', function(e){
+						e.preventDefault();        
+						var id = $(this).data('id');
+						var href = $(this).data('href');
+						var cant = $('#product_' + id).val();
+						window.location.href = href + "/" + cant;        	
+					});
+				});
+			</script>
 
 
 			@stop
