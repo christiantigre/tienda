@@ -29,7 +29,7 @@ return [
     |
     */
 
-    'host' => env('MAIL_HOST', 'smtp.mandrillapp.com'),
+    'host' => env('MAIL_HOST', 'smtp.gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -81,7 +81,7 @@ return [
     |
     */
 
-    'username' => env('MAIL_USERNAME','storelinect'),
+    'username' => env('MAIL_USERNAME','storelinect@gmail.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD','D7ukZ_44NGlrH1xhjaFrrQ'),
+    'password' => env('MAIL_PASSWORD','storelinect21102016'),
 
     /*
     |--------------------------------------------------------------------------

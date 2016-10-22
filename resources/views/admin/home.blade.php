@@ -65,7 +65,11 @@
                 @include('admin.partials.cajas')
                 <div class="">
                   @include('admin.partials.tabs')
+                  @if(count($products)>0)
                   @include('admin.partials.notifysales')
+                  @elseif(count($products)<=0)
+                  <h1>Nada que notificar</h1>
+                  @endif
                 </div>
                 
                 <div class="">           
