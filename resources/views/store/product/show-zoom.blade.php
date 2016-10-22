@@ -58,7 +58,7 @@
 
 
 		<section id="advertisement">
-		{!! Form::model($product, ['route' => ['cart-add', $product->slug]]) !!}
+			{!! Form::model($product, ['route' => ['cart-add', $product->slug]]) !!}
 			<div class="container">
 				<div class="col-sm-12 padding-right">
 					<div class="product-details"><!--product-details-->
@@ -100,18 +100,19 @@
 								</a>-->
 								@if($product->cant>0)
 								<button type="submit" name="agregar" onclick="new PNotify({
-										title: 'Agregándo...',
-										text: '',
-										type: 'success'
-									});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
-									@elseif($product->cant<=0)
-									<button type="button" name="agregar" onclick="new PNotify({
-										title: 'Agotado...',
-										text: '',
-										type: 'warnning'
-									});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
-									@endif
+									title: 'Agregándo...',
+									text: '',
+									type: 'success'
+								});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
+								@elseif($product->cant<=0)
+								<button type="button" name="agregar" onclick="new PNotify({
+									title: 'Agotado...',
+									text: '',
+									type: 'warnning'
+								});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
+								@endif
 							</span>
+
 							<p><b>Sección :</b> {{ $product->sections->name }}</p>
 							<p><b>Disponible :</b> {{ $product->cant }}</p>
 							<p><b>Marca :</b> {{ $product->brand->brand }}</p>
@@ -120,30 +121,30 @@
 									<form id="condiciones" name="condiciones" method="GET">
 										<p>
 											@if(count($nuevos)>0)
-												@foreach($nuevos as $nuevo)
-													@if($nuevo->nuevo == '1')
-														Nuevo
-													@else
-													@endif											                
-												@endforeach
-												@else       
+											@foreach($nuevos as $nuevo)
+											@if($nuevo->nuevo == '1')
+											Nuevo
+											@else
+											@endif											                
+											@endforeach
+											@else       
 											@endif
-												<br/>
+											<br/>
 											@if(count($promociones)>0)
-												@foreach($promociones as $promocion)
-													@if($promocion->promocion == '1')
-														Promoción
-													@else
-													@endif 
-												@endforeach
-												@else       
+											@foreach($promociones as $promocion)
+											@if($promocion->promocion == '1')
+											Promoción
+											@else
+											@endif 
+											@endforeach
+											@else       
 											@endif
 										</p>
 									</form>
 								</div>
 							</p>
 							<p><b>Tamaño :</b> 
-							<label id="ltamano" name="ltamano" value="" />
+								<label id="ltamano" name="ltamano" value="" />
 								<div class="bs-example-popovers">
 									<input type="hidden" id="tamano" name="tamano" value="" required="required" />
 									<form id="sizes" name="sizes" method="GET">									
@@ -160,7 +161,7 @@
 								</div>									
 							</p>
 							<p><b>Color :</b>
-							<label id="lcolor" name="lcolor" value=""/> 
+								<label id="lcolor" name="lcolor" value=""/> 
 								<div class="bs-example-popovers">
 									<input type="hidden" id="color" name="color" value="" required="required"/>
 									<form id="availables" name="availables" method="GET">
@@ -177,9 +178,9 @@
 								</div>									
 							</p>
 							<p><b>Número :</b>
-							<label id="lnumero" name="lnumero" value="" />
+								<label id="lnumero" name="lnumero" value="" />
 								<div class="bs-example-popovers">
-							 		<input type="hidden" id="numero" name="numero" value="" required="required"/>
+									<input type="hidden" id="numero" name="numero" value="" required="required"/>
 									<form id="numbers" name="numbers" method="GET">							
 										@if(count($numbers)>0)
 										@foreach($numbers as $number)
@@ -200,43 +201,60 @@
 							<a href="">
 								<!--<img src="images/product-details/share.png" class="share img-responsive"  alt="" />-->
 							</a>
-						</div><!--/product-information-->
-					</div>
-				</div><!--/product-details-->
+							<!--OMPARTIR REDES SOCIALES-->
+							<script type="text/javascript">
+								var URLactual = window.location;
+								document.getElementById("fb").value=URLactual;								
+								elemento.setAttribute("data-href", URLactual);
+							</script>
+							<div id="fb" class="fb-like" data-href="http://facebook/storeli.nect" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+							<div id="fb-root"></div>
+							<script>
+								(function(d, s, id) {
+									var js, fjs = d.getElementsByTagName(s)[0];
+									if (d.getElementById(id)) return;
+									js = d.createElement(s); js.id = id;
+									js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
+									fjs.parentNode.insertBefore(js, fjs);
+								}(document, 'script', 'facebook-jssdk'));</script>
+								<!--FIN COMPARTIR REDES SOCIALES-->
+							</div><!--/product-information-->
+						</div>
+					</div><!--/product-details-->
 
 
 
 
+
+				</div>
 
 			</div>
+			{{ Form::close() }}
 
-		</div>
-                 {{ Form::close() }}
-		
-	</section>
+		</section>
 
 
-	<!-- footer content -->
-	<footer>
-		@include('store.partials.footer') 
-	</footer>
-	<!-- /footer content -->
+		<!-- footer content -->
+		<footer>
+			@include('store.partials.footer') 
+		</footer>
+		<!-- /footer content -->
 
-</div>
-<!-- /page content -->
-<script type="text/javascript">
-	function tamano($tamano,$val){
-		$('#ltamano').text($val);
-		$('#tamano').val($val);
-	}
-	function color($color,$val){
-		$('#lcolor').text($val);
-		$('#color').val($val);
-	}
-	function numero($numero,$val){
-		$('#lnumero').text($val);
-		$('#numero').val($val);
-	}
-</script>
+	</div>
+	<!-- /page content -->
+	<script type="text/javascript">
+		function tamano($tamano,$val){
+			$('#ltamano').text($val);
+			$('#tamano').val($val);
+		}
+		function color($color,$val){
+			$('#lcolor').text($val);
+			$('#color').val($val);
+		}
+		function numero($numero,$val){
+			$('#lnumero').text($val);
+			$('#numero').val($val);
+		}
+	</script>
 </body>
 </html>

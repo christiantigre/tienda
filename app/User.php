@@ -46,7 +46,7 @@ class User extends Authenticatable
 
 
 
-    public function actividad($query)
+    public function actividades($query)
     {
         $fecha = $query->diffForHumans(Carbon::now());
         //return 1; 
@@ -54,7 +54,14 @@ class User extends Authenticatable
     }
 
 
+    public function actividad()
+    {
 
+        $diff = Carbon::now()->diffForHumans(Carbon::createFromFormat('Y-m-d',$this->fechadeingreso));
+
+        /*Cambiar Y-m-d por el formato que tengas*/
+        return $diff;
+    }
 
 
 }

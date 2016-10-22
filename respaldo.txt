@@ -1,0 +1,6 @@
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.mandrillapp.com
+MAIL_PORT=587
+MAIL_USERNAME=storelinect
+MAIL_PASSWORD=storelinect21102016
+MAIL_ENCRYPTION=tls

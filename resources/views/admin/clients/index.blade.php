@@ -68,9 +68,7 @@
             <th>Foto</th>
             <th>Nombre</th>
             <th>Email</th>
-            <th>Direcci&oacuten</th>
-            <th>Tlf</th>
-            <th>M&oacutevil</th>
+            <th>Info</th>
             <th>Activo</th>
             <th>Actividad</th>
           </tr>
@@ -101,11 +99,10 @@
           </td>
           <td>{{ $cliente->name }} {{ $cliente->apellidos }}</td>
           <td>{{ $cliente->email }}</td>
-          <td>{{ $cliente->dir1 }} {{ $cliente->dir2 }}({{ $cliente->prov }})</td>
-          <td>{{ $cliente->telefono }}</td>
-          <td>{{ $cliente->celular }}</td>
+          <td>{{ $cliente->dir1 }} {{ $cliente->dir2 }}({{ $cliente->prov }})<br/>
+          {{ $cliente->telefono }} / {{ $cliente->celular }}</td>
           <td>{{ $cliente->status ==1 ? "Si" : "No" }}</td>
-          <td>{{ $cliente->actividad }}</td>
+          <td>{{ $cliente->actividad() }}</td>
         </tr>
         @endforeach
       </tbody>
@@ -113,7 +110,6 @@
   </div>
   <hr>
 
-  <?Php echo $clients->render(); ?>
 
 </div>
 </div>

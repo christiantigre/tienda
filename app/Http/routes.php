@@ -329,6 +329,7 @@
         Route::resource('admin/clients','Admin\clientController');     
         /*REPORTES*/
         Route::resource('admin/reports/ventas','Admin\reportController');     
+        Route::resource('admin/reports/productos','Admin\reportprodController');     
       });
       /*BUSCAR PRODUCTO*/
       
@@ -469,6 +470,8 @@
         'uses' => 'Admin\reportController@contvvalrangos'
         ]);
 
+      
+
       Route::auth();
 
       Route::get('/home', 'StoreController@index');
@@ -592,7 +595,7 @@
 
 
 
-      /*pruebas*/
+      /*pruebasD7ukZ_44NGlrH1xhjaFrrQ*/
       Route::get('lista', [
         'as' => 'lista',
         'uses' => 'PruebasController@index'
@@ -602,9 +605,9 @@
         Mail::send("emails.bienvenido", [], function($message) {
           $message->to("andrescondo17@gmail.com", "christian ")
           ->subject("Mensaje de prueba!");
-          $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\pdf\\0610201601010511850900110010010000002245597759319.pdf";
-          $rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
-          $message->attach($rutaXml);
+          $rutaPdf="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\enviados\\2110201601010511850900110010010000003005723471412.pdf";
+          //$rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
+          //$message->attach($rutaXml);
           $message->attach($rutaPdf);
         });
       });

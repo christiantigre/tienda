@@ -80,7 +80,7 @@
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.reports.ventas.index') }}">Ventas</a>
             </li>
-            <li><a href="tables_dynamic.html">Table Dynamic</a>
+            <li><a href="{{ route('admin.reports.productos.index') }}">Productos</a>
             </li>
           </ul>
         </li>

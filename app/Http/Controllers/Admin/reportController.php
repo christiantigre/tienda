@@ -17,7 +17,7 @@ class reportController extends Controller
 	public function index(){
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
-				$this->genLog("Ingresó a reportes");
+				$this->genLog("Ingresó a reportes de ventas");
 				return view('admin.reportes.ventas.index', compact('reports'));
 			}else{
 				\Auth::logout();
@@ -317,6 +317,10 @@ class reportController extends Controller
 		return $pdf->stream();
 	}
 
+	public function repproductos()
+	{
+		return "datos";
+	}
 
 
 
