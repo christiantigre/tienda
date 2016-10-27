@@ -59,7 +59,7 @@ $('#wizard_verticle').smartWizard({
 
 
             <div class="form-horizontal form-label-left" >
-            {!! Form::model($data, array('route' => array('admin.entiti.update', $data->id),'files'=>true,'enctype'=>'multipart/form-data')) !!}
+                {!! Form::model($data, array('route' => array('admin.entiti.update', $data->id),'files'=>true,'enctype'=>'multipart/form-data')) !!}
                 <input type="hidden" name="_method" value="PUT">
 
 
@@ -320,7 +320,7 @@ $('#wizard_verticle').smartWizard({
 
                                                                             </div>
 
-                                                                            <span class="section">Información tributária</span>
+                                                                            <span class="section">Información tributaria</span>
 
                                                                             <div class="item form-group">
                                                                                 <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Razón Social <span class="required">*</span>
@@ -417,8 +417,8 @@ $('#wizard_verticle').smartWizard({
                                                                                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Ruta firma electrónica<span class="required">*</span>
                                                                                         </label>
                                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
-            {!! Form::file('pathcertificate', null,['class'=>'form-control'])    !!}
-            {!! Form::hidden('pathcertificate', null,['class'=>'form-control'])    !!}
+                                                                                            {!! Form::file('pathcertificate', null,['class'=>'form-control'])    !!}
+                                                                                            {!! Form::hidden('pathcertificate', null,['class'=>'form-control'])    !!}
                                                                                         </div>
                                                                                     </div>
 

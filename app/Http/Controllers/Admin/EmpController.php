@@ -12,8 +12,9 @@ use App\Position;
 use App\Department;
 use App\Country;
 use App\Province;
-use App\Isactive;
 use App\Svlog;
+use App\Isactive;
+use App\User;
 
 class EmpController extends Controller
 {
@@ -85,6 +86,15 @@ class EmpController extends Controller
         'password' =>bcrypt($request->get('cedula'))
         ];
         $emp = Emp::create($data);
+        $dataUs =[
+            'name'=>$request->get('nombres'),
+            'email'=>$request->get('email'),
+            'password'=>bcrypt($request->get('cedula')),
+            'status'=>'1',
+            'is_admin'=>'1',
+            'rol'=>$request->get('cargo_id'),
+        ];
+        $us = User::create($dataUs);
         $message = $emp ? 'Empleado creado correctamente': 'El empleado no se pudo crear';
         $this->genLog("Registró personal ".$emp->cedula);
         return redirect()->route('admin.emp.index')->with('message', $message);

@@ -17,7 +17,7 @@
        <span>Sesion caducada</span>
        <!--<h2>John Doe</h2>-->
        @else  
-       <span>Admin,</span>
+       <span>Bodega,</span>
        <h2>{{ Auth::user()->name }}</h2>
        @endif
      </div>
@@ -40,56 +40,16 @@
             </li>
           </ul>
         </li>
-        <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.emp.index') }}">Empleados</a>
-            </li>
-            <li><a href="{{ route('admin.clients.index') }}">Clientes</a>
-            </li>                    
-          </ul>
-        </li>
-        <li><a><i class="fa fa-pie-chart"></i> Ventas <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.sales.index') }}">Ventas</a>
-            </li>
-            <li><a href="{{ route('admin.facturas.index') }}">Facturas</a>
-            </li>                  
-          </ul>
-        </li>
-        <li><a><i class="fa fa-truck"></i> Rutas <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu" style="display: none">
-          <li><a href="{{ route('admin.despacho.index') }}">Realizar entrega</a>
-            </li>                 
-          </ul>
-          <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.mapa.index') }}">Solicitud de pedidos</a>
-            </li>                 
-          </ul>
-        </li>
         <li><a><i class="fa fa-bar-chart"></i> Inventario <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
             <li><a href="{{ route('admin.inventario.index') }}">Productos</a>
-            </li>
-            <li><a href="{{ route('admin.inventario.invventas') }}">Ventas</a>
-            </li>
-            <li><a href="{{ route('admin.inventario.inentrega') }}">Entregas</a>
             </li>                 
           </ul>
         </li>
         <li><a><i class="fa fa-table"></i> Reportes <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.reports.ventas.index') }}">Ventas</a>
-            </li>
             <li><a href="{{ route('admin.reports.productos.index') }}">Productos</a>
             </li>
-          </ul>
-        </li>
-        <li><a><i class="fa fa-eye"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
-          <ul class="nav child_menu" style="display: none">
-            <li><a href="{{ route('admin.seguridad.index') }}">Módulo de seguridad</a>
-            </li>
-            <li><a href="{{ route('admin.seguridad.intentos.index') }}">Intentos de login</a>
-            </li>                    
           </ul>
         </li>
       </ul>
@@ -98,26 +58,16 @@
       <ul class="nav side-menu" >
         <li><a><i class="fa fa-cogs"></i> Configuraci&oacute;n <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none"> <!--child_menu-->
-            <li><a href="{{ route('admin.entiti.index') }}">Tienda</a>                    </li>
+            
             <li><a href="{{ route('admin.seccion.index') }}">Secciones</a></li>
             <li><a href="{{ route('admin.category.index') }}">Categor&iacute;as</a>                    </li>
             <li><a href="{{ route('admin.brand.index') }}">Marcas</a>                    </li>
             <li><a href="{{ route('admin.size.index') }}">Tamaños</a>                    </li>
             <li><a href="{{ route('admin.numbersize.index') }}">Números</a>                    </li>
-            <li><a href="{{ route('admin.available.index') }}">Disponibilidad</a>                    </li>
-            <li><a href="{{ route('admin.status.index') }}">Estados Pedido</a>                    </li>
-            <li><a href="{{ route('admin.department.index') }}">Departamentos</a>                    </li>
-            <li><a href="{{ route('admin.position.index') }}">Cargos</a>                    </li>
-            <li><a href="{{ route('admin.pay.index') }}">Pagos</a>                    </li>
-            <li><a href="">Pais</a>                    </li>
-            <li><a href="">Provincias / Estados</a>                    </li>
-            <li><a href="{{ route('admin.moneda.index') }}">Moneda</a>                    </li>
-            <li><a href="{{ route('admin.iva.index') }}">Iva</a>                    </li>
+            <li><a href="{{ route('admin.available.index') }}">Disponibilidad</a>                    </li>                       
           </ul>
         </li>
         
-        <li><a href="{{ route('admin.proveedor.index') }}"><i class="fa fa-users"></i> Proveedores </a>
-        </li>
         
       </ul>
     </div>

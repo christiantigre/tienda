@@ -60,12 +60,12 @@
                     <tbody>
                       @foreach($sales as $fac)
                       <tr>
-                        <td><h4># Fac</h4></td><td class="textsmall">{{ $fac->numfactura }}</td>  
+                        <td><h4># Factura</h4></td><td class="textsmall">{{ $fac->numfactura }}</td>  
                       </tr>
                       <tr>
                         <td><h4>Firmado</h4></td><td class="textsmall">
                         @if($fac->fir_xml === 1)
-                        <h4>Ok</h4>
+                        <h4>SI</h4>
                         @else
                         <a href="{{ route('admin.sales.generaarchivos',$fac->id) }}" title="FIRMAR" class="btn btn-warning"> <!--edit-->
                           <i class="fa fa-pencil-square"></i>
@@ -77,7 +77,7 @@
 
                       <td><h4>Autorizado</h4></td><td class="textsmall">
                       @if($fac->aut_xml === 1)
-                      <h4>Ok</h4>
+                      <h4>SI</h4>
                       @else
                       <a href="{{ route('admin.sales.edit',$fac->id) }}" title="AUTORIZAR" class="btn btn-warning"> <!--edit-->
                         <i class="fa fa-pencil-square"></i>
@@ -89,7 +89,7 @@
 
                     <td><h4>Ride</h4></td><td class="textsmall">
                     @if($fac->convrt_ride === 1)
-                    <h4>Ok</h4>
+                    <h4>SI</h4>
                     @else
                     <a href="{{ route('admin.sales.convrtride',$fac->claveacceso) }}" title="CONVERTIR" class="btn btn-warning"> <!--edit-->
                       <i class="fa fa-pencil-square"></i>
@@ -101,7 +101,7 @@
 
                   <td><h4>Enviado xml</h4></td><td class="textsmall">
                   @if($fac->send_xml === 1)
-                  <h4>Ok</h4>
+                  <h4>SI</h4>
                   @else
                   <a href="{{ route('admin.sales.sendxml',$fac->claveacceso) }}" title="ENVIAR"  class="btn btn-warning"> <!--edit-->
                     <i class="fa fa-pencil-square"></i>
@@ -113,7 +113,7 @@
 
                 <td><h4>Enviado ride</h4></td><td class="textsmall">
                 @if($fac->send_pdf === 1)
-                <h4>Ok</h4>
+                <h4>SI</h4>
                 @else
                 <a href="{{ route('admin.sales.sendpdf',$fac->claveacceso) }}" title="ENVIAR" class="btn btn-warning"> <!--edit-->
                   <i class="fa fa-pencil-square"></i>

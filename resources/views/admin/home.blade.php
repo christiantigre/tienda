@@ -59,6 +59,10 @@
               @include('admin.partials.navAdmin')
               @elseif (Auth::user()->rol===3)
               @include('admin.partials.navDesp')
+              @elseif (Auth::user()->rol===4)
+              @include('admin.partials.navBod')
+              @elseif (Auth::user()->rol===5)
+              @include('admin.partials.vavCaj')
               @endif
               @include('admin.partials.messages')  
               <div class="right_col" role="main">    
