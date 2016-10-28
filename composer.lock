@@ -122,16 +122,16 @@
         },
         {
             "name": "arcanedev/support",
-            "version": "3.17.0",
+            "version": "3.18.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ARCANEDEV/Support.git",
-                "reference": "79e78435df2e2e453915260cbdb47181211661b3"
+                "reference": "66025237c080667a9ce3b5effbf91315c9bcf7f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/79e78435df2e2e453915260cbdb47181211661b3",
-                "reference": "79e78435df2e2e453915260cbdb47181211661b3",
+                "url": "https://api.github.com/repos/ARCANEDEV/Support/zipball/66025237c080667a9ce3b5effbf91315c9bcf7f3",
+                "reference": "66025237c080667a9ce3b5effbf91315c9bcf7f3",
                 "shasum": ""
             },
             "require": {
@@ -177,7 +177,7 @@
                 "laravel",
                 "support"
             ],
-            "time": "2016-10-07 18:11:30"
+            "time": "2016-10-24 16:13:22"
         },
         {
             "name": "artisaninweb/laravel-soap",
@@ -1288,16 +1288,16 @@
         },
         {
             "name": "milon/barcode",
-            "version": "5.3.1",
+            "version": "5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/milon/barcode.git",
-                "reference": "14d348b55edf672608121f08fa1adf73c6717d3f"
+                "reference": "37d435096232f35d120c14f86f20fb5ca1f8af46"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/milon/barcode/zipball/14d348b55edf672608121f08fa1adf73c6717d3f",
-                "reference": "14d348b55edf672608121f08fa1adf73c6717d3f",
+                "url": "https://api.github.com/repos/milon/barcode/zipball/37d435096232f35d120c14f86f20fb5ca1f8af46",
+                "reference": "37d435096232f35d120c14f86f20fb5ca1f8af46",
                 "shasum": ""
             },
             "require": {
@@ -1333,7 +1333,7 @@
                 "qr code",
                 "qrcode"
             ],
-            "time": "2016-10-18 05:09:23"
+            "time": "2016-10-26 11:28:26"
         },
         {
             "name": "monolog/monolog",
@@ -1810,16 +1810,16 @@
         },
         {
             "name": "phpseclib/phpseclib",
-            "version": "2.0.2",
+            "version": "2.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpseclib/phpseclib.git",
-                "reference": "3d265f7c079f5b37d33475f996d7a383c5fc8aeb"
+                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/3d265f7c079f5b37d33475f996d7a383c5fc8aeb",
-                "reference": "3d265f7c079f5b37d33475f996d7a383c5fc8aeb",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
+                "reference": "ab8028c93c03cc8d9c824efa75dc94f1db2369bf",
                 "shasum": ""
             },
             "require": {
@@ -1898,7 +1898,7 @@
                 "x.509",
                 "x509"
             ],
-            "time": "2016-05-13 01:15:21"
+            "time": "2016-10-04 00:57:04"
         },
         {
             "name": "predis/predis",
@@ -2212,12 +2212,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/LibreDTE/libredte-lib.git",
-                "reference": "80e8059467cf84b74c20d3c9f7b8d609c162bce9"
+                "reference": "3b1faba0da71ebca99ee13f4fd76f59ca9d990f9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/LibreDTE/libredte-lib/zipball/80e8059467cf84b74c20d3c9f7b8d609c162bce9",
-                "reference": "80e8059467cf84b74c20d3c9f7b8d609c162bce9",
+                "url": "https://api.github.com/repos/LibreDTE/libredte-lib/zipball/3b1faba0da71ebca99ee13f4fd76f59ca9d990f9",
+                "reference": "3b1faba0da71ebca99ee13f4fd76f59ca9d990f9",
                 "shasum": ""
             },
             "require": {
@@ -2225,11 +2225,11 @@
                 "ext-openssl": "*",
                 "ext-soap": "*",
                 "php": ">=5.5",
-                "phpseclib/phpseclib": "2.0.2",
+                "phpseclib/phpseclib": "2.0.4",
                 "tecnickcom/tcpdf": "6.2.12"
             },
             "require-dev": {
-                "phpunit/phpunit": "5.5.*"
+                "phpunit/phpunit": "5.6.*"
             },
             "type": "library",
             "autoload": {
@@ -2254,7 +2254,7 @@
                 "facturación electrónica",
                 "sii"
             ],
-            "time": "2016-09-22 04:55:28"
+            "time": "2016-10-27 00:17:12"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2481,16 +2481,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "c0c00c80b3a69132c4e55c3e7db32b4a387615e5"
+                "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
-                "reference": "c0c00c80b3a69132c4e55c3e7db32b4a387615e5",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
+                "reference": "28b0832b2553ffb80cabef6a7a812ff1e670c0bc",
                 "shasum": ""
             },
             "require": {
@@ -2537,7 +2537,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2016-07-19 10:45:57"
+            "time": "2016-10-13 06:28:43"
         },
         {
             "name": "symfony/finder",
@@ -4646,16 +4646,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.5",
+            "version": "v3.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3"
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/368b9738d4033c8b93454cb0dbd45d305135a6d3",
-                "reference": "368b9738d4033c8b93454cb0dbd45d305135a6d3",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/7ff51b06c6c3d5cc6686df69004a42c69df09e27",
+                "reference": "7ff51b06c6c3d5cc6686df69004a42c69df09e27",
                 "shasum": ""
             },
             "require": {
@@ -4691,7 +4691,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-09-25 08:27:07"
+            "time": "2016-10-24 18:41:13"
         },
         {
             "name": "webmozart/assert",

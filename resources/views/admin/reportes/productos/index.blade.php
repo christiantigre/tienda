@@ -54,7 +54,7 @@
             <!--<form action="/reports/rango" method="post">-->
             
             <div class="row">
-              {!! Form::open(array('route'=>'admin.reports.contvcli','method'=>'post'))!!}
+              {!! Form::open(array('route'=>'admin.reports.conctprod','method'=>'post'))!!}
               {{ csrf_field() }} 
               <div class="btn-group">
                 <small>Muestra los productos mas vendidos hasta la fecha actual</small><br/>
@@ -65,10 +65,19 @@
               {{ Form::close() }}
             </div>
             <div class="row">
-              {!! Form::open(array('route'=>'admin.reports.contvmes','method'=>'post'))!!}
+              {!! Form::open(array('route'=>'admin.reports.conctprodmes','method'=>'post'))!!}
               {{ csrf_field() }} 
               <div class="btn-group">
-                <small>Muestra la cantidad de ventas del presente mes :</small><br/>
+                <small>Muestra la cantidad de productos vendidos en el presente mes :</small><br/>
+                <button class="btn btn-default" type="submit">MOSTRAR</button>
+              </div>
+              {{ Form::close() }}
+            </div>
+            <div class="row">
+              {!! Form::open(array('route'=>'admin.reports.conctproddia','method'=>'post'))!!}
+              {{ csrf_field() }} 
+              <div class="btn-group">
+                <small>Muestra la cantidad de productos vendidos en el presente dia :</small><br/>
                 <button class="btn btn-default" type="submit">MOSTRAR</button>
               </div>
               {{ Form::close() }}
@@ -76,13 +85,13 @@
             <div class="row">
 
               <div class="btn-group">
-                <small>Muestra las ventas del presente mes :</small><br/>
+                <small>Muestra la cantidad de productos vendidos :</small><br/>
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Superiores a :</label>
                 <div class="col-sm-9">
-                  {!! Form::open(array('route'=>'admin.reports.contvvalsuprr','method'=>'post'))!!}
+                  {!! Form::open(array('route'=>'admin.reports.superior','method'=>'post'))!!}
                   {{ csrf_field() }}
                   <div class="input-group">
-                    <input type="number" id="number" name="number" required="required" min="0" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                    <input type="number" id="numbers" name="numbers" required="required" min="0" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-primary">VER</button>
                     </span>
@@ -91,10 +100,10 @@
                 </div>
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Inferiores a :</label>
                 <div class="col-sm-9">
-                  {!! Form::open(array('route'=>'admin.reports.contvvalinf','method'=>'post'))!!}
+                  {!! Form::open(array('route'=>'admin.reports.inferior','method'=>'post'))!!}
                   {{ csrf_field() }}
                   <div class="input-group">
-                    <input type="number" id="number" name="number" required="required" min="0" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
+                    <input type="number" id="numberi" name="numberi" required="required" min="0" data-validate-minmax="10,100" class="form-control col-md-7 col-xs-12">
                     <span class="input-group-btn">
                       <button type="submit" class="btn btn-primary">VER</button>
                     </span>
@@ -104,10 +113,10 @@
               </div>
               
             </div>
-            {!! Form::open(array('route'=>'admin.reports.contvvalrangos','method'=>'post'))!!}
+            {!! Form::open(array('route'=>'admin.reports.contprodcantrangos','method'=>'post'))!!}
             {{ csrf_field() }}
             <div class="form-group">
-              <small>Muestra la cantidad ventas por rangos de fechas :</small><br/>
+              <small>Muestra la cantidad productos vendidos por rangos de fechas :</small><br/>
               <label for="date">Desde * :</label>
               <div class="input-group">
                 <input type="text" class="form-control datepicker" required="required" name="datesinze">
@@ -133,6 +142,13 @@
           </div>
         </div>
       </div>
+      <script>
+    $('.datepicker').datepicker({
+      format: "yyyy-mm-dd",
+      language: "es",
+      autoclose: true
+    });
+  </script> 
       <!--fin formulario ventas por clientes-->
 
     </div>

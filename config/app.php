@@ -187,7 +187,6 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         /*EXCEL*/
         Maatwebsite\Excel\ExcelServiceProvider::class,
-        
         ],
 
     /*

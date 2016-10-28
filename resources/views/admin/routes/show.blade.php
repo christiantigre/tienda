@@ -147,9 +147,10 @@
 								</div>
 								<!--Geolocalización-->
 
+								<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeaMu7HK8FTuG15aoqeVwgwIYYKLzhj2w&callback=initMap"></script>
+								<!--Version con errores google maps
+								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>-->
 
-
-								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>
 								<!--<script src="http://maps.googleapis.com/maps/api/js?v3"></script>-->
 								<script>
 
@@ -169,6 +170,8 @@
 								//divMapa.innerHTML = "Tenemos autorización para ver su ubicación";
 								var lat = $('#ubiclg').val();
 								var lon = $('#ubiclt').val();
+								/*var lat ='-2.8553192999999997';
+								var lon ='-78.7786982';*/
 								//var lat = respuesta.coords.latitude;
 								//var lon = respuesta.coords.longitude;
 								var gLatLon = new google.maps.LatLng(lat, lon);
@@ -186,7 +189,7 @@
 								//gMarker.setIcon('../../admin/us.png');
 								var gCoder = new google.maps.Geocoder();
 								var objInformation = {
-									address: 'Jaime Roldos, Gualaceo'
+									address: 'Cuenca,Gualaceo'
 								}
 								//objInformation.address
 								gCoder.geocode(objInformation, fn_coder);
@@ -240,6 +243,7 @@
 
 
 								}
+								//editado
 								//var coordenada = lat+','+lon
 								//divMapa.innerHTML = lat+','+lon;
 								//divMapa.innerHTML = '<img src="https://maps.googleapis.com/maps/api/staticmap?markers='+coordenada+'"&key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap />';
