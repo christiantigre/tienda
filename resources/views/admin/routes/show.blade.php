@@ -126,8 +126,18 @@
 										<div class="form-group">              
 											@if (Auth::user()->rol===1)
 											<a href="{{ route('admin.sales.index') }}" class="btn btn-primary">REGRESAR</a>  
+
+											<a href="{{ route('admin.sales.edit',$rutas->id) }}" class="btn btn-warning"> FINALIZAR PEDIDO
+												<i class="fa fa-pencil-square"></i>
+											</a>
+
 											@elseif (Auth::user()->rol===3)											
 											<a href="{{ route('admin.despacho.index') }}" class="btn btn-primary">REGRESAR</a>  
+
+											<a href="{{ route('admin.sales.edit',$rutas->id) }}" class="btn btn-warning"> FINALIZAR PEDIDO
+												<i class="fa fa-pencil-square"></i>
+											</a>
+
 											@endif        
 										</div>
 									</div>
