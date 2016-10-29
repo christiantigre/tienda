@@ -114,14 +114,9 @@
 
 
 										<div class="form-group">
-											<div class="control-label col-md-3 col-sm-3 col-xs-12">  
-
-
-												<div id='ubicacion' style='display:none;'></div>
-												
+											<div class="control-label col-md-3 col-sm-3 col-xs-12">
+												<div id='ubicacion' style='display:none;'></div>										
 												<div id="mapholder"></div>
-
-
 											</div>
 										</div>
 									</div>

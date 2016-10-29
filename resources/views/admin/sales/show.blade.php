@@ -47,6 +47,8 @@
           <div class="x_content">
             {!! Form::model($pedidoshow, array('route' => array('admin.sales.edit', $pedidoshow->id))) !!}
             <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="ubiclg" id="ubiclg" value="{{ $pedidoshow->ubiclg }}"/>
+            <input type="hidden" name="ubiclt" id="ubiclt" value="{{ $pedidoshow->ubiclt }}"/>
             <section class="content invoice">
               <div class="row">
                 <div class="col-xs-12 invoice-header">
@@ -69,6 +71,8 @@
                     <br>{{ $dt_empres->count }}
                     <br>tlf: {{ $dt_empres->tlfun }}/{{ $dt_empres->tlfds }}
                     <br>Email: {{ $dt_empres->email }}
+                    <input type="hidden" name="ubiclgemp" id="ubiclgemp" value="{{ $dt_empres->ln }}"/>
+                    <input type="hidden" name="ubicltemp" id="ubicltemp" value="{{ $dt_empres->lg }}"/>
                     @endforeach
                   </address>
                 </div>
@@ -144,9 +148,11 @@
 
               <div class="row">
                 <!-- accepted payments column -->
-                <div class="col-xs-6">
 
+                <div class="col-xs-6">
+                  
                 </div>
+
                 <!-- /.col -->
                 <div class="col-xs-6">
                   <p class="lead">Date: {{ $pedidoshow->date }}</p>

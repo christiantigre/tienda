@@ -120,7 +120,8 @@ class reportprodController extends Controller
 		$mes = $this->mes($month);
 		$filtro = 'Productos con cantidad de ventas superiores a '.$cantidad;
 		$this->genLog("Generó reporte cantidad de productos superiores a ".$cantidad);
-		$items = $the_items->groupBy('products_id')->select('itempedido.products_id','itempedido.size','itempedido.preference','itempedido.number',\DB::raw('sum(cant) as cantidad'))
+		$items = $the_items->groupBy('products_id')->select('itempedido.products_id','itempedido.size','itempedido.preference','itempedido.number',\DB::raw('sum(cant) as cantidad'))		
+		->havingRaw('cantidad > '.$cantidad)
 		->get();
 		$pdf = \App::make('dompdf.wrapper');
 		$pdf = \PDF::loadView('admin.reportes.productos.reportprodsales',['items'=>$items,'dt_empress'=>$dt_empress,'date'=>$date,'dia'=>$dia,'clients'=>$clients,'filtro'=>$filtro]);
@@ -145,6 +146,7 @@ class reportprodController extends Controller
 		$filtro = 'Productos con cantidad de ventas inferiores a '.$cantidad;
 		$this->genLog("Generó reporte cantidad de productos inferiores a ".$cantidad);
 		$items = $the_items->groupBy('products_id')->select('itempedido.products_id','itempedido.size','itempedido.preference','itempedido.number',\DB::raw('sum(cant) as cantidad'))
+		->havingRaw('cantidad < '.$cantidad)
 		->get();
 		$pdf = \App::make('dompdf.wrapper');
 		$pdf = \PDF::loadView('admin.reportes.productos.reportprodsales',['items'=>$items,'dt_empress'=>$dt_empress,'date'=>$date,'dia'=>$dia,'clients'=>$clients,'filtro'=>$filtro]);
@@ -171,13 +173,14 @@ class reportprodController extends Controller
 		$filtro = 'Productos con cantidad de ventas entre '.$datesinze.' / '.$dateto;
 		$this->genLog("Generó reporte cantidad de productos entre '".$datesinze."' / '".$dateto."' ");
 		$items = $the_items->groupBy('products_id')->select('itempedido.products_id','itempedido.size','itempedido.preference','itempedido.number',\DB::raw('sum(cant) as cantidad'))
-		->between('pedido.rango', $datesinze ,'and',$dateto)
+		->whereRaw('pedido.rango between  "'.$datesinze.'" and "'.$dateto.'" ')
 		->join('pedido','pedido.id','=','itempedido.pedido_id')
 		->get();
 		$pdf = \App::make('dompdf.wrapper');
 		$pdf = \PDF::loadView('admin.reportes.productos.reportprodsales',['items'=>$items,'dt_empress'=>$dt_empress,'date'=>$date,'dia'=>$dia,'clients'=>$clients,'filtro'=>$filtro]);
 		return $pdf->stream();
 		dd($items);
+		//->whereRaw('pedido.rango between  2016-08-01 '.$datesinze .' and '.$dateto.' ')
 	}
 
 
