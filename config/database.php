@@ -64,6 +64,7 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+             'dump_command_path' => env('DB_DUMP_COMMAND_PATH'),
         ],
 
         'pgsql' => [

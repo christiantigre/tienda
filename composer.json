@@ -23,7 +23,8 @@
         "intervention/image": "^2.3",
         "webcraft/laravel-random": "^1.0",
         "predis/predis": "^1.1",
-        "maatwebsite/excel": "~2.0"
+        "maatwebsite/excel": "~2.0",
+        "spatie/laravel-backup": "^3.10"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",

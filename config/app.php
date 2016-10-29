@@ -187,6 +187,8 @@ return [
         Intervention\Image\ImageServiceProvider::class,
         /*EXCEL*/
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        /*backups*/
+        Spatie\Backup\BackupServiceProvider::class,
         ],
 
     /*
