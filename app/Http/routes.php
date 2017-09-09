@@ -54,8 +54,7 @@ Route::bind('Entiti', function ($id) {
 
 Route::get('/', [
     'as'   => 'home',
-    'uses' => 'StoreController@index',
-]);
+    'uses' => 'StoreController@index']);
 
 /*Route::get('/', [
 'as' => 'header',
@@ -64,120 +63,105 @@ Route::get('/', [
 
 Route::get('product/{slug}', [
     'as'   => 'product-detail',
-    'uses' => 'StoreController@showzomm',
-]);
+    'uses' => 'StoreController@showzomm']);
 
 Route::get('cat/{id}/{sec}', [
     'as'   => 'subcategorias',
-    'uses' => 'StoreController@categorys',
-]);
+    'uses' => 'StoreController@categorys']);
 
 Route::get('morecategories/{sec}', [
     'as'   => 'morecategories',
-    'uses' => 'StoreController@morecategories',
-]);
+    'uses' => 'StoreController@morecategories']);
 
 Route::get('new/{sec}', [
     'as'   => 'new',
-    'uses' => 'StoreController@newproducts',
-]);
+    'uses' => 'StoreController@newproducts']);
 
 Route::get('promo/{sec}', [
     'as'   => 'promo',
-    'uses' => 'StoreController@promoproducts',
-]);
+    'uses' => 'StoreController@promoproducts']);
 
 Route::get('brandssearch/{brnd}', [
     'as'   => 'brandssearch',
-    'uses' => 'StoreController@brandssearch',
-]);
+    'uses' => 'StoreController@brandssearch']);
 
 Route::get('show-zoom/{slug}', [
     'as'   => 'show-zoom',
-    'uses' => 'StoreController@showzomm',
-]);
+    'uses' => 'StoreController@showzomm']);
 
 //Cart
 Route::get('cart/show', [
     'middleware' => 'auth',
     'as'         => 'cart-show',
-    'uses'       => 'CarritoController@show',
-]);
+    'uses'       => 'CarritoController@show']);
 
 Route::get('cart/add/{product}', [
     'as'   => 'cart-add',
-    'uses' => 'CarritoController@add',
-]);
+    'uses' => 'CarritoController@add']);
+
 Route::post('cart/add/{product}', [
     'as'   => 'cart-add',
-    'uses' => 'CarritoController@add',
-]);
+    'uses' => 'CarritoController@add']);
 
 Route::get('cart/delete/{product}', [
     'middleware' => 'auth',
     'as'         => 'cart-delete',
-    'uses'       => 'CarritoController@delete',
-]);
+    'uses'       => 'CarritoController@delete']);
 
 Route::get('cart/trash', [
     'middleware' => 'auth',
     'as'         => 'cart-trash',
-    'uses'       => 'CarritoController@trash',
-]);
+    'uses'       => 'CarritoController@trash']);
 
 Route::get('factura/{factura}', [
     'middleware' => 'auth',
     'as'         => 'admin.sales.factura',
-    'uses'       => 'Admin\SalesController@factura',
-]);
+    'uses'       => 'Admin\SalesController@factura']);
 
 Route::get('sendxml/{factura}', [
     'middleware' => 'auth',
     'as'         => 'admin.sales.sendxml',
-    'uses'       => 'Admin\SalesController@sendxml',
-]);
+    'uses'       => 'Admin\SalesController@sendxml']);
 
 Route::get('sendpdf/{factura}', [
     'middleware' => 'auth',
     'as'         => 'admin.sales.sendpdf',
-    'uses'       => 'Admin\SalesController@sendpdf',
-]);
+    'uses'       => 'Admin\SalesController@sendpdf']);
 
 Route::get('Genfiles/{factura}', [
     'middleware' => 'auth',
     'as'         => 'admin.sales.convrtride',
-    'uses'       => 'Admin\SalesController@revisarXml',
-]);
+    'uses'       => 'Admin\SalesController@revisarXml']);
 
 Route::get('generaArchivos/{factura}', [
     'middleware' => 'auth',
     'as'         => 'admin.sales.generaarchivos',
-    'uses'       => 'Admin\SalesController@generaArchivos',
-]);
+    'uses'       => 'Admin\SalesController@generaArchivos']);
 
 Route::get('cart/update/{product}/{cantt}', [
     'middleware' => 'auth',
     'as'         => 'cart-update',
-    'uses'       => 'CarritoController@update',
-]);
+    'uses'       => 'CarritoController@update']);
 
 Route::get('order-detail/{idus}', [
     'middleware' => 'auth',
     'as'         => 'order-detail',
-    'uses'       => 'CarritoController@orderDetail',
-]);
+    'uses'       => 'CarritoController@orderDetail']);
 
 Route::get('confir_comp', [
     'middleware' => 'auth',
     'as'         => 'confir_comp',
-    'uses'       => 'CarritoController@saveOrder',
-]);
+    'uses'       => 'CarritoController@saveOrder']);
+
+Route::post('confirma_compra', [
+    'middleware' => 'auth',
+    'as'         => 'confirma_compra',
+    'uses'       => 'CarritoController@confirmadocompra']);
 
 Route::post('confir_comp', [
     'middleware' => 'auth',
     'as'         => 'confir_comp',
-    'uses'       => 'CarritoController@saveOrder',
-]);
+    'uses'       => 'CarritoController@saveOrder']);
 
 Route::bind('Sections', function ($seccion) {
     return App\Sections::find($seccion);
@@ -210,20 +194,17 @@ Route::bind('seguridad', function ($seguridad) {
 Route::get('perfil/{idus}', [
     'middleware' => 'auth',
     'as'         => 'perfil',
-    'uses'       => 'PerfilController@show',
-]);
+    'uses'       => 'PerfilController@show']);
 
 /*cambio de clave*/
 Route::get('password/cambiar', [
     'middleware' => 'auth',
     'as'         => 'password/cambiar',
-    'uses'       => 'PerfilController@changepass',
-]);
+    'uses'       => 'PerfilController@changepass']);
 Route::get('password/update', [
     'middleware' => 'auth',
     'as'         => 'password/update',
-    'uses'       => 'PerfilController@updatepass',
-]);
+    'uses'       => 'PerfilController@updatepass']);
 
 Route::resource('store/perfil', 'PerfilController');
 Route::resource('store/partials/order-detal', 'carritoController');
@@ -235,44 +216,37 @@ Route::group(['prefix' => 'administracion', 'middleware' => ['auth', 'is_admin']
 Route::get('adminindex', [
     'middleware' => ['auth', 'is_admin'],
     'as'         => 'admin.adminindex',
-    'uses'       => 'AdminController@index',
-]);
+    'uses'       => 'AdminController@index']);
 /*inicio*/
 Route::get('inicio', [
     'as'   => 'inicio',
-    'uses' => 'InicioController@index',
-]);
+    'uses' => 'InicioController@index']);
 
 Route::resource('contact', 'ContactController');
 /*contact*/
 Route::get('contact', [
     'as'   => 'contact',
-    'uses' => 'ContactController@index',
-]);
+    'uses' => 'ContactController@index']);
 /*mis compras*/
 Route::get('mysales', [
     'middleware' => 'auth',
     'as'         => 'mysales',
-    'uses'       => 'MysalesController@index',
-]);
+    'uses'       => 'MysalesController@index']);
 Route::get('mysales/{id}', [
     'middleware' => 'auth',
     'as'         => 'mysalesshow',
-    'uses'       => 'MysalesController@show',
-]);
+    'uses'       => 'MysalesController@show']);
 /*FACTURAS*/
 
 Route::get('buscar/', [
     'middleware' => 'auth',
     'as'         => 'admin.facturas.searh',
-    'uses'       => 'Admin\factureController@search',
-]);
+    'uses'       => 'Admin\factureController@search']);
 
 Route::post('buscar/', [
     'middleware' => 'auth',
     'as'         => 'admin.facturas.buscar',
-    'uses'       => 'Admin\factureController@buscar',
-]);
+    'uses'       => 'Admin\factureController@buscar']);
 
 /*Route::get('/api/v1/coordinates/{name}', function($name) {
 try {
@@ -335,168 +309,138 @@ Route::get('/gmaps', ['as ' => 'gmaps', 'uses' => 'MapsController@index']);
 Route::get('searchproduct/', [
     'middleware' => 'auth',
     'as'         => 'admin.product.searchproduct',
-    'uses'       => 'Admin\productController@searchproduct',
-]);
+    'uses'       => 'Admin\productController@searchproduct']);
 Route::post('searchproduct', [
     'as'   => 'admin.product.searchadvance',
-    'uses' => 'Admin\productController@searchadvanceproduct',
-]);
+    'uses' => 'Admin\productController@searchadvanceproduct']);
 
 /*DESPACHOS*/
 Route::get('ruta/', [
     'middleware' => 'auth',
     'as'         => 'admin.despacho.index',
-    'uses'       => 'Admin\MapController@showRoute',
-]);
+    'uses'       => 'Admin\MapController@showRoute']);
 
 /*INVENTARIO*/
 Route::get('imprimir/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.imprimir',
-    'uses'       => 'Admin\invController@imprimir',
-]);
+    'uses'       => 'Admin\invController@imprimir']);
 
 Route::get('imprimirvtn/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.imprimirvtn',
-    'uses'       => 'Admin\invController@imprimirvtn',
-]);
+    'uses'       => 'Admin\invController@imprimirvtn']);
 
 Route::get('imprimirent/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.imprimirent',
-    'uses'       => 'Admin\invController@imprimirent',
-]);
+    'uses'       => 'Admin\invController@imprimirent']);
 
 Route::get('download/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.download',
-    'uses'       => 'Admin\invController@download',
-]);
+    'uses'       => 'Admin\invController@download']);
 
 Route::get('downloadvtn/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.downloadvtn',
-    'uses'       => 'Admin\invController@downloadvtn',
-]);
+    'uses'       => 'Admin\invController@downloadvtn']);
 
 Route::get('downloadent/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.downloadent',
-    'uses'       => 'Admin\invController@downloadent',
-]);
+    'uses'       => 'Admin\invController@downloadent']);
 
 Route::get('excel/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.excel',
-    'uses'       => 'Admin\invController@excel',
-]);
+    'uses'       => 'Admin\invController@excel']);
 
 Route::get('excelvtn/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.excelvtn',
-    'uses'       => 'Admin\invController@excelvtn',
-]);
+    'uses'       => 'Admin\invController@excelvtn']);
 
 Route::get('excelent/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.excelent',
-    'uses'       => 'Admin\invController@excelent',
-]);
+    'uses'       => 'Admin\invController@excelent']);
 
 Route::get('invventas/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.invventas',
-    'uses'       => 'Admin\invController@invventas',
-]);
+    'uses'       => 'Admin\invController@invventas']);
 
 Route::get('inentrega/', [
     'middleware' => 'auth',
     'as'         => 'admin.inventario.inentrega',
-    'uses'       => 'Admin\invController@inentrega',
-]);
+    'uses'       => 'Admin\invController@inentrega']);
 
 /*TERMINOS Y CONDICIONES*/
 Route::get('term/', [
     'as'   => 'term',
-    'uses' => 'StoreController@terminosCondiciones',
-]);
+    'uses' => 'StoreController@terminosCondiciones']);
 
 /*REPORTES VENTAS*/
 Route::post('/reports/rango', [
     'as'   => 'admin.reports.rango',
-    'uses' => 'Admin\reportController@rango',
-]);
+    'uses' => 'Admin\reportController@rango']);
 
 Route::post('/reports/before', [
     'as'   => 'admin.reports.before',
-    'uses' => 'Admin\reportController@before',
-]);
+    'uses' => 'Admin\reportController@before']);
 
 Route::post('/reports/during', [
     'as'   => 'admin.reports.during',
-    'uses' => 'Admin\reportController@during',
-]);
+    'uses' => 'Admin\reportController@during']);
 
 Route::post('/reports/after', [
     'as'   => 'admin.reports.after',
-    'uses' => 'Admin\reportController@after',
-]);
+    'uses' => 'Admin\reportController@after']);
 
 Route::post('/reportes', [
     'as'   => 'admin.reports.contvcli',
-    'uses' => 'Admin\reportController@ventasporclientes',
-]);
+    'uses' => 'Admin\reportController@ventasporclientes']);
 Route::post('/ventasdelmes', [
     'as'   => 'admin.reports.contvmes',
-    'uses' => 'Admin\reportController@contvmes',
-]);
+    'uses' => 'Admin\reportController@contvmes']);
 
 Route::post('/ventasdelmessuperiores', [
     'as'   => 'admin.reports.contvvalsuprr',
-    'uses' => 'Admin\reportController@contvvalsuprr',
-]);
+    'uses' => 'Admin\reportController@contvvalsuprr']);
 
 Route::post('/ventasdelmesinferiores', [
     'as'   => 'admin.reports.contvvalinf',
-    'uses' => 'Admin\reportController@contvvalinf',
-]);
+    'uses' => 'Admin\reportController@contvvalinf']);
 
 Route::post('/contadorventasentregangos', [
     'as'   => 'admin.reports.contvvalrangos',
-    'uses' => 'Admin\reportController@contvvalrangos',
-]);
+    'uses' => 'Admin\reportController@contvvalrangos']);
 
 /*REPORTES DE PRODUCTOS*/
 Route::post('/contadorproductosvendidos', [
     'as'   => 'admin.reports.conctprod',
-    'uses' => 'Admin\reportprodController@conctprod',
-]);
+    'uses' => 'Admin\reportprodController@conctprod']);
 
 Route::post('/contadorproductosvendidospormes', [
     'as'   => 'admin.reports.conctprodmes',
-    'uses' => 'Admin\reportprodController@conctprodmes',
-]);
+    'uses' => 'Admin\reportprodController@conctprodmes']);
 
 Route::post('/contadorproductosvendidoshoy', [
     'as'   => 'admin.reports.conctproddia',
-    'uses' => 'Admin\reportprodController@conctproddia',
-]);
+    'uses' => 'Admin\reportprodController@conctproddia']);
 
 Route::post('/contadorproductossuperiores', [
     'as'   => 'admin.reports.superior',
-    'uses' => 'Admin\reportprodController@superiores',
-]);
+    'uses' => 'Admin\reportprodController@superiores']);
 
 Route::post('/contadorproductosinferiores', [
     'as'   => 'admin.reports.inferior',
-    'uses' => 'Admin\reportprodController@inferiores',
-]);
+    'uses' => 'Admin\reportprodController@inferiores']);
 
 Route::post('/contadorprodentregangos', [
     'as'   => 'admin.reports.contprodcantrangos',
-    'uses' => 'Admin\reportprodController@contprodcantrangos',
-]);
+    'uses' => 'Admin\reportprodController@contprodcantrangos']);
 
 Route::auth();
 
@@ -512,73 +456,59 @@ Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::get('conctprod', [
     'as'   => 'conctprod',
-    'uses' => 'Admin\reportprodController@conctprod',
-]);
+    'uses' => 'Admin\reportprodController@conctprod']);
 
 Route::get('admin/inv/', [
     'as'   => 'inv',
-    'uses' => 'Admin\invController@index',
-]);
+    'uses' => 'Admin\invController@index']);
 
 Route::get('gen/', [
     'as'   => 'gen',
-    'uses' => 'Admin\logsController@genLog',
-]);
+    'uses' => 'Admin\logsController@genLog']);
 
 Route::get('file/{dir}', [
     'as'   => 'file',
-    'uses' => 'CarritoController@makeDir',
-]);
+    'uses' => 'CarritoController@makeDir']);
 
 Route::get('deleteFile/{directorio}/{archivoconextencion}', [
     'as'   => 'deleteFile',
-    'uses' => 'CarritoController@deleteFile',
-]);
+    'uses' => 'CarritoController@deleteFile']);
 
 Route::get('firma/{id}', [
     'as'   => 'firma',
-    'uses' => 'FirmaController@firma',
-]);
+    'uses' => 'FirmaController@firma']);
 //genera xml
 Route::get('generaFiles/{id}', [
     'as'   => 'generaFiles',
-    'uses' => 'Admin\SalesController@generaArchivos',
-]);
+    'uses' => 'Admin\SalesController@generaArchivos']);
 
 Route::get('xml/', [
     'as'   => 'firma',
-    'uses' => 'CarritoController@generaclaveacceso',
-]);
+    'uses' => 'CarritoController@generaclaveacceso']);
 
 Route::get('sendEmail/{clavedeacceso}', [
     'as'   => 'sendEmail',
-    'uses' => 'CarritoController@sendEmail',
-]);
+    'uses' => 'CarritoController@sendEmail']);
 
 Route::get('generaxml/{id}', [
     'as'   => 'firma',
-    'uses' => 'CarritoController@generaXml',
-]);
+    'uses' => 'CarritoController@generaXml']);
 
 Route::get('firmar/{nombrexml}', [
     'as'   => 'firma',
-    'uses' => 'CarritoController@firmarXml',
-]);
+    'uses' => 'CarritoController@firmarXml']);
 
 Route::get('revisar/{var}', [
     'as'   => 'revisar',
-    'uses' => 'CarritoController@revisarXml',
-]);
+    'uses' => 'CarritoController@revisarXml']);
 
 Route::get('existFile/{var}', [
     'as'   => 'revisar',
-    'uses' => 'CarritoController@existFile',
-]);
+    'uses' => 'CarritoController@existFile']);
 
 Route::get('generapdf/{clave}', [
     'as'   => 'generapdf',
-    'uses' => 'CarritoController@generaPdf',
-]);
+    'uses' => 'CarritoController@generaPdf']);
 
 /*Route::get('redis', function () {
 $redis = app()->make('redis');
@@ -620,8 +550,7 @@ Route::get('person/zone', 'PersonalController@secret');
 /*pruebasD7ukZ_44NGlrH1xhjaFrrQ*/
 Route::get('lista', [
     'as'   => 'lista',
-    'uses' => 'PruebasController@index',
-]);
+    'uses' => 'PruebasController@index']);
 
 /*Route::get("test-email", function () {
 Mail::send("emails.bienvenido", [], function ($message) {

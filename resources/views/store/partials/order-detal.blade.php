@@ -16,7 +16,7 @@
       !!}
       <div class="web-application">
         <div class="col-sm-12">
-          <h4 class="brief"><i><small>Datos del Usuario</small></i></h4>
+          <h4 class="brief"><i><small>Datos del Usuario </small></i></h4>
           <div class="left col-xs-7">
             <h2><small>{{ $perfil->name }} {{ $perfil->apellidos }}</small></h2>
             <p><strong>Email : </strong>{{ $perfil->email }}. </p>
@@ -28,9 +28,10 @@
               <li><i class="fa fa-location-arrow"></i> Dirección 1 : {{ $perfil->dir1 }}</li>
               <li><i class="fa fa-location-arrow"></i> Dirección 2 : {{ $perfil->dir2 }}</li>
             </ul>
+            <input type="hidden" name="id" id="id" value="{{ $idus }}"/>
             <input type="hidden" name="lt" id="lt" value="{{ $perfil->lt }}"/>
-            <input type="hidden" name="lg" id="lg" value="{{ $perfil->lg }}"/> 
-            <input type="hidden" name="latlng" id="latlng" value="{{ $perfil->lt }}, {{ $perfil->lg }}"/> 
+            <input type="hidden" name="lg" id="lg" value="{{ $perfil->lg }}"/>
+            <input type="hidden" name="latlng" id="latlng" value="{{ $perfil->lt }}, {{ $perfil->lg }}"/>
             <input type="hidden" name="ln" id="ln" value="{{ $dt_empress->ln }}"/>
             <input type="hidden" name="lgemp" id="lgemp" value="{{ $dt_empress->lg }}"/>
 
@@ -47,15 +48,15 @@
           <div class="row fontawesome-icon-list">
             <ul class="list-unstyled">
               <li>
-                <i class="fa fa-map-marker"></i> Ubicación actual : 
+                <i class="fa fa-map-marker"></i> Ubicación actual :
                 <input type="radio" name="rad" id="rad" value="UBICACION" onclick="ordermap()"/>
               </li>
               <li>
-                <i class="fa fa-automobile"></i> Envío a domicilio : 
+                <i class="fa fa-automobile"></i> Envío a domicilio :
                 <input type="radio" name="rad" id="submit" value="DOMICILIO" onclick="domicilio()"/>
               </li>
               <li>
-                <i class="fa fa-child"></i> Voy por mi pedido : 
+                <i class="fa fa-child"></i> Voy por mi pedido :
                 <input type="radio" name="rad" id="rad" value="RETIRO" onclick="localStore()" checked="" required/>
               </li>
               {!! Form::hidden('lat', '0', array('id' => 'lat')) !!}
@@ -73,13 +74,13 @@
           <h4 class="brief"><i><small>Selecione forma de pago</small></i></h4>
           <div class="row fontawesome-icon-list">
             <ul class="list-unstyled">
-              <li><i class="fa fa-usd"></i> Forma : 
+              <li><i class="fa fa-usd"></i> Forma :
                {!! Form::select('id', $pays, null,['class'=>'form-control'])    !!}
              </li>
            </ul>
          </div>
          <div class="right col-xs-5 text-center">
-          <input type="hidden" id="res" size="20">        
+          <input type="hidden" id="res" size="20">
         </div>
       </div>
     </div>
@@ -89,7 +90,7 @@
       <div class="web-application">
         <h4 class="brief"><i><small>Lugar de entrega</small></i></h4>
         <!-- Se determina y escribe la localizacion -->
-        <div id='ubicacion' class="col-md-6 col-sm-6 col-xs-12" style='display:none;'></div> 
+        <div id='ubicacion' class="col-md-6 col-sm-6 col-xs-12" style='display:none;'></div>
         <!---->
         <div class="col-md-6 col-sm-6 col-xs-12" id="demo"></div>
         <div class="col-md-6 col-sm-6 col-xs-12" id="domicilio"></div>
@@ -135,8 +136,8 @@
               <h6>{{ $item->nombre }}</h6><br />
             </td>
           </td>
-          <td> 
-            <h6>         
+          <td>
+            <h6>
               @if(count($item->sizes)>0)
               Talla :
               {{ $item->sizes }}<br />
@@ -156,7 +157,7 @@
             <p><h6>{{ number_format($item->pre_ven,2) }}</h6></p>
           </td>
           <td>
-            <p><h6>{{ $item->cantt }}</h6></p>	
+            <p><h6>{{ $item->cantt }}</h6></p>
           </td>
           <td>
             <p class="cart_total_price"><h6>{{ number_format( $item->pre_ven * $item->cantt,2 ) }}</h6></p>
@@ -193,6 +194,8 @@
              <hr>
              {{ Form::input('submit',null,'CONFIRMAR COMPRA', array('class'=>'btn btn-primary fa fa-shopping-cart','tittle'=>'CONFIRMAR COMPRA','id' => 'btn','onclick'=>'jsShowWindowLoad("Cargando");' )) }}
              <!--<input type="button" onclick="jsShowWindowLoad('Cargando')" name="">-->
+
+                      <a class="btn btn-primary guarda_venta" ><i class="fa fa-dollar"></i> TEST JSON</a>
              <br>
            </tr>
          </table>
@@ -204,6 +207,53 @@
  </div>
 </div>
 </div>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.guarda_venta').click(function(){
+      event.preventDefault();
+      var lt= $("#lt").val();
+      var lg= $("#lg").val();
+      var latlng= $("#latlng").val();
+      var ln= $("#ln").val();
+      var lgemp= $("#lgemp").val();
+      var rad= $("#rad").val();
+      var lat= $("#lat").val();
+      var long= $("#long").val();
+      var entrega= $("#entrega").val();
+      var id= $("#id").val();
+      var token = $("input[name=_token]").val();
+      var route = '/confirma_compra/';
+      var parametros = {
+        "lt" :lt,
+        "lg" :lg,
+        "latlng" :latlng,
+        "ln" :ln,
+        "lgemp" :lgemp,
+        "rad" :rad,
+        "lat" :lat,
+        "long" :long,
+        "entrega" :entrega,
+        "id" :id
+      }
+      $.ajax({
+      url:route,
+      headers:{'X-CSRF-TOKEN':token},
+      type:'post',
+      dataType: 'json',
+      data:parametros,
+      success:function(data)
+      {
+        console.log('Success '+data);
+      },
+      error:function(data)
+      {
+        console.log('Error '+data);
+      }
+    });
+    });
+  });
+</script>
 
 
 <script type="text/javascript">
@@ -237,7 +287,7 @@
 
     function showError(error)
     {
-      switch(error.code) 
+      switch(error.code)
       {
         case error.PERMISSION_DENIED:
         x.innerHTML="Denegada la peticion de Geolocalización en el navegador."
@@ -302,10 +352,10 @@ function jsShowWindowLoad(mensaje) {
     //asignamos el div que bloquea
     $("#WindowLoad").append(input);
 
-    //asignamos el foco y ocultamos el input text 
+    //asignamos el foco y ocultamos el input text
     $("#focusInput").focus();
     $("#focusInput").hide();
-    
+
     //centramos el div del texto
     $("#WindowLoad").html(imgCentro);
 
@@ -318,8 +368,8 @@ function jsShowWindowLoad(mensaje) {
     top:0px;
     left:0px;
     z-index:3200;
-    filter:alpha(opacity=65);   
-    -moz-opacity:65;   
+    filter:alpha(opacity=65);
+    -moz-opacity:65;
     opacity:0.65;
     background:#999;
   }
@@ -327,7 +377,3 @@ function jsShowWindowLoad(mensaje) {
 {{ Form::close() }}
 
 @stop
-
-
-
-
