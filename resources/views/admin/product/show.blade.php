@@ -97,7 +97,7 @@
                   <h3 class="prod_title">Promoci&oacute;n : {{ $product->promocion ==1 ? "Si" : "No" }}</h3>
                   <h3 class="prod_title">Catalogo : {{ $product->catalogo ==1 ? "Si" : "No" }}</h3>
                   <h3 class="prod_title">Stock : {{ $product->cant }}</h3>
-                  <h3 class="prod_title">Tamaños : 
+                  <h3 class="prod_title">Tamaños :
                     @if(count($sizes)>0)
                     @foreach($sizes as $size)
                     <h4>({{$size->size->abreviatura}}) - {{$size->size->name}}</h4>
@@ -106,21 +106,21 @@
                     <h4>0 resultados</h4>
                     @endif
                   </h3>
-                  <h3 class="prod_title">Números : 
+                  <h3 class="prod_title">Números :
                     @if(count($numbers)>0)
                     @foreach($numbers as $number)
                     <h4>{{$number->numbersizes->number}}</h4>
                     @endforeach
-                    @else     
+                    @else
                     <h4>0 resultados</h4>
                     @endif
                   </h3>
-                  <h3 class="prod_title">Preferencias : 
+                  <h3 class="prod_title">Preferencias :
                     @if(count($availables)>0)
                     @foreach($availables as $available)
                     <h4>{{$available->availables->name}}</h4>
                     @endforeach
-                    @else    
+                    @else
                     0 resultados
                     @endif
                   </h3>
@@ -142,7 +142,7 @@
 
 
             </div>
-            {{ Form::close() }}     
+            {{ Form::close() }}
           </div>
         </div>
       </div>
@@ -150,7 +150,7 @@
   </div>
 
   <!-- footer content -->
-  @include('admin.partials.footer') 
+  @include('admin.partials.footer')
   <!-- /footer content -->
 
 </div>
