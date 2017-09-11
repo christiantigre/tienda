@@ -64,7 +64,7 @@
                 <div class="col-sm-4 invoice-col">
                   Tienda
                   <address>
-                    @foreach($dt_empress as $dt_empres)   
+                    @foreach($dt_empress as $dt_empres)
                     <strong>{{ $dt_empres->nom }}</strong>
                     <br>{{ $dt_empres->dir }}
                     <br>{{ $dt_empres->prov }} - {{ $dt_empres->ciu }}
@@ -96,7 +96,7 @@
                   <br>
                   <br>
                   <b>Estado del pedido :</b> {{ $pedidoshow->status->statu }}
-                  <br>                   
+                  <br>
                   <br>
                   <b>Forma de pago:</b> {{ $pedidoshow->paymethods->namemethod }}
                   <br>
@@ -150,7 +150,7 @@
                 <!-- accepted payments column -->
 
                 <div class="col-xs-6">
-                  
+
                 </div>
 
                 <!-- /.col -->
@@ -164,7 +164,7 @@
                           <td>${{ $pedidoshow->subtotal }}</td>
                         </tr>
                         <tr>
-                          <th>Iva (14%)</th>
+                          <th>Iva ({{ $e_iv }}%)</th>
                           <td>${{ $pedidoshow->iva }}</td>
                         </tr>
                         <tr>
@@ -183,12 +183,12 @@
 
 
               <div class="col-md-12">
-                <div class="form-group">     
+                <div class="form-group">
                   @if (Auth::user()->rol===1)
-                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>     
+                  <a href="{{ route('admin.sales.index') }}" class="btn btn-primary">Pedidos</a>
                   @elseif (Auth::user()->rol===3)
-                  <a href="{{ route('admin.despacho.index') }}" class="btn btn-primary">Entregas</a>   
-                  @endif                 
+                  <a href="{{ route('admin.despacho.index') }}" class="btn btn-primary">Entregas</a>
+                  @endif
 
                 </div>
               </div>
@@ -198,7 +198,7 @@
                 </div>
               </div>
             </section>
-            {{ Form::close() }}     
+            {{ Form::close() }}
           </div>
         </div>
       </div>
@@ -206,7 +206,7 @@
   </div>
 
   <!-- footer content -->
-  @include('admin.partials.footer') 
+  @include('admin.partials.footer')
   <!-- /footer content -->
 
 </div>

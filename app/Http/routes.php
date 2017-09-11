@@ -248,15 +248,6 @@ Route::post('buscar/', [
     'as'         => 'admin.facturas.buscar',
     'uses'       => 'Admin\factureController@buscar']);
 
-/*Route::get('/api/v1/coordinates/{name}', function($name) {
-try {
-$geocode = Geocoder::geocode("$name, Tanzania")->toArray();
-return Response::json($geocode);
-} catch (\Exception $e) {
-echo $e->getMessage();
-}
-});*/
-
 Route::group(['middleware' => 'auth', 'is_admin'], function () {
     //ute::resource('todo', 'TodoController', ['only' => ['index']]);
 
@@ -303,7 +294,7 @@ Route::group(['middleware' => 'auth', 'is_admin'], function () {
     Route::resource('admin/mapas', 'Admin\MapsController');
 });
 
-Route::get('/gmaps', ['as ' => 'gmaps', 'uses' => 'MapsController@index']);
+/*Route::get('/gmaps', ['as ' => 'gmaps', 'uses' => 'MapsController@index']);*/
 /*BUSCAR PRODUCTO*/
 
 Route::get('searchproduct/', [
@@ -510,34 +501,7 @@ Route::get('generapdf/{clave}', [
     'as'   => 'generapdf',
     'uses' => 'CarritoController@generaPdf']);
 
-/*Route::get('redis', function () {
-$redis = app()->make('redis');
-$redis->set("key1", "testValue");
-return $redis->get("key1");
-});*/
-
-/*Route::get('vista', function () {
-return View::make('pdf/vista');
-});*/
-
-/*Route::get('artisan', function () {
-Artisan::call('log:ride');
-});*/
-
 Route::any('/server', 'SoapController@demo');
-
-//cierre pruebas
-
-//movimiento de despachador con direction service directions
-
-/*Route::get('/hidden', ['before' => 'auth', function () {
-$contents = View::make('hidden');
-$response = Response::make($contents, 200);
-$response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
-$response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
-$response->header('Pragma', 'no-cache');
-return $response;
-}]);*/
 
 /*No funciona*/
 //Route::group(['middleware' => 'iddesp'], function(){

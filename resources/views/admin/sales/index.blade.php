@@ -4,7 +4,7 @@
   <div class="">
     <div class="page-title">
       <div class="title_left">
-        <h3>                    
+        <h3>
           <small>
             Pedidos
           </small>
@@ -58,7 +58,7 @@
 
                   <table id="datatable-keytable" class="table table-striped table-bordered">
                     <thead>
-                      <tr>                              
+                      <tr>
                         <th>Ver</th>
                         <th>Rutas</th>
                         <th>Gestión</a><!--</th><a href="<th></th>">-->
@@ -95,9 +95,9 @@
                             <i class="fa fa-calculator"></i>
                           </a>
                         </td>
-                        <td class="textsmall">{{ $emp->id }}</td> 
-                        <td class="textsmall">{{ $emp->date }}</td> 
-                        <td class="textsmall">{{ $emp->users->name }} {{ $emp->users->apellidos }}</td> 
+                        <td class="textsmall">{{ $emp->id }}</td>
+                        <td class="textsmall">{{ $emp->date }}</td>
+                        <td class="textsmall">{{ $emp->users->name }} {{ $emp->users->apellidos }}</td>
                         <td class="textsmall">{{ $emp->entrega }}</td>
                         <td class="textsmall">{{ $emp->status->statu }}</td>
                         <td class="textsmall">{{ $emp->paymethods->namemethod }}</td>

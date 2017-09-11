@@ -297,8 +297,17 @@ class CarritoController extends Controller
 
     public function saveOrder(Request $request)
     {
-        $the_sales     = new sales;
-        $id_us         = Auth::user()->id;
+        $empresa   = new Empresaa;
+        $the_sales = new sales;
+        $id_us     = Auth::user()->id;
+
+        $cliva    = new Iva;
+        $e_reliva = $empresa->select()->where('id', '=', 1)->first();
+        $e_valiva = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
+        $e_iv     = $e_valiva->iva;
+        $e_valor  = $e_iv + 100;
+        $e_obtnvl = $e_valor / 100;
+
         $total         = 0;
         $valiva        = 1.14;
         $ivaporcentaje = 14;
@@ -395,7 +404,7 @@ class CarritoController extends Controller
         //$this->revisarXml($codigogenerado)
         //Queue::later(180, $this->retorno($codigogenerado));
         $codigogenerado = '0';
-        return view('store.partials.detallsale', compact('order', 'dt_empress', 'perfil', 'cartord', 'cartordaux', 'codigogenerado', 'rutaPdf'));
+        return view('store.partials.detallsale', compact('order', 'dt_empress', 'perfil', 'cartord', 'cartordaux', 'codigogenerado', 'rutaPdf', 'e_iv'));
     }
 
     private function generaXml($idpedido)

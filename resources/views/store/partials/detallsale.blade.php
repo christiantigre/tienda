@@ -1,7 +1,7 @@
 @extends('store.template')
 @section('content')
 <script type="text/javascript">
-  
+
 </script>
 <!-- page content -->
 <div class="right_col" role="main">
@@ -124,7 +124,7 @@
                           <td>${{ $cartordaux->subtotal }}</td>
                         </tr>
                         <tr>
-                          <th>Iva (14%)</th>
+                          <th>Iva ({{ $e_iv }}%)</th>
                           <td>${{ $cartordaux->iva }}</td>
                         </tr>
                         <tr>

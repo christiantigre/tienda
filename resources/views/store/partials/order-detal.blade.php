@@ -132,7 +132,7 @@
             @foreach($cart as $item)
             <tr>
              <td>
-              <img src="/upload/products/{{ $item->img }}" alt="" width="60">
+              <img src="{{ asset('/upload/products/')}}/{{ $item->img }}" alt="" width="60">
               <h6>{{ $item->nombre }}</h6><br />
             </td>
           </td>
@@ -195,7 +195,7 @@
              {{ Form::input('submit',null,'CONFIRMAR COMPRA', array('class'=>'btn btn-primary fa fa-shopping-cart','tittle'=>'CONFIRMAR COMPRA','id' => 'btn','onclick'=>'jsShowWindowLoad("Cargando");' )) }}
              <!--<input type="button" onclick="jsShowWindowLoad('Cargando')" name="">-->
 
-                      <a class="btn btn-primary guarda_venta" ><i class="fa fa-dollar"></i> TEST JSON</a>
+                      <!--<a class="btn btn-primary guarda_venta" ><i class="fa fa-dollar"></i> TEST JSON</a>-->
              <br>
            </tr>
          </table>

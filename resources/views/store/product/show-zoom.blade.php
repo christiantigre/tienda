@@ -39,10 +39,10 @@
 				'top':'60%',
 				'left':'60%'
 			},{
-				duration: 3000, 
+				duration: 3000,
 				progress: function(){
 					$(".magnify").data("jfMagnify").update();
-				}, 
+				},
 				easing: "easeOutElastic"
 			});
 		});
@@ -72,7 +72,7 @@
 									<div class="mg_zone"></div>
 								</div>
 								<div class = "element_to_magnify">
-									<img src="/upload/products/{{ $product->img }}"/>
+									<img src="{{ asset('/upload/products/')}}/{{ $product->img }}"/>
 								</div>
 							</div>
 
@@ -116,7 +116,7 @@
 							<p><b>Sección :</b> {{ $product->sections->name }}</p>
 							<p><b>Disponible :</b> {{ $product->cant }}</p>
 							<p><b>Marca :</b> {{ $product->brand->brand }}</p>
-							<p><b>Condición :</b> 
+							<p><b>Condición :</b>
 								<div class="bs-example-popovers">
 									<form id="condiciones" name="condiciones" method="GET">
 										<p>
@@ -125,9 +125,9 @@
 											@if($nuevo->nuevo == '1')
 											Nuevo
 											@else
-											@endif											                
+											@endif
 											@endforeach
-											@else       
+											@else
 											@endif
 											<br/>
 											@if(count($promociones)>0)
@@ -135,33 +135,33 @@
 											@if($promocion->promocion == '1')
 											Promoción
 											@else
-											@endif 
+											@endif
 											@endforeach
-											@else       
+											@else
 											@endif
 										</p>
 									</form>
 								</div>
 							</p>
-							<p><b>Tamaño :</b> 
+							<p><b>Tamaño :</b>
 								<label id="ltamano" name="ltamano" value="" />
 								<div class="bs-example-popovers">
 									<input type="hidden" id="tamano" name="tamano" value="" required="required" />
-									<form id="sizes" name="sizes" method="GET">									
+									<form id="sizes" name="sizes" method="GET">
 										@if(count($sizes)>0)
 										@foreach($sizes as $size)
 										<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" value="{{$size->size->name}}" id="{{$size->size->id}}" title="" onclick="tamano(this.id,this.value)">
-											<b>({{$size->size->abreviatura}}) </b>                      
+											<b>({{$size->size->abreviatura}}) </b>
 										</button>
 										@endforeach
-										@else       
+										@else
 										<p>0 resultados</p>
 										@endif
 									</form>
-								</div>									
+								</div>
 							</p>
 							<p><b>Color :</b>
-								<label id="lcolor" name="lcolor" value=""/> 
+								<label id="lcolor" name="lcolor" value=""/>
 								<div class="bs-example-popovers">
 									<input type="hidden" id="color" name="color" value="" required="required"/>
 									<form id="availables" name="availables" method="GET">
@@ -171,28 +171,28 @@
 											{{$available->availables->name}}
 										</button>
 										@endforeach
-										@else     
+										@else
 										<p>0 resultados</p>
-										@endif	
-									</form>		
-								</div>									
+										@endif
+									</form>
+								</div>
 							</p>
 							<p><b>Número :</b>
 								<label id="lnumero" name="lnumero" value="" />
 								<div class="bs-example-popovers">
 									<input type="hidden" id="numero" name="numero" value="" required="required"/>
-									<form id="numbers" name="numbers" method="GET">							
+									<form id="numbers" name="numbers" method="GET">
 										@if(count($numbers)>0)
 										@foreach($numbers as $number)
 										<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." id="{{$number->numbersizes->id}}" value="{{$number->numbersizes->number}}" data-original-title="" title="" onclick="numero(this.id,this.value)">
 											{{$number->numbersizes->number}}
 										</button>
 										@endforeach
-										@else   
+										@else
 										<p>0 resultados</p>
 										@endif
 									</form>
-								</div>								
+								</div>
 
 							</p>
 							<p><b>Cod barra :</b></p>
@@ -204,7 +204,7 @@
 							<!--OMPARTIR REDES SOCIALES-->
 							<script type="text/javascript">
 								var URLactual = window.location;
-								document.getElementById("fb").value=URLactual;								
+								document.getElementById("fb").value=URLactual;
 								elemento.setAttribute("data-href", URLactual);
 							</script>
 							<div id="fb" class="fb-like" data-href="http://facebook/storeli.nect" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
@@ -236,7 +236,7 @@
 
 		<!-- footer content -->
 		<footer>
-			@include('store.partials.footer') 
+			@include('store.partials.footer')
 		</footer>
 		<!-- /footer content -->
 

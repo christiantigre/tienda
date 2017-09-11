@@ -5,36 +5,36 @@
 <div class="row">
     <div class="col-sm-3">
         <div class="left-sidebar">
-            
+
             <!--category-productsr-->
             @include('store.partials.category')
-            <!--/category-productsr-->                    
+            <!--/category-productsr-->
             <!--brands_products-->
             @include('store.partials.brands')
-            <!--/brands_products-->                        
+            <!--/brands_products-->
             <div class="price-range"><!--price-range-->
                             <!--<h2>Price Range</h2>
                             <div class="well">
                                  <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2" ><br />
                                  <b>$ 0</b> <b class="pull-right">$ 60</b>
                              </div>-->
-                         </div><!--/price-range-->                        
+                         </div><!--/price-range-->
                          <div class="shipping text-center"><!--shipping-->
                             <img src="{{ asset('images/home/shipping.jpg') }}" alt="" />
-                        </div><!--/shipping-->                        
+                        </div><!--/shipping-->
                     </div>
                 </div>
                 <div class="col-sm-9 padding-right">
                     <div class="features_items"><!--features_items-->
                         @if(count($products)>0)
-                        
+
                         @foreach($products as $product )
-                        
+
                         <div class="col-sm-4">
                             <div class="product-image-wrapper">
                                 <div class="single-products">
                                     <div class="productinfo text-center">
-                                        <img src="/upload/products/{{$product->img }}" alt="" width="200" />
+                                        <img src="{{ asset('/upload/products/') }}/{{$product->img }}" alt="" width="200" />
                                         <h2>{{$product->pre_ven }}</h2>
                                         <p>{{$product->nombre }}</p>
                                         <br>
@@ -42,7 +42,7 @@
                                     <div class="product-overlay">
                                         <div class="overlay-content">
                                             <a href="{{ route('product-detail', $product->slug) }}" class="btn btn-default add-to-cart">
-                                                <img src="/upload/products/{{$product->img }}" alt="" width="200"/>
+                                                <img src="{{ asset('/upload/products/')}}/{{$product->img }}" alt="" width="200"/>
                                             </a>
                                             <h2>{{$product->pre_ven }}</h2>
                                             <p>{{$product->prgr_tittle }}</p>
@@ -86,7 +86,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     @endforeach
 
                     @else

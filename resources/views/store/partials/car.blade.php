@@ -26,7 +26,7 @@
 						@foreach($cart as $item)
 						<tr>
 							<td class="cart_price">
-								<a href="{{ route('product-detail', $item->slug) }}"><img src="/upload/products/{{ $item->img }}" alt="" width="60"></a>
+								<a href="{{ route('product-detail', $item->slug) }}"><img src="{{ asset('/upload/products/') }}/{{ $item->img }}" alt="" width="60"></a>
 							</td>
 							<td class="cart_price">
 								<p>{{ $item->nombre }}</p><br/>

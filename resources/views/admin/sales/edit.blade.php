@@ -1,13 +1,13 @@
 @extends('admin.template')
 @section('content')
-	<!-- page content -->
+  <!-- page content -->
       <div class="right_col" role="main">
 
         <div class="">
           <div class="page-title">
             <div class="title_left">
               <h3>
-                    Detalle 
+                    Detalle
                     <small>
                         de pedido
                     </small>
@@ -28,7 +28,7 @@
           <div class="clearfix"></div>
 
           <div class="row">
-          	{!! Form::model($pedido, array('route' => array('admin.sales.update', $pedido->id))) !!}
+            {!! Form::model($pedido, array('route' => array('admin.sales.update', $pedido->id))) !!}
             <input type="hidden" name="_method" value="PUT">
             <div class="col-md-12">
               <div class="x_panel">
@@ -69,7 +69,7 @@
                       <div class="col-sm-4 invoice-col">
                         Tienda
                 <address>
-                  	@foreach($dt_empress as $dt_empres)   
+                    @foreach($dt_empress as $dt_empres)
                     <strong>{{ $dt_empres->nom }}</strong>
                     <br>{{ $dt_empres->dir }}
                     <br>{{ $dt_empres->prov }} - {{ $dt_empres->ciu }}
@@ -83,27 +83,27 @@
                       <div class="col-sm-4 invoice-col">
                         Cliente
                 <address>
-              		@foreach($perfil as $perfils)
-	                <strong>{{ $perfils->name }} {{ $perfils->apellidos }}</strong>
-                	<br>{{ $perfils->dir1 }}
-                	<br>{{ $perfils->dir2 }}
-                	<br>tlf: {{ $perfils->telefono }}/{{ $perfils->celular }}
-                	<br>Email: {{ $perfils->email }}
-                	@endforeach
+                  @foreach($perfil as $perfils)
+                  <strong>{{ $perfils->name }} {{ $perfils->apellidos }}</strong>
+                  <br>{{ $perfils->dir1 }}
+                  <br>{{ $perfils->dir2 }}
+                  <br>tlf: {{ $perfils->telefono }}/{{ $perfils->celular }}
+                  <br>Email: {{ $perfils->email }}
+                  @endforeach
                 </address>
                       </div>
                       <!-- /.col -->
                       <div class="col-sm-4 invoice-col">
                         <b>Pedido </b>
-				          <br>
-				          <br>
-				          <b>Estado del pedido :</b>{!! Form::select('status_id', $status, null,['class'=>'form-control'])    !!}
+                  <br>
+                  <br>
+                  <b>Estado del pedido :</b>{!! Form::select('status_id', $status, null,['class'=>'form-control'])    !!}
 <br>
-				           {{ $pedido->status->statu }}
-				          <br>
-				          <b>Forma de pago:</b> {{ $pedido->paymethods->namemethod }}
-				          <br>
-				          <b>Entrega de pedido :</b> {{ $pedido->entrega }}
+                   {{ $pedido->status->statu }}
+                  <br>
+                  <b>Forma de pago:</b> {{ $pedido->paymethods->namemethod }}
+                  <br>
+                  <b>Entrega de pedido :</b> {{ $pedido->entrega }}
                       </div>
                       <!-- /.col -->
                     </div>
@@ -114,23 +114,23 @@
                       <div class="col-xs-12 table">
                         <table class="table table-striped">
                           <thead>
-		                      <tr>
-		                        <th>Producto</th>
-		                        <th>Precio</th>
-		                        <th style="width: 59%">Cantidad</th>
-		                        <th>Subtotal</th>
-		                      </tr>
-		                    </thead>
-		                    @foreach($item as $itemp)
-		                    <tbody>
-		                      <tr>
-		                        <td>{{ $itemp->products->nombre }}</td>
-		                        <td>{{ number_format($itemp->products->pre_ven,2) }}</td>
-		                        <td>{{ $itemp->cant }}</td>
-		                        <td>${{ number_format( $itemp->prec * $itemp->cant,2 ) }}</td>
-		                      </tr>
-		                    </tbody>
-		                    @endforeach
+                          <tr>
+                            <th>Producto</th>
+                            <th>Precio</th>
+                            <th style="width: 59%">Cantidad</th>
+                            <th>Subtotal</th>
+                          </tr>
+                        </thead>
+                        @foreach($item as $itemp)
+                        <tbody>
+                          <tr>
+                            <td>{{ $itemp->products->nombre }}</td>
+                            <td>{{ number_format($itemp->products->pre_ven,2) }}</td>
+                            <td>{{ $itemp->cant }}</td>
+                            <td>${{ number_format( $itemp->prec * $itemp->cant,2 ) }}</td>
+                          </tr>
+                        </tbody>
+                        @endforeach
                         </table>
                       </div>
                       <!-- /.col -->
@@ -140,28 +140,28 @@
                     <div class="row">
                       <!-- accepted payments column -->
                       <div class="col-xs-6">
-                        
+
                       </div>
                       <!-- /.col -->
                       <div class="col-xs-6">
                         <p class="lead">Date: {{ $pedido->date }}</p>
                         <div class="table-responsive">
                           <table class="table">
-		                      <tbody>
-		                        <tr>
-		                          <th style="width:50%">Subtotal:</th>
-		                          <td>${{ $pedido->subtotal }}</td>
-		                        </tr>
-		                        <tr>
-		                          <th>Iva (14%)</th>
-		                          <td>${{ $pedido->iva }}</td>
-		                        </tr>
-		                        <tr>
-		                          <th>Total:</th>
-		                          <td>${{ $pedido->total }}</td>
-		                        </tr>
-		                      </tbody>
-		                    </table>
+                          <tbody>
+                            <tr>
+                              <th style="width:50%">Subtotal:</th>
+                              <td>${{ $pedido->subtotal }}</td>
+                            </tr>
+                            <tr>
+                              <th>Iva ({{ $e_iv }}%)</th>
+                              <td>${{ $pedido->iva }}</td>
+                            </tr>
+                            <tr>
+                              <th>Total:</th>
+                              <td>${{ $pedido->total }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
                         </div>
                       </div>
                       <!-- /.col -->
@@ -181,10 +181,10 @@
               </div>
             </div>
           </div>
-          {{ Form::close() }} 
+          {{ Form::close() }}
         </div>
 
-        
+
 
       </div>
       <!-- /page content -->
