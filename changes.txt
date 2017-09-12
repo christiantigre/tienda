@@ -1,0 +1,6 @@
+cambiar los archivos que se encuentran en la carpeta files y pegarlos en las siguientes rutas, despues de realizar un update composer.
+-1)
+trorttlesLogins, reemplazar en 
+tienla\vendor\laravel\framework\src\Illuminate\Foundation\Auth
+-2)Router, reemplazar en 
+tienla\vendor\laravel\framework\src\Illuminate\Routing

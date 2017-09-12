@@ -50,9 +50,10 @@ return [
     | will be used by the PHP date and date-time functions. We have gone
     | ahead and set this to a sensible default for you out of the box.
     |
+    |   UTC
      */
 
-    'timezone'        => 'UTC',
+    'timezone'        => 'America/Guayaquil',
 
     /*
     |--------------------------------------------------------------------------
@@ -170,6 +171,7 @@ return [
 
         /*fpfd*/
         Barryvdh\DomPDF\ServiceProvider::class,
+        /*encriptacion ssl*/
         /*xml*/
         Orchestra\Parser\XmlServiceProvider::class,
         /*PNotify*/
@@ -182,6 +184,8 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         /*backups*/
         Spatie\Backup\BackupServiceProvider::class,
+        /*Dropbox*/
+        App\Providers\DropboxFilesystemServiceProvider::class,
     ],
 
     /*

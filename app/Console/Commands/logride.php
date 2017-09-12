@@ -18,7 +18,7 @@ class logride extends Command
      *
      * @var string
      */
-    protected $description = 'Verifica si existe un archivo autorizado y genera ride';
+    protected $description = 'Verifica file autorizado y convierte';
 
     /**
      * Create a new command instance.

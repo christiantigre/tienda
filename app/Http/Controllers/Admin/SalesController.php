@@ -25,8 +25,8 @@ class SalesController extends Controller
         if (\Auth::check()) {
             if (\Auth::user()->is_admin) {
                 $pedido = Pedido::orderBy('id', 'desc')->get();
-                $this->genLog("Ingresó a gestión de ventas");
 
+                $this->genLog("Ingresó a gestión de ventas");
                 return view('admin.sales.index', compact('pedido'));
             } else {
                 \Auth::logout();
@@ -39,21 +39,21 @@ class SalesController extends Controller
 
     public function edit(Pedido $pedido, $id)
     {
+        $empresa    = new Empresaa;
+        $cliva      = new Iva;
+        $reliva     = $empresa->select()->where('id', '=', 1)->first();
+        $valiva     = $cliva->select()->where('id', '=', $reliva->iva_id)->first();
+        $iv         = $valiva->iva;
+        $valor      = $iv + 100;
+        $obtnvl     = $valor / 100;
         $pedido     = Pedido::select()->where('id', '=', $id)->first();
         $item       = ItemPedido::where('pedido_id', '=', $pedido->id)->orderBy('id', 'asc')->get();
         $perfil     = client::select()->where('id', '=', $pedido->users_id)->get();
         $dt_empress = Empresaa::select()->get();
-        $empresa    = new Empresaa;
-        $cliva      = new Iva;
-        $e_reliva   = $empresa->select()->where('id', '=', 1)->first();
-        $e_valiva   = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
-        $e_iv       = $e_valiva->iva;
-        $e_valor    = $e_iv + 100;
-        $e_obtnvl   = $e_valor / 100;
         $status     = statu::orderBy('id', 'asc')->lists('statu', 'id');
         $this->genLog("Ingresó a editar venta #" . $pedido->id);
 
-        return view('admin.sales.edit', compact('pedido', 'item', 'perfil', 'dt_empress', 'status', 'e_iv'));
+        return view('admin.sales.edit', compact('pedido', 'item', 'perfil', 'dt_empress', 'status', 'iv'));
     }
 
     public function update(Request $request, $id)
@@ -64,7 +64,11 @@ class SalesController extends Controller
         if ($data['status_id'] === '8') {
             $this->generaArchivos($id);
         }
-
+        $cliva    = new Iva;
+        $empresa  = new Empresaa;
+        $e_reliva = $empresa->select()->where('id', '=', 1)->first();
+        $e_valiva = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
+        $iv       = $e_valiva->iva;
         $p->fill($data);
         $updated    = $p->save();
         $pedidoshow = Pedido::select()->where('id', '=', $id)->first();
@@ -73,7 +77,7 @@ class SalesController extends Controller
         $dt_empress = Empresaa::select()->get();
         $message    = $updated ? 'Pedido actualizado correctamente' : 'El pedido no se pudo actualizar';
         $this->genLog("Actualizó a venta #" . $id);
-        return view('admin.sales.show', compact('pedidoshow', 'item', 'perfil', 'dt_empress'));
+        return view('admin.sales.show', compact('pedidoshow', 'item', 'perfil', 'dt_empress', 'iv'));
     }
 
     public function generaArchivos($id)
@@ -84,8 +88,7 @@ class SalesController extends Controller
         $verificador    = $this->generaDigitoModulo11($claveacceso);
         $codigogenerado = $claveacceso . '' . $verificador . '';
         $sale           = sales::create(
-            [
-                'pedido_id'   => $id,
+            ['pedido_id'  => $id,
                 'numfactura'  => $factura,
                 'claveacceso' => $codigogenerado,
                 'gen_xml'     => '0',
@@ -93,8 +96,7 @@ class SalesController extends Controller
                 'aut_xml'     => '0',
                 'convrt_ride' => '0',
                 'send_xml'    => '0',
-                'send_pdf'    => '0',
-            ]);
+                'send_pdf'    => '0']);
         $this->generaXml($id);
         $this->firmarXml($codigogenerado);
         $this->genLog("Se generó archivo xml " . $id);
@@ -107,16 +109,16 @@ class SalesController extends Controller
         $item       = ItemPedido::where('pedido_id', '=', $pedidoshow->id)->orderBy('id', 'asc')->get();
         $perfil     = client::select()->where('id', '=', $pedidoshow->users_id)->get();
         $dt_empress = Empresaa::select()->get();
+        $status     = statu::orderBy('id', 'asc')->lists('statu', 'id');
         $empresa    = new Empresaa;
         $cliva      = new Iva;
-        $e_reliva   = $empresa->select()->where('id', '=', 1)->first();
-        $e_valiva   = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
-        $e_iv       = $e_valiva->iva;
-        $e_valor    = $e_iv + 100;
-        $e_obtnvl   = $e_valor / 100;
-        $status     = statu::orderBy('id', 'asc')->lists('statu', 'id');
+        $reliva     = $empresa->select()->where('id', '=', 1)->first();
+        $valiva     = $cliva->select()->where('id', '=', $reliva->iva_id)->first();
+        $iv         = $valiva->iva;
+        $valor      = $iv + 100;
+        $obtnvl     = $valor / 100;
         $this->genLog("Visualizó venta #" . $pedido->id);
-        return view('admin.sales.show', compact('pedidoshow', 'item', 'perfil', 'dt_empress', 'status', 'e_iv'));
+        return view('admin.sales.show', compact('pedidoshow', 'item', 'perfil', 'dt_empress', 'status', 'iv'));
     }
 
     public function sendxml($claveacceso)

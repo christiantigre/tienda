@@ -38,10 +38,9 @@ class CarritoController extends Controller
             $iv      = $valiva->iva;
             $valor   = $iv + 100;
             $obtnvl  = $valor / 100;
-
-            $cart   = \Session::get('cart');
-            $subtot = 0;
-            $total  = $this->total();
+            $cart    = \Session::get('cart');
+            $subtot  = 0;
+            $total   = $this->total();
 
             $sub = $total / ($obtnvl);
 
@@ -159,26 +158,24 @@ class CarritoController extends Controller
             if (count(\Session::get('cart')) <= 0) {
                 return redirect()->route('home');
             }
-            $pays = PayMethod::orderBy('id', 'desc')->lists('namemethod', 'id');
 
+            $pays   = PayMethod::orderBy('id', 'desc')->lists('namemethod', 'id');
             $reliva = $empresaa->select()->where('id', '=', 1)->first();
             $valiva = $cliva->select()->where('id', '=', $reliva->iva_id)->first();
             $iv     = $valiva->iva;
             $valor  = $iv + 100;
             $obtnvl = $valor / 100;
 
-            //dd($obtnvl);
             $cart  = \Session::get('cart');
             $total = $this->total();
             $sub   = $total / $obtnvl;
             $iva   = $sub - $total;
             //$iva   = $sub * (14 / 100);
-            $iva = str_replace('-', '', $iva);
-            //dd($iva);
+            $iva        = str_replace('-', '', $iva);
             $perfil     = $client->select()->where('users_id', '=', $idus)->first();
             $dt_empress = $empresaa->select()->first();
             //dd($dt_empress);
-            return view('store.partials.order-detal', compact('cart', 'total', 'sub', 'iva', 'perfil', 'pays', 'dt_empress', 'idus'));
+            return view('store.partials.order-detal', compact('cart', 'total', 'sub', 'iva', 'perfil', 'pays', 'dt_empress', 'idus', 'iv'));
 
             \Session::forget('cart');
             /*return "Detalle del pedido";*/
@@ -187,139 +184,31 @@ class CarritoController extends Controller
         }
     }
 
-    public function confirmadocompra(Request $request)
-    {
-        if ($request->ajax()) {
-            $the_sales     = new sales;
-            $id_us         = Auth::user()->id;
-            $total         = 0;
-            $valiva        = 1.14;
-            $ivaporcentaje = 14;
-            $cart          = \Session::get('cart');
-
-            foreach ($cart as $item) {
-                $total += $item->pre_ven * $item->cantt;
-            }
-
-            $sub = $total / 1.14;
-            $iva = $sub * (14 / 100);
-
-            if ($total > 70) {
-                $var     = '8';
-                $message = 'Su pedido fue realizado con éxito, su factura será enviada a su correo electrónico';
-                //guardar en ventas
-            } else {
-                $var     = '1';
-                $message = 'Su pedido fue realizado con éxito, porfavor espere su aprovación';
-            }
-
-            $date           = Carbon::now();
-            $date->timezone = new \DateTimeZone('America/Guayaquil');
-            //$date = $date->format('Y/m/d');
-            $date  = $date->format('d/m/Y');
-            $date2 = Carbon::now();
-//  date('d/m/Y')
-            $order = Pedido::create([
-                'subtotal'      => $sub,
-                'total'         => $total,
-                'iva'           => $iva,
-                'entrega'       => $request->get('entrega'),
-                'ubiclg'        => $request->get('lat'),
-                'ubiclt'        => $request->get('long'),
-                'date'          => $date,
-                'users_id'      => $id_us,
-                'status_id'     => $var,
-                'paymethods_id' => $request->get('id'),
-                'porc'          => $ivaporcentaje,
-                'created_at'    => $date2,
-                'rango'         => $date2]);
-
-            foreach ($cart as $product) {
-                $this->saveOrderItem($product, $order->id);
-            }
-            //ACTUALIZA INVENTARIO
-            $this->actualizaInventario($order->id);
-
-            if ($var == 8) {
-                $factura        = $this->generanumerofactura();
-                $claveacceso    = $this->generaclaveacceso($factura);
-                $verificador    = $this->generaDigitoModulo11($claveacceso);
-                $codigogenerado = $claveacceso . '' . $verificador . '';
-                $sale           = sales::create(
-                    [
-                        'pedido_id'   => $order->id,
-                        'numfactura'  => $factura,
-                        'claveacceso' => $codigogenerado]);
-                //Genera XML
-                //$sales = $the_sales->select()->where('claveacceso', '=', $codigogenerado)->first();
-
-                if ($generado = $this->generaXml($order->id)) {
-                    if ($firmado = $this->firmarXml($codigogenerado)) {
-                        $pos = explode(",", $firmado, 4);
-                        $this->deleteDir("generados");
-                        //\DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '1']);
-                    } else {
-                        //\DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '0']);
-                    }
-
-                } else {
-                    \DB::table('sales')->where('pedido_id', $order->id)->update(['gen_xml' => '0']);
-                }
-
-                //firma xml
-                // $this->firmarXml($codigogenerado);
-
-                //dd($codigogenerado);
-            }
-            $rutai   = public_path();
-            $ruta    = str_replace("\\", "//", $rutai);
-            $rutaPdf = $ruta . "\\archivos\\pdf\\";
-
-            \Session::flash('flash_message', $message);
-            $empresaa   = new Empresaa;
-            $dt_empress = $empresaa->select()->first();
-            $client     = new client;
-            $perfil     = $client->select()->where('users_id', '=', $id_us)->first();
-            $itemCar    = new ItemPedido;
-            $cartord    = $itemCar->select()->where('pedido_id', '=', $order->id)->first();
-            $cartord    = \Session::get('cart');
-            $cartordaux = $order->select()->where('id', '=', $order->id)->first();
-            /*dd($cartordaux);*/
-            //$this->revisarXml($codigogenerado)
-            //Queue::later(180, $this->retorno($codigogenerado));
-            $codigogenerado = '0';
-            return "con datos";
-        } else {
-            return "sin datos";
-        }
-        //dd($request);
-    }
-
     public function saveOrder(Request $request)
     {
-        $empresa   = new Empresaa;
         $the_sales = new sales;
         $id_us     = Auth::user()->id;
-
-        $cliva    = new Iva;
-        $e_reliva = $empresa->select()->where('id', '=', 1)->first();
-        $e_valiva = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
-        $e_iv     = $e_valiva->iva;
-        $e_valor  = $e_iv + 100;
-        $e_obtnvl = $e_valor / 100;
+        $cliva     = new Iva;
+        $empresa   = new Empresaa;
+        $e_reliva  = $empresa->select()->where('id', '=', 1)->first();
+        $e_valiva  = $cliva->select()->where('id', '=', $e_reliva->iva_id)->first();
+        $e_iv      = $e_valiva->iva;
+        $e_valor   = $e_iv + 100;
+        $e_obtnvl  = $e_valor / 100;
 
         $total         = 0;
         $valiva        = 1.14;
-        $ivaporcentaje = 14;
+        $ivaporcentaje = $e_iv;
         $cart          = \Session::get('cart');
 
         foreach ($cart as $item) {
             $total += $item->pre_ven * $item->cantt;
         }
 
-        $sub = $total / 1.14;
-        $iva = $sub * (14 / 100);
+        $sub = $total / $e_obtnvl;
+        $iva = $sub - $total;
 
+        $iva = str_replace('-', '', $iva);
         if ($total > 70) {
             $var     = '8';
             $message = 'Su pedido fue realizado con éxito, su factura será enviada a su correo electrónico';
@@ -348,7 +237,8 @@ class CarritoController extends Controller
             'paymethods_id' => $request->get('id'),
             'porc'          => $ivaporcentaje,
             'created_at'    => $date2,
-            'rango'         => $date2]);
+            'rango'         => $date2,
+        ]);
 
         foreach ($cart as $product) {
             $this->saveOrderItem($product, $order->id);
@@ -365,7 +255,8 @@ class CarritoController extends Controller
                 [
                     'pedido_id'   => $order->id,
                     'numfactura'  => $factura,
-                    'claveacceso' => $codigogenerado]);
+                    'claveacceso' => $codigogenerado,
+                ]);
             //Genera XML
             //$sales = $the_sales->select()->where('claveacceso', '=', $codigogenerado)->first();
 
@@ -1167,6 +1058,63 @@ class CarritoController extends Controller
     {
         $area = 'Administracion';
         $logs = Svlog::log($mensaje, $area);
+    }
+
+    public function showFacture($pedido_id)
+    {
+        $the_pedido = Pedido::where('id', $pedido_id)->get();
+        foreach ($the_pedido as $pedido) {
+            $estado = $pedido->status_id;
+            if ($estado == 2) {
+                $pdf = $this->retornapdf($pedido_id);
+                return $pdf->stream();
+            }
+            if ($estado == 5) {
+                $pdf = $this->retornapdf($pedido_id);
+                return $pdf->stream();
+            }
+            if ($estado == 6) {
+                $pdf = $this->retornapdf($pedido_id);
+                return $pdf->stream();
+            }
+            if ($estado == 8) {
+                $pdf = $this->retornapdf($pedido_id);
+                return $pdf->stream();
+            }
+            $message = 'Este comprobante no esta disponible, esto puede ser causado por el estado en el que se encuentra el pedido...';
+            if ($estado == 1) {\Session::flash('flash_message', $message);return redirect()->back();}
+            if ($estado == 3) {\Session::flash('flash_message', $message);return redirect()->back();}
+            if ($estado == 4) {\Session::flash('flash_message', $message);return redirect()->back();}
+            if ($estado == 7) {\Session::flash('flash_message', $message);return redirect()->back();}
+
+        }
+    }
+
+    public function retornapdf($pedido_id)
+    {
+        $rutai          = public_path();
+        $ruta           = str_replace("\\", "//", $rutai);
+        $rutasl         = str_replace("\\", "\\", $rutai);
+        $dt_empress     = Empresaa::select()->get();
+        $date           = Carbon::now();
+        $date->timezone = new \DateTimeZone('America/Guayaquil');
+        $date           = $date->format('d/m/Y');
+        $the_sales      = new sales;
+        $the_user       = new User;
+        $the_pedido     = new pedido;
+        $the_cliente    = new client;
+        $the_item       = new ItemPedido;
+        $sales          = $the_sales->select()->where('pedido_id', '=', $pedido_id)->first();
+        $aux_sales      = \DB::table('sales')->where('claveacceso', '=', $sales['claveacceso'])->get();
+        $orders         = $the_pedido->select()->where('id', $sales->pedido_id)->first();
+        $pedidos        = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
+        $users          = $the_user->select()->where('id', '=', $orders->users_id)->first();
+        $clientes       = $the_cliente->select()->where('id', '=', $users->id)->first();
+        $aux_clientes   = \DB::table('clients')->where('id', '=', $users->id)->get();
+        $items          = ItemPedido::where('pedido_id', '=', $orders->id)->orderBy('id', 'asc')->get();
+        $pdf            = \App::make('dompdf.wrapper');
+        $pdf            = \PDF::loadView('pdf/vista', ['dt_empress' => $dt_empress, 'aux_sales' => $aux_sales, 'aux_clientes' => $aux_clientes, 'date' => $date, 'items' => $items, 'pedidos' => $pedidos]);
+        return $pdf;
     }
 
 }

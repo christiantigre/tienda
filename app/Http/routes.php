@@ -47,19 +47,12 @@ Route::bind('Product', function ($id) {
 Route::bind('perfil', function ($id) {
     return App\client::Where('id', $id)->first();
 });
-
 Route::bind('Entiti', function ($id) {
     return App\Empressa::Where('id', $id)->first();
 });
-
 Route::get('/', [
     'as'   => 'home',
     'uses' => 'StoreController@index']);
-
-/*Route::get('/', [
-'as' => 'header',
-'uses' => 'StoreController@getHeader'
-]);*/
 
 Route::get('product/{slug}', [
     'as'   => 'product-detail',
@@ -153,11 +146,6 @@ Route::get('confir_comp', [
     'as'         => 'confir_comp',
     'uses'       => 'CarritoController@saveOrder']);
 
-Route::post('confirma_compra', [
-    'middleware' => 'auth',
-    'as'         => 'confirma_compra',
-    'uses'       => 'CarritoController@confirmadocompra']);
-
 Route::post('confir_comp', [
     'middleware' => 'auth',
     'as'         => 'confir_comp',
@@ -201,6 +189,7 @@ Route::get('password/cambiar', [
     'middleware' => 'auth',
     'as'         => 'password/cambiar',
     'uses'       => 'PerfilController@changepass']);
+
 Route::get('password/update', [
     'middleware' => 'auth',
     'as'         => 'password/update',
@@ -248,9 +237,16 @@ Route::post('buscar/', [
     'as'         => 'admin.facturas.buscar',
     'uses'       => 'Admin\factureController@buscar']);
 
-Route::group(['middleware' => 'auth', 'is_admin'], function () {
-    //ute::resource('todo', 'TodoController', ['only' => ['index']]);
+Route::get('/api/v1/coordinates/{name}', function ($name) {
+    try {
+        $geocode = Geocoder::geocode("$name, Tanzania")->toArray();
+        return Response::json($geocode);
+    } catch (\Exception $e) {
+        echo $e->getMessage();
+    }
+});
 
+Route::group(['middleware' => 'auth', 'is_admin'], function () {
     Route::resource('admin/category', 'Admin\CategoryController');
     Route::resource('admin/brand', 'Admin\BrandController');
     Route::resource('admin/proveedor', 'Admin\ProveedorController');
@@ -292,9 +288,39 @@ Route::group(['middleware' => 'auth', 'is_admin'], function () {
     Route::resource('admin/reports/productos', 'Admin\reportprodController');
     /*mapas*/
     Route::resource('admin/mapas', 'Admin\MapsController');
+    /*mails*/
+    Route::resource('admin/mails', 'Admin\mailmasivController');
 });
+Route::post('/envionotificacion', [
+    'middleware' => 'auth',
+    'as'         => 'admin.mails.envionotificacion',
+    'uses'       => 'Admin\mailmasivController@envionotificacion']);
 
-/*Route::get('/gmaps', ['as ' => 'gmaps', 'uses' => 'MapsController@index']);*/
+Route::get('/facturas.download/{pedidoid}', [
+    'as'   => 'facturas.download',
+    'uses' => 'CarritoController@showFacture']);
+
+Route::post('/registro', [
+    'middleware' => 'auth',
+    'as'         => 'admin.seguridad.logfecha',
+    'uses'       => 'Admin\logsController@revisarLogfecha']);
+
+Route::get('/registros', [
+    'middleware' => 'auth',
+    'as'         => 'admin.seguridad.log',
+    'uses'       => 'Admin\logsController@revisarLogs']);
+
+Route::get('/gmaps', ['as ' => 'gmaps', 'uses' => 'MapsController@index']);
+/*Contactar a proveedor*/
+
+Route::get('contactar/{mail}', [
+    'middleware' => 'auth',
+    'as'         => 'admin.proveedor.contact',
+    'uses'       => 'Admin\ProveedorController@contact']);
+Route::post('enviar/', [
+    'middleware' => 'auth',
+    'as'         => 'admin.proveedor.contactenviar',
+    'uses'       => 'Admin\ProveedorController@contactenviar']);
 /*BUSCAR PRODUCTO*/
 
 Route::get('searchproduct/', [
@@ -392,6 +418,7 @@ Route::post('/reports/after', [
 Route::post('/reportes', [
     'as'   => 'admin.reports.contvcli',
     'uses' => 'Admin\reportController@ventasporclientes']);
+
 Route::post('/ventasdelmes', [
     'as'   => 'admin.reports.contvmes',
     'uses' => 'Admin\reportController@contvmes']);
@@ -444,6 +471,9 @@ Route::get('log', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 // PRUEBAS     firma
 /*reportes de productos*/
+Route::get('bb', [
+    'as'   => 'bb',
+    'uses' => 'Admin\BachupController@index']);
 
 Route::get('conctprod', [
     'as'   => 'conctprod',
@@ -492,6 +522,10 @@ Route::get('firmar/{nombrexml}', [
 Route::get('revisar/{var}', [
     'as'   => 'revisar',
     'uses' => 'CarritoController@revisarXml']);
+/*funciona hasta 12/09/2017*/
+Route::get('frmxml/{claveacceso}', [
+    'as'   => 'revisar',
+    'uses' => 'Admin\SalesController@firmarXml']);
 
 Route::get('existFile/{var}', [
     'as'   => 'revisar',
@@ -501,7 +535,34 @@ Route::get('generapdf/{clave}', [
     'as'   => 'generapdf',
     'uses' => 'CarritoController@generaPdf']);
 
+Route::get('redis', function () {
+    $redis = app()->make('redis');
+    $redis->set("key1", "testValue");
+    return $redis->get("key1");
+});
+
+Route::get('vista', function () {
+    return View::make('pdf/vista');
+});
+
+Route::get('artisan', function () {
+    Artisan::call('log:ride');
+});
+
 Route::any('/server', 'SoapController@demo');
+
+//cierre pruebas
+
+//movimiento de despachador con direction service directions
+
+Route::get('/hidden', ['before' => 'auth', function () {
+    $contents = View::make('hidden');
+    $response = Response::make($contents, 200);
+    $response->header('Expires', 'Tue, 1 Jan 1980 00:00:00 GMT');
+    $response->header('Cache-Control', 'no-store, no-cache, must-revalidate, post-check=0, pre-check=0');
+    $response->header('Pragma', 'no-cache');
+    return $response;
+}]);
 
 /*No funciona*/
 //Route::group(['middleware' => 'iddesp'], function(){
@@ -516,13 +577,13 @@ Route::get('lista', [
     'as'   => 'lista',
     'uses' => 'PruebasController@index']);
 
-/*Route::get("test-email", function () {
-Mail::send("emails.bienvenido", [], function ($message) {
-$message->to("andrescondo17@gmail.com", "christian ")
-->subject("Mensaje de prueba!");
-$rutaPdf = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\enviados\\2110201601010511850900110010010000003005723471412.pdf";
-//$rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
-//$message->attach($rutaXml);
-$message->attach($rutaPdf);
+Route::get("test-email", function () {
+    Mail::send("emails.bienvenido", [], function ($message) {
+        $message->to("andrescondo17@gmail.com", "christian ")
+            ->subject("Mensaje de prueba!");
+        $rutaPdf = "C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\enviados\\2110201601010511850900110010010000003005723471412.pdf";
+        //$rutaXml="C:\\xampp\\htdocs\\repositoriotesis\\tesis\\tienla\\public\\archivos\\autorizados\\0610201601010511850900110010010000002245597759319.xml";
+        //$message->attach($rutaXml);
+        $message->attach($rutaPdf);
+    });
 });
-});*/

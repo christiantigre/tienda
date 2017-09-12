@@ -23,30 +23,48 @@
         <div class="product-information">
          {!! Form::model($client, ['route' => ['store.perfil.update', $client->users_id],'files'=>true]) !!}
          <input type="hidden" name="_method" value="PUT">
-         <div class="form-group">
+         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Nombre (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('name',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
+            {!! Form::text('name',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}      
+            @if ($errors->has('name'))
+            <span class="help-block">
+              <strong>{{ $errors->first('name') }}</strong>
+            </span>
+            @endif            
           </div>
         </div>
         <div class="form-group">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Apellido (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('apellidos',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
+            {!! Form::text('apellidos',null,array('class'=>'form-control','placeholder'=>'Ingrese apellidos','autofocus'=>'autofocus','autocomplete'=>'off')) !!}     
+            @if ($errors->has('apellidos'))
+            <span class="help-block">
+              <strong>{{ $errors->first('apellidos') }}</strong>
+            </span>
+            @endif                
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group{{ $errors->has('cedula') ? ' has-error' : '' }}">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Cedula (*):</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-
-            
-            {!! Form::text('cedula',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de id','id'=>'cedula','autofocus'=>'autofocus','onblur'=>'validaced()','autocomplete'=>'off')) !!}                  
+            {!! Form::text('cedula',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de id','id'=>'cedula','autofocus'=>'autofocus','onblur'=>'validaced()','autocomplete'=>'off')) !!} 
+            @if ($errors->has('cedula'))
+            <span class="help-block">
+              <strong>{{ $errors->first('cedula') }}</strong>
+            </span>
+            @endif                    
           </div>
         </div>
-        <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Ruc (*):</label>
+        <div class="form-group{{ $errors->has('ruc') ? ' has-error' : '' }}">
+          <label class="control-label col-md-4 col-sm-4 col-xs-6">Ruc (*):</label><!--'onblur'=>'validar()',-->
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('ruc',null,array('class'=>'form-control','placeholder'=>'Ingrese su ruc/rise','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
+            {!! Form::text('ruc',null,array('class'=>'form-control','placeholder'=>'Ingrese su ruc/rise','onblur'=>'validar()','id'=>'ruc','autofocus'=>'autofocus','autocomplete'=>'off')) !!} 
+            @if ($errors->has('ruc'))
+            <span class="help-block">
+              <strong>{{ $errors->first('ruc') }}</strong>
+            </span>
+            @endif                    
           </div>
         </div>
         <div class="form-group">
@@ -73,10 +91,15 @@
             {!! Form::text('celular',null,array('class'=>'form-control','placeholder'=>'Ingrese su numero de celular','autofocus'=>'autofocus','autocomplete'=>'off')) !!}                  
           </div>
         </div>
-        <div class="form-group">
+        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
           <label class="control-label col-md-4 col-sm-4 col-xs-6">Email :</label>
           <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::text('email',null,array('class'=>'form-control','placeholder'=>'Ingrese correo electrónico','autofocus'=>'autofocus','readonly'=>'readonly')) !!}                  
+            {!! Form::text('email',null,array('class'=>'form-control','placeholder'=>'Ingrese correo electrónico','autofocus'=>'autofocus','readonly'=>'readonly')) !!}         
+            @if ($errors->has('email'))
+            <span class="help-block">
+              <strong>{{ $errors->first('email') }}</strong>
+            </span>
+            @endif            
           </div>
         </div>
         <div class="form-group">
@@ -98,47 +121,47 @@
          </div>
        </div>
        <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6">Imagen :</label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-            {!! Form::file('path') !!}
-            <!--<input type="file" name="image" id="image" accept="image/*" class="form-control"/>     -->
-            {{ csrf_field() }}                      
-         </div>
-       </div>
-       <div class="form-group">
-          <label class="control-label col-md-4 col-sm-4 col-xs-6"><i class="fa fa-map-marker"></i> Compartir mi ubicación<i><small> ayudanos a conocer tu domicilio (*) para entregar tus pedidos</small></i></label>
-          <div class="col-md-9 col-sm-9 col-xs-12">
-           <div class="left col-xs-7">
-              <ul class="list-unstyled">
-                <li></i> Compartir ahora : <input type="radio" name="rad" id="rad" value="UBICACION" onclick="cargarmap();"/></li>
-                <li></i> En otro momento : <input type="radio" name="rad" ="rad" value="DOMICILIO" onclick="vaciar();" checked/></li>
-              </ul>
-            </div>
-         </div>
-       </div>
-       <div class="form-group">
-
-      <div class="col-md-9 col-sm-9 col-xs-12">      
-          <div class="right col-xs-5 text-center" style='display:none;'>
-             <!-- Se determina y escribe la localizacion -->
-                <div id='ubicacion' style='display:none;'></div>
-                <div id="demo">
-                  
-                </div>
-                <div id="mapholder"></div>
-          </div>
-      </div>
-      <div class="ln_solid"></div>
-      <div class="form-group">
-        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-          {!! Form::submit('Guardar', array('class'=>'btn btn-success')) !!}
+        <label class="control-label col-md-4 col-sm-4 col-xs-6">Imagen :</label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+          {!! Form::file('path') !!}
+          <!--<input type="file" name="image" id="image" accept="image/*" class="form-control"/>     -->
+          {{ csrf_field() }}                      
         </div>
       </div>
+      <div class="form-group">
+        <label class="control-label col-md-4 col-sm-4 col-xs-6"><i class="fa fa-map-marker"></i> Compartir mi ubicación<i><small> ayudanos a conocer tu domicilio (*) para entregar tus pedidos</small></i></label>
+        <div class="col-md-9 col-sm-9 col-xs-12">
+         <div class="left col-xs-7">
+          <ul class="list-unstyled">
+            <li></i> Compartir ahora : <input type="radio" name="rad" id="rad" value="UBICACION" onclick="cargarmap();"/></li>
+            <li></i> En otro momento : <input type="radio" name="rad" ="rad" value="DOMICILIO" onclick="vaciar();" checked/></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
 
-      {{ Form::close() }}  
+      <div class="col-md-9 col-sm-9 col-xs-12">      
+        <div class="right col-xs-5 text-center" style='display:none;'>
+         <!-- Se determina y escribe la localizacion -->
+         <div id='ubicacion' style='display:none;'></div>
+         <div id="demo">
+
+         </div>
+         <div id="mapholder"></div>
+       </div>
+     </div>
+     <div class="ln_solid"></div>
+     <div class="form-group">
+      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        {!! Form::submit('Guardar', array('class'=>'btn btn-success')) !!}
+      </div>
     </div>
 
+    {{ Form::close() }}  
   </div>
+
+</div>
 </div>
 
 @stop
@@ -146,25 +169,30 @@
 <script src="{{ asset('datepicker/jquery.js') }}"></script>
 <script src="{{ asset('datepicker/jquery.datetimepicker.full.js') }}"></script>
 <script>
-jQuery.datetimepicker.setLocale('es');
-jQuery('#datetimepicker1').datetimepicker({
-  i18n: {
-    de: {
-      months: [
-      'Enero', 'Febrero', 'Marzo', 'Abril',
-      'Mayo', 'Junio', 'Julio', 'Agosto',
-      'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
-      ],
-      dayOfWeek: [
-      "So.", "Mo", "Di", "Mi",
-      "Do", "Fr", "Sa.",
-      ]
-    }
-  },
-  timepicker: false,
-  format: 'm/d/Y'
-});
+  jQuery.datetimepicker.setLocale('es');
+  jQuery('#datetimepicker1').datetimepicker({
+    i18n: {
+      de: {
+        months: [
+        'Enero', 'Febrero', 'Marzo', 'Abril',
+        'Mayo', 'Junio', 'Julio', 'Agosto',
+        'Septiembre', 'Octubre', 'Noviembre', 'Diciembre',
+        ],
+        dayOfWeek: [
+        "So.", "Mo", "Di", "Mi",
+        "Do", "Fr", "Sa.",
+        ]
+      }
+    },
+    timepicker: false,
+    format: 'm/d/Y'
+  });
 </script>
 <!-- end datepicker Y-m-d-->
+<!--<script src='jquery.js'></script>-->
+
+<!--<script>
+$("ruc").validarCedulaEC();
+</script>-->
 
 

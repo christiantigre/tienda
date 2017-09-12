@@ -164,7 +164,7 @@
                           <td>${{ $pedidoshow->subtotal }}</td>
                         </tr>
                         <tr>
-                          <th>Iva ({{ $e_iv }}%)</th>
+                          <th>Iva ({{ $iv }}%)</th>
                           <td>${{ $pedidoshow->iva }}</td>
                         </tr>
                         <tr>

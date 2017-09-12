@@ -41,13 +41,51 @@ class logsController extends Controller
 		}  
 	}
 
-
-
-	public function genLog()
+	public function revisarLogs()
 	{
-		$area = 'Test';
-		$mensaje = 'Instancia mensaje';
+		$date = Carbon::now();
+		$date->timezone = new \DateTimeZone('America/Guayaquil');
+		$datesegundos = Carbon::now();
+		$datesegundos -> toDateTimeString();
+
+		$date = $date->format('m-d-Y');
+		$rutai = public_path();
+		$ruta = str_replace("\\", "\\", $rutai);
+		$dir = $ruta.'\\logs\\'.$date;
+		$nombre_archivo = $dir;
+		if (\file_exists($nombre_archivo)) {
+			$rows = \file($nombre_archivo);
+			\array_shift($rows);
+			return view('admin.seguridad.log', compact('rows'));
+		} else {
+			$rows['0']=0;
+			return view('admin.seguridad.log', compact('rows'));
+		}
+	}
+
+	public function revisarLogfecha(Request $request)
+	{	
+		$rutai = public_path();
+		$ruta = str_replace("\\", "\\", $rutai);
+		$date = $request['date'];
+		$dir = $ruta.'\\logs\\'.$date;
+		$nombre_archivo = $dir;
+		if (\file_exists($nombre_archivo)) {
+			$rows = \file($nombre_archivo);
+			\array_shift($rows);
+			return view('admin.seguridad.log', compact('rows'));
+		} else {
+			$rows['0']=0;
+			return view('admin.seguridad.log', compact('rows'));
+		}
+	}
+
+	public function genLog($mensaje)
+	{
+		$area = 'Administracion';
+		//$mensaje = 'Instancia mensaje';
 		$logs = Svlog::log($mensaje,$area);
 		dd($logs);
 	}
+	
 }

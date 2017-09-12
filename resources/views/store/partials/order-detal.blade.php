@@ -16,7 +16,7 @@
       !!}
       <div class="web-application">
         <div class="col-sm-12">
-          <h4 class="brief"><i><small>Datos del Usuario </small></i></h4>
+          <h4 class="brief"><i><small>Datos del Usuario</small></i></h4>
           <div class="left col-xs-7">
             <h2><small>{{ $perfil->name }} {{ $perfil->apellidos }}</small></h2>
             <p><strong>Email : </strong>{{ $perfil->email }}. </p>
@@ -132,7 +132,7 @@
             @foreach($cart as $item)
             <tr>
              <td>
-              <img src="{{ asset('/upload/products/')}}/{{ $item->img }}" alt="" width="60">
+              <img src="{{ asset('upload/products') }}/{{$item->img }}" alt="" width="60">
               <h6>{{ $item->nombre }}</h6><br />
             </td>
           </td>
@@ -175,7 +175,7 @@
               <td><h6>${{ number_format($sub,2) }}</h6></td>
             </tr>
             <tr>
-              <td><h6>Iva</h6></td>
+              <td><h6>Iva {{ $iv }}%</h6></td>
               <td><h6>${{ number_format($iva,2) }}</h6></td>
             </tr>
             <tr>
@@ -194,8 +194,6 @@
              <hr>
              {{ Form::input('submit',null,'CONFIRMAR COMPRA', array('class'=>'btn btn-primary fa fa-shopping-cart','tittle'=>'CONFIRMAR COMPRA','id' => 'btn','onclick'=>'jsShowWindowLoad("Cargando");' )) }}
              <!--<input type="button" onclick="jsShowWindowLoad('Cargando')" name="">-->
-
-                      <!--<a class="btn btn-primary guarda_venta" ><i class="fa fa-dollar"></i> TEST JSON</a>-->
              <br>
            </tr>
          </table>
@@ -207,53 +205,6 @@
  </div>
 </div>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.guarda_venta').click(function(){
-      event.preventDefault();
-      var lt= $("#lt").val();
-      var lg= $("#lg").val();
-      var latlng= $("#latlng").val();
-      var ln= $("#ln").val();
-      var lgemp= $("#lgemp").val();
-      var rad= $("#rad").val();
-      var lat= $("#lat").val();
-      var long= $("#long").val();
-      var entrega= $("#entrega").val();
-      var id= $("#id").val();
-      var token = $("input[name=_token]").val();
-      var route = '/confirma_compra/';
-      var parametros = {
-        "lt" :lt,
-        "lg" :lg,
-        "latlng" :latlng,
-        "ln" :ln,
-        "lgemp" :lgemp,
-        "rad" :rad,
-        "lat" :lat,
-        "long" :long,
-        "entrega" :entrega,
-        "id" :id
-      }
-      $.ajax({
-      url:route,
-      headers:{'X-CSRF-TOKEN':token},
-      type:'post',
-      dataType: 'json',
-      data:parametros,
-      success:function(data)
-      {
-        console.log('Success '+data);
-      },
-      error:function(data)
-      {
-        console.log('Error '+data);
-      }
-    });
-    });
-  });
-</script>
 
 
 <script type="text/javascript">

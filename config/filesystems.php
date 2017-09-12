@@ -30,6 +30,7 @@ return [
 
     'cloud' => 's3',
 
+
     /*
     |--------------------------------------------------------------------------
     | Filesystem Disks
@@ -43,26 +44,32 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => public_path('upload'),
+    'local' => [
+    'driver' => 'local',
+    'root' => public_path('upload'),
             //'root' => storage_path('app'),
-        ],
+    ],
 
-        'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'visibility' => 'public',
-        ],
+    'public' => [
+    'driver' => 'local',
+    'root' => storage_path('app/public'),
+    'visibility' => 'public',
+    ],
 
-        's3' => [
-            'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
-        ],
+    's3' => [
+    'driver' => 's3',
+    'key' => 'your-key',
+    'secret' => 'your-secret',
+    'region' => 'your-region',
+    'bucket' => 'your-bucket',
+    ],
+    
+    'dropbox' => [
+    'driver' => 'dropbox',
+    'accessToken' => env('DROPBOX_ACCESS_TOKEN'),
+    'appSecret' => env('DROPBOX_APP_SECRET'),
+    ],
 
     ],
 
-];
+    ];

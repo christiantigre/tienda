@@ -15,6 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //\App\Console\Commands\ejecRide::class,
     \App\Console\Commands\logride::class,
+    \App\Console\Commands\DatabaseBackup::class,
+
     ];
 
     /**
@@ -25,10 +27,18 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-         $schedule->command('inspire')
-                  ->hourly();
-                  
-          $schedule->command('log:ride')
-                  ->everyMinute();;
-    }
+     $schedule->command('inspire')
+     ->hourly();
+
+     /*$schedule->command('log:ride')
+     ->everyMinute();*/
+
+     /*$schedule->command('backup:database')
+     ->everyMinute();*/
+
+
+     $schedule->command('backup:database')
+          ->weekly()->saturdays()->at('15:10');
+
+ }
 }

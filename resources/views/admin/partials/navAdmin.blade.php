@@ -38,6 +38,8 @@
             </li>
             <li><a href="{{ route('admin.catalogo.index') }}">C&aacute;talogo</a>
             </li>
+            <li><a href="{{ route('admin.mails.index') }}">Correos</a>
+            </li>
           </ul>
         </li>
         <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
@@ -86,6 +88,8 @@
         </li>
         <li><a><i class="fa fa-eye"></i> Seguridad <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none">
+            <li><a href="{{ route('admin.seguridad.log') }}">Registro</a>
+            </li>
             <li><a href="{{ route('admin.seguridad.index') }}">Módulo de seguridad</a>
             </li>
             <li><a href="{{ route('admin.seguridad.intentos.index') }}">Intentos de login</a>

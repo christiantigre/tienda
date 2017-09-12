@@ -153,7 +153,7 @@
                               <td>${{ $pedido->subtotal }}</td>
                             </tr>
                             <tr>
-                              <th>Iva ({{ $e_iv }}%)</th>
+                              <th>Iva ({{ $iv }}%)</th>
                               <td>${{ $pedido->iva }}</td>
                             </tr>
                             <tr>

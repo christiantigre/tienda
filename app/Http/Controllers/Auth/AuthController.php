@@ -168,7 +168,7 @@ class AuthController extends Controller
 
 
 
-    /*protected function validator(array $data)
+    protected function validator(array $data)
     {
         return Validator::make($data, [
             'name' => 'required|min:3|max:255|regex:/^[a-záéíóúÁÉÍÓÚñàéìòùÀÈÌÒÙÑ1234567890]+$/i',
@@ -177,7 +177,7 @@ class AuthController extends Controller
             'edad' => 'Integer|Min:18',
             'terms_of_service' => 'accepted',
         ]);
-    }*/
+    }
 
     /**
      * Create a new user instance after a valid registration.
@@ -185,7 +185,7 @@ class AuthController extends Controller
      * @param  array  $data
      * @return User
      */
-    /*protected function create(array $data)
+    protected function create(array $data)
     {
 
         return User::create([
@@ -198,5 +198,5 @@ class AuthController extends Controller
         ]);
         Session::flash('flash_message','Bienvenido a StoreLine. Por favor, comprueba tu bandeja de entrada y confirma tu dirección de correo electrónico.');
         return redirect('home')->with('flash_message','Registrado');
-    }*/
+    }
 }

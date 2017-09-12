@@ -39,10 +39,10 @@
 				'top':'60%',
 				'left':'60%'
 			},{
-				duration: 3000,
+				duration: 3000, 
 				progress: function(){
 					$(".magnify").data("jfMagnify").update();
-				},
+				}, 
 				easing: "easeOutElastic"
 			});
 		});
@@ -72,7 +72,7 @@
 									<div class="mg_zone"></div>
 								</div>
 								<div class = "element_to_magnify">
-									<img src="{{ asset('/upload/products/')}}/{{ $product->img }}"/>
+									<img src="{{ asset('upload/products') }}/{{$product->img }}"/>
 								</div>
 							</div>
 
@@ -90,171 +90,171 @@
 									<span>US ${{ number_format($product->pre_ven,2) }}</span>
 									<label>Cantidad:</label>
 									<input type="number" id="cantidadprod" name="cantidadprod" min="1" max="{{ $product->cant }}" value="1" />
-									<!--<a href="{{ route('cart-add', $product->slug) }}" onclick="new PNotify({
-										title: 'Agregándo...',
-										text: '',
-										type: 'success'
-									});" class="btn btn-default add-to-cart" class="btn btn-fefault cart">
-									<i class="fa fa-shopping-cart"></i>
-									Agregar
-								</a>-->
-								@if($product->cant>0)
-								<button type="submit" name="agregar" onclick="new PNotify({
-									title: 'Agregándo...',
-									text: '',
-									type: 'success'
-								});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
-								@elseif($product->cant<=0)
-								<button type="button" name="agregar" onclick="new PNotify({
-									title: 'Agotado...',
-									text: '',
-									type: 'warnning'
-								});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
-								@endif
-							</span>
+<!--<a href="{{ route('cart-add', $product->slug) }}" onclick="new PNotify({
+title: 'Agregándo...',
+text: '',
+type: 'success'
+});" class="btn btn-default add-to-cart" class="btn btn-fefault cart">
+<i class="fa fa-shopping-cart"></i>
+Agregar
+</a>-->
+@if($product->cant>0)
+<button type="submit" name="agregar" onclick="new PNotify({
+	title: 'Agregándo...',
+	text: '',
+	type: 'success'
+});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
+@elseif($product->cant<=0)
+<button type="button" name="agregar" onclick="new PNotify({
+	title: 'Agotado...',
+	text: '',
+	type: 'warnning'
+});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
+@endif
+</span>
 
-							<p><b>Sección :</b> {{ $product->sections->name }}</p>
-							<p><b>Disponible :</b> {{ $product->cant }}</p>
-							<p><b>Marca :</b> {{ $product->brand->brand }}</p>
-							<p><b>Condición :</b>
-								<div class="bs-example-popovers">
-									<form id="condiciones" name="condiciones" method="GET">
-										<p>
-											@if(count($nuevos)>0)
-											@foreach($nuevos as $nuevo)
-											@if($nuevo->nuevo == '1')
-											Nuevo
-											@else
-											@endif
-											@endforeach
-											@else
-											@endif
-											<br/>
-											@if(count($promociones)>0)
-											@foreach($promociones as $promocion)
-											@if($promocion->promocion == '1')
-											Promoción
-											@else
-											@endif
-											@endforeach
-											@else
-											@endif
-										</p>
-									</form>
-								</div>
-							</p>
-							<p><b>Tamaño :</b>
-								<label id="ltamano" name="ltamano" value="" />
-								<div class="bs-example-popovers">
-									<input type="hidden" id="tamano" name="tamano" value="" required="required" />
-									<form id="sizes" name="sizes" method="GET">
-										@if(count($sizes)>0)
-										@foreach($sizes as $size)
-										<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" value="{{$size->size->name}}" id="{{$size->size->id}}" title="" onclick="tamano(this.id,this.value)">
-											<b>({{$size->size->abreviatura}}) </b>
-										</button>
-										@endforeach
-										@else
-										<p>0 resultados</p>
-										@endif
-									</form>
-								</div>
-							</p>
-							<p><b>Color :</b>
-								<label id="lcolor" name="lcolor" value=""/>
-								<div class="bs-example-popovers">
-									<input type="hidden" id="color" name="color" value="" required="required"/>
-									<form id="availables" name="availables" method="GET">
-										@if(count($availables)>0)
-										@foreach($availables as $available)
-										<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." id="{{$available->availables->id}}" value="{{$available->availables->name}}" data-original-title="" title="" onclick="color(this.id,this.value)">
-											{{$available->availables->name}}
-										</button>
-										@endforeach
-										@else
-										<p>0 resultados</p>
-										@endif
-									</form>
-								</div>
-							</p>
-							<p><b>Número :</b>
-								<label id="lnumero" name="lnumero" value="" />
-								<div class="bs-example-popovers">
-									<input type="hidden" id="numero" name="numero" value="" required="required"/>
-									<form id="numbers" name="numbers" method="GET">
-										@if(count($numbers)>0)
-										@foreach($numbers as $number)
-										<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." id="{{$number->numbersizes->id}}" value="{{$number->numbersizes->number}}" data-original-title="" title="" onclick="numero(this.id,this.value)">
-											{{$number->numbersizes->number}}
-										</button>
-										@endforeach
-										@else
-										<p>0 resultados</p>
-										@endif
-									</form>
-								</div>
-
-							</p>
-							<p><b>Cod barra :</b></p>
-
-							{!! DNS1D::getBarcodeHTML($product->codbarra, "C128") !!}
-							<a href="">
-								<!--<img src="images/product-details/share.png" class="share img-responsive"  alt="" />-->
-							</a>
-							<!--OMPARTIR REDES SOCIALES-->
-							<script type="text/javascript">
-								var URLactual = window.location;
-								document.getElementById("fb").value=URLactual;
-								elemento.setAttribute("data-href", URLactual);
-							</script>
-							<div id="fb" class="fb-like" data-href="http://facebook/storeli.nect" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
-							<div id="fb-root"></div>
-							<script>
-								(function(d, s, id) {
-									var js, fjs = d.getElementsByTagName(s)[0];
-									if (d.getElementById(id)) return;
-									js = d.createElement(s); js.id = id;
-									js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
-									fjs.parentNode.insertBefore(js, fjs);
-								}(document, 'script', 'facebook-jssdk'));</script>
-								<!--FIN COMPARTIR REDES SOCIALES-->
-							</div><!--/product-information-->
-						</div>
-					</div><!--/product-details-->
-
-
-
-
-
-				</div>
-
-			</div>
-			{{ Form::close() }}
-
-		</section>
-
-
-		<!-- footer content -->
-		<footer>
-			@include('store.partials.footer')
-		</footer>
-		<!-- /footer content -->
-
+<p><b>Sección :</b> {{ $product->sections->name }}</p>
+<p><b>Disponible :</b> {{ $product->cant }}</p>
+<p><b>Marca :</b> {{ $product->brand->brand }}</p>
+<p><b>Condición :</b> 
+	<div class="bs-example-popovers">
+		<form id="condiciones" name="condiciones" method="GET">
+			<p>
+				@if(count($nuevos)>0)
+				@foreach($nuevos as $nuevo)
+				@if($nuevo->nuevo == '1')
+				Nuevo
+				@else
+				@endif											                
+				@endforeach
+				@else       
+				@endif
+				<br/>
+				@if(count($promociones)>0)
+				@foreach($promociones as $promocion)
+				@if($promocion->promocion == '1')
+				Promoción
+				@else
+				@endif 
+				@endforeach
+				@else       
+				@endif
+			</p>
+		</form>
 	</div>
-	<!-- /page content -->
-	<script type="text/javascript">
-		function tamano($tamano,$val){
-			$('#ltamano').text($val);
-			$('#tamano').val($val);
-		}
-		function color($color,$val){
-			$('#lcolor').text($val);
-			$('#color').val($val);
-		}
-		function numero($numero,$val){
-			$('#lnumero').text($val);
-			$('#numero').val($val);
-		}
-	</script>
+</p>
+<p><b>Tamaño :</b> 
+	<label id="ltamano" name="ltamano" value="" />
+	<div class="bs-example-popovers">
+		<input type="hidden" id="tamano" name="tamano" value="" required="required" />
+		<form id="sizes" name="sizes" method="GET">									
+			@if(count($sizes)>0)
+			@foreach($sizes as $size)
+			<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" value="{{$size->size->name}}" id="{{$size->size->id}}" title="" onclick="tamano(this.id,this.value)">
+				<b>({{$size->size->abreviatura}}) </b>                      
+			</button>
+			@endforeach
+			@else       
+			<p>0 resultados</p>
+			@endif
+		</form>
+	</div>									
+</p>
+<p><b>Color :</b>
+	<label id="lcolor" name="lcolor" value=""/> 
+	<div class="bs-example-popovers">
+		<input type="hidden" id="color" name="color" value="" required="required"/>
+		<form id="availables" name="availables" method="GET">
+			@if(count($availables)>0)
+			@foreach($availables as $available)
+			<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." id="{{$available->availables->id}}" value="{{$available->availables->name}}" data-original-title="" title="" onclick="color(this.id,this.value)">
+				{{$available->availables->name}}
+			</button>
+			@endforeach
+			@else     
+			<p>0 resultados</p>
+			@endif	
+		</form>		
+	</div>									
+</p>
+<p><b>Número :</b>
+	<label id="lnumero" name="lnumero" value="" />
+	<div class="bs-example-popovers">
+		<input type="hidden" id="numero" name="numero" value="" required="required"/>
+		<form id="numbers" name="numbers" method="GET">							
+			@if(count($numbers)>0)
+			@foreach($numbers as $number)
+			<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." id="{{$number->numbersizes->id}}" value="{{$number->numbersizes->number}}" data-original-title="" title="" onclick="numero(this.id,this.value)">
+				{{$number->numbersizes->number}}
+			</button>
+			@endforeach
+			@else   
+			<p>0 resultados</p>
+			@endif
+		</form>
+	</div>								
+
+</p>
+<p><b>Cod barra :</b></p>
+
+{!! DNS1D::getBarcodeHTML($product->codbarra, "C128") !!}
+<a href="">
+	<!--<img src="images/product-details/share.png" class="share img-responsive"  alt="" />-->
+</a>
+<!--OMPARTIR REDES SOCIALES-->
+<script type="text/javascript">
+	var URLactual = window.location;
+	document.getElementById("fb").value=URLactual;								
+	elemento.setAttribute("data-href", URLactual);
+</script>
+<div id="fb" class="fb-like" data-href="http://facebook/storeli.nect" data-layout="standard" data-action="like" data-size="small" data-show-faces="true" data-share="true"></div>
+<div id="fb-root"></div>
+<script>
+	(function(d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) return;
+		js = d.createElement(s); js.id = id;
+		js.src = "//connect.facebook.net/es_ES/sdk.js#xfbml=1&version=v2.8";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	<!--FIN COMPARTIR REDES SOCIALES-->
+</div><!--/product-information-->
+</div>
+</div><!--/product-details-->
+
+
+
+
+
+</div>
+
+</div>
+{{ Form::close() }}
+
+</section>
+
+
+<!-- footer content -->
+<footer>
+	@include('store.partials.footer') 
+</footer>
+<!-- /footer content -->
+
+</div>
+<!-- /page content -->
+<script type="text/javascript">
+	function tamano($tamano,$val){
+		$('#ltamano').text($val);
+		$('#tamano').val($val);
+	}
+	function color($color,$val){
+		$('#lcolor').text($val);
+		$('#color').val($val);
+	}
+	function numero($numero,$val){
+		$('#lnumero').text($val);
+		$('#numero').val($val);
+	}
+</script>
 </body>
 </html>

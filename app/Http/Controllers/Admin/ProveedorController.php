@@ -12,22 +12,23 @@ use App\Country;
 use App\Province;
 use App\Isactive;
 use App\Svlog;
+use App\Empresaa;
 
 class ProveedorController extends Controller
 {
     public function index(){
         if(\Auth::check()){
-        if(\Auth::user()->is_admin){
+            if(\Auth::user()->is_admin){
             	$proveedors = Proveedor::all();
                 $this->genLog("Ingresó a gestión de proveedores");
-            	return view('admin.proveedor.index', compact('proveedors'));
+                return view('admin.proveedor.index', compact('proveedors'));
             }else{
                 \Auth::logout();
                 return redirect('login');
+            }
+        }else{
+            \Auth::logout();
         }
-    }else{
-        \Auth::logout();
-    }
     }
 
     public function create(){
@@ -61,24 +62,24 @@ class ProveedorController extends Controller
     public function store(SaveProveedorRequest $request){
     	//dd($request);
     	$data = [
-            'nom_compania' =>$request->get('nom_compania'),
-            'ruc' =>$request->get('ruc'),
-            'telefono' =>$request->get('telefono'),
-            'celular' =>$request->get('celular'),
-            'fax' =>$request->get('fax'),
-            'direccion' =>$request->get('direccion'),
-            'codigopostal' =>$request->get('codpostal'),
-            'email' =>$request->get('email'),
-            'pagweb' =>$request->get('pagweb'), 
-            'observacion' =>$request->get('observacion'),
-            'logo' =>$request->get('logo'), 
-            'country_id' =>$request->get('country_id'), 
-            'prov_id' =>$request->get('prov_id'), 
-            'isactive_id' =>$request->get('isactive_id')
+        'nom_compania' =>$request->get('nom_compania'),
+        'ruc' =>$request->get('ruc'),
+        'telefono' =>$request->get('telefono'),
+        'celular' =>$request->get('celular'),
+        'fax' =>$request->get('fax'),
+        'direccion' =>$request->get('direccion'),
+        'codigopostal' =>$request->get('codpostal'),
+        'email' =>$request->get('email'),
+        'pagweb' =>$request->get('pagweb'), 
+        'observacion' =>$request->get('observacion'),
+        'logo' =>$request->get('logo'), 
+        'country_id' =>$request->get('country_id'), 
+        'prov_id' =>$request->get('prov_id'), 
+        'isactive_id' =>$request->get('isactive_id')
         ];
         $proveedor = Proveedor::create($data);
         $message = $proveedor ? 'Proveedor creado correctamente': 'El proveedor no se pudo crear';
-    	return redirect()->route('admin.proveedor.index')->with('message', $message);
+        return redirect()->route('admin.proveedor.index')->with('message', $message);
     }
 
     public function destroy(Proveedor $proveedor){
@@ -86,6 +87,33 @@ class ProveedorController extends Controller
 
     	$message = $deleted ? 'El proveedor se elimino correctamente': 'El proveedor no se pudo eliminar';
     	return redirect()->route('admin.proveedor.index')->with('message', $message);
+    }
+
+    public function contact(Proveedor $proveedor,$correo)
+    {
+        $pro = Proveedor::select()->where('email','=',$correo)->get();
+        return view('admin.proveedor.mensaje',compact('proveedor','pro'));
+    }
+    public function contactenviar(Request $request)
+    {
+
+        $destinomail = $request['email'];
+        $asunto = $request['asunto'];
+        $mensaje = $request['mensaje'];
+        $data['destinomail'] = $destinomail;
+        $data['asunto'] = $asunto;
+        $data['mensaje'] = $mensaje;
+
+        \Mail::send("admin.proveedor.contmail", ['data' => $data], function($message) use($data) {
+            $message->to($data['destinomail'])
+            ->subject($data['mensaje']);
+        });
+        $this->genLog("Envió un mensaje a ".$data['destinomail']);
+
+        $message ='Mensaje enviado';
+        \Session::flash('flash_message', $message); 
+        return redirect()->route('admin.proveedor.index')->with('message', $message);
+
     }
 
     public function genLog($mensaje)

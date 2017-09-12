@@ -7,7 +7,7 @@
         <h3>
           Proveedores
           <small>
-            
+
           </small>
         </h3>
       </div>
@@ -49,7 +49,7 @@
         </div>
         <div class="x_content">
          <h1>
-          
+
           <a href="{{ route('admin.proveedor.create') }}" class="btn btn-success">
            <i class="fa fa-plus-circle"></i> Proveedores</a>
            
@@ -63,9 +63,10 @@
        <table id="datatable" class="table table-striped table-bordered">
         <thead>
           <tr>
-            <th>Detalles</th>
-            <th>Dar de baja</th>
-            <th>Modificar</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>Compania</th>
             <th>Contacto</th>
             <th>Correo</th>
@@ -78,21 +79,26 @@
         <tbody>
          @foreach($proveedors as $proveedor)
          <tr>
+         <td>
+            <a href="{{ route('admin.proveedor.contact',$proveedor->email) }}" title="Enviar mensaje" class="btn btn-default">
+              <i class="fa fa-envelope"></i>
+            </a>
+          </td>
           <td>
-            <a href="{{ route('admin.proveedor.show',$proveedor->id) }}" class="btn btn-default">
+            <a href="{{ route('admin.proveedor.show',$proveedor->id) }}" title="Ver detalles" class="btn btn-default">
               <i class="fa fa-eye"></i>
             </a>
           </td>
           <td>
            {!! Form::open(['route'=> ['admin.proveedor.destroy', $proveedor]]) !!}
            <input type="hidden" name="_method" value="DELETE">	
-           <button onClick="return confirm('Desea eliminar este registro?')" class="btn btn-danger">
+           <button onClick="return confirm('Desea eliminar este registro?')" title="Eliminar" class="btn btn-danger">
             <i class="fa fa-trash-o"></i>
           </button>
           {!! Form::close() !!}
         </td>
         <td>
-         <a href="{{ route('admin.proveedor.edit',$proveedor->id) }}" class="btn btn-warning">
+         <a href="{{ route('admin.proveedor.edit',$proveedor->id) }}" title="Actualizar" class="btn btn-warning">
           <i class="fa fa-pencil-square"></i>
         </a>
       </td>

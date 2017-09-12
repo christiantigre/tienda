@@ -46,6 +46,7 @@
   <script src="{{ asset('botstrapdatepicker1.6.4/js/bootstrap-datepicker.js') }}"></script>
   <script src="{{ asset('botstrapdatepicker1.6.4/locales/bootstrap-datepicker.es.min.js') }}"></script>
 
+
   <!--[if lt IE 9]>
         <script src="../assets/js/ie8-responsive-file-warning.js"></script>
         <![endif]-->
@@ -639,6 +640,9 @@
     });
     TableManageButtons.init();
   </script>
+
+
+  
 
 </body>
 

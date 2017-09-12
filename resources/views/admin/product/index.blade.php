@@ -1,13 +1,13 @@
 @extends('admin.template')
 @section('content')
-<div class="right_col" role="main">
-  <div class="">
+<div class="right_col" role="main">    
+  <div class="">  
     <div class="page-title">
       <div class="title_left">
         <h3>
           Productos
           <small>
-
+            
           </small>
         </h3>
       </div>
@@ -48,14 +48,14 @@
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
-         <h1>
+         <h1>          
           <a href="{{ route('admin.product.create') }}" class="btn btn-success">
-           <i class="fa fa-plus-circle"></i> Producto</a>
-
+           <i class="fa fa-plus-circle"></i> Producto</a>           
+                   
           <a href="{{ route('admin.product.searchproduct') }}" class="btn btn-default">
-           <i class="fa fa-search"></i> B&uacutesqueda avanzada</a>
+           <i class="fa fa-search"></i> B&uacutesqueda avanzada</a>           
          </h1>
-
+         
        </div>
        <p class="text-muted font-13 m-b-30">
         <div class="x_content">
@@ -83,20 +83,20 @@
          @foreach($products as $product)
          <tr>
           <td>
-            <a href="{{ route('admin.product.show',$product->id) }}" title="DETALLES" class="btn btn-default">
+            <a href="{{ route('admin.product.show',$product->slug) }}" title="DETALLES" class="btn btn-default">
               <i class="fa fa-eye"></i>
             </a>
           </td>
           <td>
            {!! Form::open(['route'=> ['admin.product.destroy', $product->slug]]) !!}
-           <input type="hidden" name="_method" value="DELETE">
+           <input type="hidden" name="_method" value="DELETE">	
            <button onClick="return confirm('Desea eliminar este registro?')" title="ELIMINAR" class="btn btn-danger">
             <i class="fa fa-trash-o"></i>
           </button>
           {!! Form::close() !!}
         </td>
         <td>
-         <a href="{{ route('admin.product.edit',$product->id) }}" title="MODIFICAR" class="btn btn-warning">
+         <a href="{{ route('admin.product.edit',$product->slug) }}" title="MODIFICAR" class="btn btn-warning">
           <i class="fa fa-pencil-square"></i>
         </a>
       </td>

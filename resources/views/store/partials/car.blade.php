@@ -26,7 +26,7 @@
 						@foreach($cart as $item)
 						<tr>
 							<td class="cart_price">
-								<a href="{{ route('product-detail', $item->slug) }}"><img src="{{ asset('/upload/products/') }}/{{ $item->img }}" alt="" width="60"></a>
+								<a href="{{ route('product-detail', $item->slug) }}"><img src="{{ asset('upload/products') }}/{{$item->img }}" alt="" width="60"></a>
 							</td>
 							<td class="cart_price">
 								<p>{{ $item->nombre }}</p><br/>
@@ -43,9 +43,9 @@
 							<td class="cart_price">
 								<p>{{ number_format($item->pre_ven,2) }}</p>
 							</td>
-							<td>
-								<div class="cart_quantity_button">
-									<input
+							<td>		
+								<div class="cart_quantity_button">					
+									<input 
 									type="number"
 									class="btn-update-item"
 									min="1"
@@ -54,7 +54,7 @@
 									id="product_{{ $item->id }}"
 									data-href="{{ route('cart-update',[ $item->slug, null] )}}"
 									data-id = "{{ $item->id }}"
-									required="required"
+									required="required" 
 									size="2"
 									>
 								</div>
@@ -121,21 +121,21 @@
 							<p>{{ $mensaje }}</p>
 						</div>
 					</div>
-				</section>
+				</section>	
 				@else
 				<h3>No hay Items en su carrito</h3>
 				<a class="btn btn-primary" href="{{ route('home') }}"><i class="fa fa-shopping-cart"></i> IR DE COMPRAS</a>
 				<h2></h2>
-				@endif
+				@endif				
 			</div>
 			<script>
 				$(document).ready(function(){
 					$(".btn-update-item").on('click', function(e){
-						e.preventDefault();
+						e.preventDefault();        
 						var id = $(this).data('id');
 						var href = $(this).data('href');
 						var cant = $('#product_' + id).val();
-						window.location.href = href + "/" + cant;
+						window.location.href = href + "/" + cant;        	
 					});
 				});
 			</script>

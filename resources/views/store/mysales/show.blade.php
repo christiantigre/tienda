@@ -1,12 +1,17 @@
 @extends('store.template')
 @section('content')
 <section id="cart_items">
-  
+
   <div class="container">
     <div class="table-responsive cart_info">
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12 invoice-header">
+          <div class="x_content">
+                  <a class="btn btn-app" href="{{ route('facturas.download',$pedidoshow->id ) }}">
+                    <i class="glyphicon glyphicon-download"></i> Descargar
+                  </a>
+                </div>
           <h1>
             <small class="pull-right">Date: {{ $pedidoshow->date }}</small>
           </h1>
@@ -57,7 +62,7 @@
       </div>
       <!-- /.row -->
 
-      
+
 
       <table class="table table-condensed">
         <thead>
@@ -69,7 +74,7 @@
             <td class="price">Total</td>
             <td></td>
           </tr>
-        </thead>                   
+        </thead>
         <tbody>
           @foreach($item as $it)
           <tr>
@@ -82,7 +87,7 @@
             <td class="cart_price"><p><h5>{{ number_format($it->products->pre_ven,2) }}</h5></p></td>
             <td class="cart_price"><p><h5>{{ $it->cant }}</h5></p></td>
             <td class="cart_price"><p><h5>${{ number_format( $it->prec * $it->cant,2 ) }}</h5></p></td>
-          </tr>                      
+          </tr>
           @endforeach
           <tr>
             <td colspan="4">&nbsp;</td>
@@ -93,7 +98,7 @@
                   <td><h5>${{ $pedidoshow->subtotal }}</h5></td>
                 </tr>
                 <tr>
-                  <td><h5>Iva (14%)</h5></td>
+                  <td><h5>Iva ({{ $e_iv }}%)</h5></td>
                   <td><h5>${{ $pedidoshow->iva }}</h5></td>
                 </tr>
                 <tr>
@@ -106,13 +111,13 @@
         </tbody>
       </table>
 
-      
+
 
 
 
 
     </div>
   </div>
-  
+
 </section> <!--/#cart_items-->
 @stop

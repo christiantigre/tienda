@@ -24,11 +24,20 @@
                     <li><i class="fa fa-cc"></i> : {{ $perfil->cedula }}</li>
                     <li><i class="fa fa-cc"></i> : {{ $perfil->ruc }}</li>
                     <li><i class="fa fa-birthday-cake"></i> : {{ $perfil->fechanacimiento }}</li>
+                    <li><i class="fa fa-child"></i> : {{ ($perfil->genero == 1) ? 'Masculino' : 'Femenino' }}</li>
+                    @if($perfil->provincia_idprovincia==null)
+                    <li><i class="fa fa-bus"></i> : n/n</li>
+                    @elseif($perfil->provincia_idprovincia!=null)
                     <li><i class="fa fa-bus"></i> : {{ $provincia->prov }}</li>
+                    @endif
                 </ul>
             </div>
             <div class="right col-xs-5 text-center">
-                <img src="../../upload/{{ $perfil->path }}" alt="" class="img-circle img-responsive">
+                @if($perfil->path==null)
+                <img src="{{ asset('../../upload/user.png') }}" alt="" class="img-circle img-responsive">
+                @elseif($perfil->path!=null)
+                <img src="{{ asset('../../upload/ $perfil->path') }}" alt="" class="img-circle img-responsive">
+                @endif
             </div>
         </div>
     </div>
