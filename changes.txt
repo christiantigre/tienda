@@ -4,3 +4,10 @@ trorttlesLogins, reemplazar en
 tienla\vendor\laravel\framework\src\Illuminate\Foundation\Auth
 -2)Router, reemplazar en 
 tienla\vendor\laravel\framework\src\Illuminate\Routing
+
+ejecutar los codigos de configuración
+- php artisan route:cache
+- php artisan view:clear
+- php artisan config:cache
+
+https://z900collector.wordpress.com/2017/08/29/laravel-5-implementing-themes/
