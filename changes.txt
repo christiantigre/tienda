@@ -11,3 +11,11 @@ ejecutar los codigos de configuración
 - php artisan config:cache
 
 https://z900collector.wordpress.com/2017/08/29/laravel-5-implementing-themes/
+
+video
+https://www.youtube.com/watch?v=8NKueOn4tdM
+link pagina admin
+https://files.000webhost.com/
+https://www.000webhost.com/members/website/storelinect/files
+https://databases.000webhost.com/index.php?token=ffef816111ddfd6a651127a24dc86ef7
+https://es.000webhost.com/members/website/storelinect/database
