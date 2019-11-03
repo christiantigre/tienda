@@ -3,6 +3,12 @@
 @foreach($userswomans as $womans)
 @foreach($ventas as $venta)
 @foreach($pedidos as $pedido)
+
+@endforeach
+@endforeach
+@endforeach
+@endforeach
+
 <div class="row tile_count">
   <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
     <div class="left"></div>
@@ -54,8 +60,5 @@
   </div>
 
 </div>
-@endforeach
-@endforeach
-@endforeach
-@endforeach
+
         <!-- /top tiles -->

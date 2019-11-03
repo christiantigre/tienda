@@ -17,6 +17,9 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Mail;
+use App\Http\Controllers\FirmaController; 
+use App\Http\Controllers\SriController; 
 
 class CarritoController extends Controller
 {
@@ -84,7 +87,7 @@ class CarritoController extends Controller
                 return redirect()->route('store.perfil.edit', $id_us);
             }
         } else {
-            $message = 'Porfavor iniciar sessión.';
+            $message = 'Por favor iniciar sessión.';
             //\Session::flash('flash_message', $message);
             \Session::flash('warning', $message);
 
@@ -183,7 +186,7 @@ class CarritoController extends Controller
             return abort(444);
         }
     }
-
+    // inicia proceso de factura electronica, agregar esta linea extension=php_com_dotnet.dll para utilizar el COM de php
     public function saveOrder(Request $request)
     {
         $the_sales = new sales;
@@ -197,7 +200,6 @@ class CarritoController extends Controller
         $e_obtnvl  = $e_valor / 100;
 
         $total         = 0;
-        $valiva        = 1.14;
         $ivaporcentaje = $e_iv;
         $cart          = \Session::get('cart');
 
@@ -209,21 +211,23 @@ class CarritoController extends Controller
         $iva = $sub - $total;
 
         $iva = str_replace('-', '', $iva);
+
         if ($total > 70) {
             $var     = '8';
             $message = 'Su pedido fue realizado con éxito, su factura será enviada a su correo electrónico';
             //guardar en ventas
         } else {
             $var     = '1';
-            $message = 'Su pedido fue realizado con éxito, porfavor espere su aprovación';
+            $message = 'Su pedido fue realizado con éxito, por favor espere su aprovación';
         }
+
 
         $date           = Carbon::now();
         $date->timezone = new \DateTimeZone('America/Guayaquil');
         //$date = $date->format('Y/m/d');
         $date  = $date->format('d/m/Y');
         $date2 = Carbon::now();
-//  date('d/m/Y')
+
         $order = Pedido::create([
             'subtotal'      => $sub,
             'total'         => $total,
@@ -240,9 +244,11 @@ class CarritoController extends Controller
             'rango'         => $date2,
         ]);
 
+
         foreach ($cart as $product) {
             $this->saveOrderItem($product, $order->id);
         }
+
         //ACTUALIZA INVENTARIO
         $this->actualizaInventario($order->id);
 
@@ -262,6 +268,7 @@ class CarritoController extends Controller
 
             if ($generado = $this->generaXml($order->id)) {
                 if ($firmado = $this->firmarXml($codigogenerado)) {
+                    return $firmado;
                     $pos = explode(",", $firmado, 4);
                     $this->deleteDir("generados");
                     //\DB::table('sales')->where('pedido_id', $order->id)->update(['fir_xml' => '1']);
@@ -295,6 +302,8 @@ class CarritoController extends Controller
         //$this->revisarXml($codigogenerado)
         //Queue::later(180, $this->retorno($codigogenerado));
         $codigogenerado = '0';
+        $this->notificarPedidoAdministrador($order);
+        $this->notificarClientePedido($order);
         return view('store.partials.detallsale', compact('order', 'dt_empress', 'perfil', 'cartord', 'cartordaux', 'codigogenerado', 'rutaPdf', 'e_iv'));
     }
 
@@ -306,7 +315,7 @@ class CarritoController extends Controller
         $perfils    = client::select()->where('id', '=', $pedidoshow->users_id)->get();
         $sale       = sales::select('claveacceso', 'numfactura')->where('pedido_id', '=', $idpedido)->first();
 
-        $dt_empress = Empresaa::select()->get();
+        $dt_empres = Empresaa::select()->first();
 
         $xml     = new \DomDocument('1.0', 'UTF-8');
         $factura = $xml->createElement('factura');
@@ -317,20 +326,21 @@ class CarritoController extends Controller
         $infoTributaria = $xml->createElement('infoTributaria');
         $infoTributaria = $factura->appendChild($infoTributaria);
 
-        foreach ($dt_empress as $dt_empres) {
-            $ambiente = $xml->createElement('ambiente', $dt_empres->ambiente);
+        /*foreach ($dt_empress as $dt_empres) {
+        }*/
+            $ambiente = $xml->createElement('ambiente', $dt_empres['ambiente']);
             $ambiente = $infoTributaria->appendChild($ambiente);
 
             $tipoEmision = $xml->createElement('tipoEmision', '1');
             $tipoEmision = $infoTributaria->appendChild($tipoEmision);
 
-            $razonSocial = $xml->createElement('razonSocial', $dt_empres->prop);
+            $razonSocial = $xml->createElement('razonSocial', $dt_empres['prop']);
             $razonSocial = $infoTributaria->appendChild($razonSocial);
 
-            $nombreComercial = $xml->createElement('nombreComercial', $dt_empres->nom);
+            $nombreComercial = $xml->createElement('nombreComercial', $dt_empres['nom']);
             $nombreComercial = $infoTributaria->appendChild($nombreComercial);
 
-            $ruc = $xml->createElement('ruc', $dt_empres->ruc);
+            $ruc = $xml->createElement('ruc', $dt_empres['ruc']);
             $ruc = $infoTributaria->appendChild($ruc);
 
             $claveAcceso = $xml->createElement('claveAcceso', $sale->claveacceso);
@@ -339,23 +349,23 @@ class CarritoController extends Controller
             $codDoc = $xml->createElement('codDoc', '01');
             $codDoc = $infoTributaria->appendChild($codDoc);
 
-            $estab = $xml->createElement('estab', $dt_empres->codestablecimiento);
+            $estab = $xml->createElement('estab', $dt_empres['codestablecimiento']);
             $estab = $infoTributaria->appendChild($estab);
 
-            $ptoEmi = $xml->createElement('ptoEmi', $dt_empres->codpntemision);
+            $ptoEmi = $xml->createElement('ptoEmi', $dt_empres['codpntemision']);
             $ptoEmi = $infoTributaria->appendChild($ptoEmi);
 
             $secuencial = $xml->createElement('secuencial', $sale->numfactura);
             $secuencial = $infoTributaria->appendChild($secuencial);
 
-            $dirMatriz = $xml->createElement('dirMatriz', $dt_empres->dirmatriz);
+            $dirMatriz = $xml->createElement('dirMatriz', $dt_empres['dirmatriz']);
             $dirMatriz = $infoTributaria->appendChild($dirMatriz);
-        }
+        
 
         foreach ($perfils as $perfil) {
 
-            $cedula = $dt_empres->cedula;
-            $ruc    = $dt_empres->ruc;
+            $cedula = $dt_empres['cedula'];
+            $ruc    = $dt_empres['ruc'];
             if (!empty($ruc)) {
                 $identificacion = '04'; //ruc
                 $id             = $ruc;
@@ -364,8 +374,8 @@ class CarritoController extends Controller
                 $id             = $cedula;
             }
 
-            $tabiva          = Iva::select()->where('id', $dt_empres->iva_id)->first();
-            $monedas         = Moneda::select()->where('id', $dt_empres->moneda_id)->first();
+            $tabiva          = Iva::select()->where('id', $dt_empres['iva_id'])->first();
+            $monedas         = Moneda::select()->where('id', $dt_empres['moneda_id'])->first();
             $iva             = $tabiva->iva;
             $codporcentaje   = $tabiva->codporcentaje;
             $tarifa          = $iva * 1;
@@ -405,7 +415,12 @@ class CarritoController extends Controller
             $totalSinImpuestos = $xml->createElement('totalSinImpuestos', number_format($valsinimpuestos, 2, '.', ','));
             $totalSinImpuestos = $infoFactura->appendChild($totalSinImpuestos);
 
-            $totalDescuento = $xml->createElement('totalDescuento', $pedidoshow->descuento);
+            if($pedidoshow->descuento > 0){
+                $totalDescuento = $xml->createElement('totalDescuento', $pedidoshow->descuento);
+            }else{
+                $totalDescuento = $xml->createElement('totalDescuento', 0);
+            }
+            
             $totalDescuento = $infoFactura->appendChild($totalDescuento);
 
             $totalConImpuestos = $xml->createElement('totalConImpuestos');
@@ -416,8 +431,12 @@ class CarritoController extends Controller
 
             $codigo = $xml->createElement('codigo', '2');
             $codigo = $totalImpuesto->appendChild($codigo);
-
-            $codigoPorcentaje = $xml->createElement('codigoPorcentaje', $codporcentaje);
+            if($codporcentaje>0){
+                $codigoPorcentaje = $xml->createElement('codigoPorcentaje', $codporcentaje);
+            }else{
+                $codigoPorcentaje = $xml->createElement('codigoPorcentaje', 0);
+            }
+            
             $codigoPorcentaje = $totalImpuesto->appendChild($codigoPorcentaje);
 
             $baseImponible = $xml->createElement('baseImponible', number_format($valsinimpuestos, 2, '.', ','));
@@ -479,8 +498,12 @@ class CarritoController extends Controller
 
             $precioUnitario = $xml->createElement('precioUnitario', number_format($valsiniv, 2, '.', ','));
             $precioUnitario = $detalle->appendChild($precioUnitario);
-
-            $descuento = $xml->createElement('descuento', $item->descuento);
+            if($item->descuento > 0){
+                $descuento = $xml->createElement('descuento', $item->descuento);
+            }else{
+                $descuento = $xml->createElement('descuento', 0);
+            }
+            
             $descuento = $detalle->appendChild($descuento);
 
             $totsininpuesto = $precioventa * $cantidadproducto;
@@ -564,38 +587,25 @@ class CarritoController extends Controller
 
     public function firmarXml($nombrexml)
     {
-        $dt_empress    = Empresaa::select()->get();
-        $rutai         = public_path();
-        $ruta          = str_replace("\\", "//", $rutai);
-        $rout          = $this->makeDir('firmados');
-        $rout          = $this->makeDir('noautorizados');
-        $rout          = $this->makeDir('autorizados');
-        $rout          = $this->makeDir('temp');
-        $rout          = $this->makeDir('pdf');
-        $autorizados   = $ruta . '//archivos//' . 'autorizados' . '//';
-        $enviados      = $ruta . '//' . 'enviados' . '//';
-        $firmados      = $ruta . '//archivos//firmados//';
-        $generados     = $ruta . '/archivos//generados' . '/';
-        $noautorizados = $ruta . '//archivos//' . 'noautorizados' . '//';
-        $certificado   = $ruta . '//archivos//certificado//';
-        $WshShell      = new \COM("WScript.Shell");
-        foreach ($dt_empress as $dt_empres) {
-            $rutafirma        = $dt_empres->pathcertificate;
-            $passcertificate  = $dt_empres->passcertificate;
-            $pass             = '"' . $passcertificate . '"';
-            $pathfirma        = '"' . $certificado . $rutafirma . '"';
-            $xml              = $nombrexml . '.xml';
-            $pathsalida       = $firmados;
-            $pathgenerado     = $generados . $nombrexml . '.xml';
-            $jar              = $ruta . '//DevelopedSignature/dist/firmaJava.jar';
-            $cmd              = 'cmd /C java -jar ' . $jar . ' ' . $pathfirma . ' ' . $pass . ' ' . $pathgenerado . ' ' . $pathsalida . ' ' . $xml . ' ';
-            $oExec            = $WshShell->Run($cmd, 0, false);
-            $pathxmlfirmado   = $pathsalida . '' . $xml;
-            $xmlautorizados   = $autorizados . $nombrexml . '.xml';
-            $xmlNoautorizados = $noautorizados . $nombrexml . '.xml';
-            \DB::table('sales')->where('claveacceso', $nombrexml)->update(['fir_xml' => '1']);
-            $this->enviarautorizar($pathxmlfirmado, $nombrexml, $xmlautorizados, $xmlNoautorizados);
+        $firmaController = new FirmaController();
+        $sriController = new SriController();
+        $res_firmado  = $firmaController->realizarFirmaXml($nombrexml);
+        if($res_firmado['firmado'] === true){
+            $archivo_firmado  = $firmaController->archivoFirmado($nombrexml);
+            $res_autorizacion  = $sriController->enviarAutorizar($nombrexml);
+            
+            if($res_autorizacion['estado']==='RECIBIDA'){
+                $revisar_comprobante  = $sriController->revisarXml($nombrexml);
+                return $revisar_comprobante;
+            }else{
+                $revisar_comprobante  = $sriController->revisarXml($nombrexml);
+                return $revisar_comprobante;
+            }
+            
+        }else{
+            $archivo_firmado  = $firmaController->archivoNoFirmado($nombrexml);
         }
+        return $res_firmado;
     }
 
     public function enviarautorizar($pathXmlFirmado, $claveAcceso, $autorizados, $rechazados)
@@ -606,17 +616,29 @@ class CarritoController extends Controller
         $start_time       = microtime(true);
         $rutai            = public_path();
         $ruta             = str_replace("\\", "//", $rutai);
-        $WshShell         = new \COM("WScript.Shell");
-        $linkRecepcion    = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
-        $linkAutorizacion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
-        $jar              = $ruta . '//SRI//dist//SRI.jar';
-        $cmd              = 'cmd /C java -jar ' . $jar . ' ' . $pathXmlFirmado . ' ' . $claveAcceso . ' ' . $autorizados . ' ' . $rechazados . ' ' . $linkRecepcion . ' ' . $linkAutorizacion . ' ';
-        $oExec            = $WshShell->Run($cmd, 0, false);
+        try {
+            $WshShell         = new \COM("WScript.Shell");
+            $linkRecepcion    = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/RecepcionComprobantes?wsdl";
+            $linkAutorizacion = "https://celcer.sri.gob.ec/comprobantes-electronicos-ws/AutorizacionComprobantes?wsdl";
+            $jar              = $ruta . '//SRI//dist//SRI.jar';
+            $cmd              = 'cmd /C java -jar ' . $jar . ' ' . $pathXmlFirmado . ' ' . $claveAcceso . ' ' . $autorizados . ' ' . $rechazados . ' ' . $linkRecepcion . ' ' . $linkAutorizacion . ' ';
+            
+            $oExec            = $WshShell->Run($cmd, 0, false);
+            \Log::info('res autorizacion sri');
+            \Log::info($cmd);
+            \Log::info('oExec : '. $oExec);
+            
+        } catch (\Exception $e) {
+            //throw $th;
+            $oExec = 'error';
+            \Log::info('log res autorizacion sri');
+            \Log::info($e);
+        }
         if ($oExec == '0') {
             \DB::table('sales')
                 ->where('claveacceso', $claveAcceso)
                 ->update(['aut_xml' => '1']);
-            sleep(30);
+            //  sleep(30);
             $this->revisarXml($claveAcceso);
         } else {
             \DB::table('sales')
@@ -1057,14 +1079,26 @@ class CarritoController extends Controller
     public function genLog($mensaje)
     {
         $area = 'Administracion';
-        $logs = Svlog::log($mensaje, $area);
+        //  $logs = Svlog::log($mensaje, $area);
     }
 
     public function showFacture($pedido_id)
     {
-        $the_pedido = Pedido::where('id', $pedido_id)->get();
-        foreach ($the_pedido as $pedido) {
+        $pedido = Pedido::where('id', $pedido_id)->first();
+        $sales          = sales::select()->where('pedido_id', '=', $pedido_id)->first();
+
+        if(empty($sales)){
+                \Session::flash('flash_message', "No se pudo descargar este archivo.");
+                return redirect()->back();         
+        }else{
+        
+        if(empty($pedido)){
+                \Session::flash('flash_message', "No se pudo descargar este archivo.");
+        }else{
+        
+
             $estado = $pedido->status_id;
+
             if ($estado == 2) {
                 $pdf = $this->retornapdf($pedido_id);
                 return $pdf->stream();
@@ -1087,7 +1121,9 @@ class CarritoController extends Controller
             if ($estado == 4) {\Session::flash('flash_message', $message);return redirect()->back();}
             if ($estado == 7) {\Session::flash('flash_message', $message);return redirect()->back();}
 
-        }
+            }
+            }
+
     }
 
     public function retornapdf($pedido_id)
@@ -1105,6 +1141,12 @@ class CarritoController extends Controller
         $the_cliente    = new client;
         $the_item       = new ItemPedido;
         $sales          = $the_sales->select()->where('pedido_id', '=', $pedido_id)->first();
+
+        if(empty($sales)){
+            \Session::flash('flash_message', "No es posible descargar este archiv.");
+            return false;
+        }else{
+
         $aux_sales      = \DB::table('sales')->where('claveacceso', '=', $sales['claveacceso'])->get();
         $orders         = $the_pedido->select()->where('id', $sales->pedido_id)->first();
         $pedidos        = \DB::table('pedido')->where('id', '=', $sales->pedido_id)->get();
@@ -1115,6 +1157,90 @@ class CarritoController extends Controller
         $pdf            = \App::make('dompdf.wrapper');
         $pdf            = \PDF::loadView('pdf/vista', ['dt_empress' => $dt_empress, 'aux_sales' => $aux_sales, 'aux_clientes' => $aux_clientes, 'date' => $date, 'items' => $items, 'pedidos' => $pedidos]);
         return $pdf;
+        }
+            
+    }
+
+    public function notificarPedidoAdministrador($pedido){
+        $empresa     = Empresaa::select()->first();
+
+        $data['total'] = $pedido['total'];
+        $data['entrega'] = $pedido['entrega'];
+        $data['date'] = $pedido['date'];
+        $subject = "StoreLine nuevo pedido.";
+        $to = $empresa['email'];
+
+        Mail::send('store.emails.pedido',
+            [
+                'total' => $data['total'],
+                'entrega' => $data['entrega'],
+                'date' => $data['date']
+            ]
+            , function($msj) use($subject,$to){
+            $msj->subject($subject);
+            $msj->to($to);
+        });
+        $message = "Mensaje enviado correctamente";
+        \Session::flash('flash_message', $message);
+    }
+
+    
+    public function notificarClientePedido($pedido){
+        $empresa     = Empresaa::select()->first();
+        $usuario    = User::where('id', $pedido['users_id'] )->first();        
+
+        $data['total'] = $pedido['total'];
+        $data['entrega'] = $pedido['entrega'];
+        $data['date'] = $pedido['date'];
+
+        $subject = "StoreLine nuevo pedido.";
+        $to = $usuario['email'];
+
+        Mail::send('store.emails.notificapedidocliente',
+            [
+                'total' => $data['total'],
+                'entrega' => $data['entrega'],
+                'date' => $data['date']
+            ]
+            , function($msj) use($subject,$to){
+            $msj->subject($subject);
+            $msj->to($to);
+        });
+        $message = "Mensaje enviado correctamente";
+        \Session::flash('flash_message', $message);
+    }
+
+    //  Muestra los paths de los archivos generados despues de generar la venta de productos.
+
+    public function mostrarRutasArchivosGenerados($pedido_id){
+        $pedido = Pedido::where('id', $pedido_id)->first();
+        $sales          = sales::select()->where('pedido_id', '=', $pedido_id)->first();
+        set_time_limit(0);
+        $dt_empres    = Empresaa::select()->first();
+
+        $rutai         = public_path();
+        $ruta          = str_replace("\\", "//", $rutai);
+        $rout          = $this->makeDir('firmados');
+        $rout          = $this->makeDir('noautorizados');
+        $rout          = $this->makeDir('autorizados');
+        $rout          = $this->makeDir('temp');
+        $rout          = $this->makeDir('pdf');
+        
+        $rutafiles['autorizados']   = $ruta . '//archivos//' . 'autorizados' . '//';
+        $rutafiles['enviados']      = $ruta . '//' . 'enviados' . '//';
+        $rutafiles['firmados']      = $ruta . '//archivos//firmados//';
+        $rutafiles['generados']     = $ruta . '/archivos//generados' . '/';
+        $rutafiles['noautorizados'] = $ruta . '//archivos//' . 'noautorizados' . '//';
+        $rutafiles['certificado']   = $ruta . '//archivos//certificado//';
+
+        $rutafirma        = $dt_empres->pathcertificate;
+        $passcertificate  = $dt_empres->passcertificate;
+        $pass             = '"' . $passcertificate . '"';
+        $rutafiles['pathfirma']        = '"' . $rutafiles['certificado'] . $rutafirma . '"';
+        $rutafiles['xml']              = $sales['claveacceso'] . '.xml';
+        $rutafiles['pathsalida']       = $rutafiles['firmados'];
+        $rutafiles['pathgenerado']     = $rutafiles['generados'] . $sales['claveacceso'] . '.xml';
+        dd(  $rutafiles );
     }
 
 }

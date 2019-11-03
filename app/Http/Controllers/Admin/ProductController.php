@@ -27,11 +27,11 @@ class ProductController extends Controller
         if(\Auth::check()){
             if(\Auth::user()->is_admin){
                $products = Product::orderBy('id', 'desc')->paginate(10);
-               $this->genLog("Ingresó a gestión productos");
+               //$this->genLog("Ingresó a gestión productos");
                return view('admin.product.index', compact('products'));
            }else{
             \Auth::logout();
-            $this->genLog("No autorizado a gestión productos");            
+           // $this->genLog("No autorizado a gestión productos");            
             return redirect('login');
         }
     }else{
@@ -88,12 +88,14 @@ public function store(SaveProductoRequest $request){
     'category_id' => $request->get('category_id'),
     'brand_id' => $request->get('brand_id'),
     'sections_id' => $request->get('sections_id'),
-    'isactive_id' => $request->get('isactive_id')
+    'isactive_id' => $request->get('isactive_id'),
+    'descuento' => $request->get('descuento'),
     ];
     
     $product = Product::create($data);
     $idproducto = $product->id;
 
+    if(isset($request["available"])){
     $availablenum=$request["available"];
     $countava = count($availablenum);
     if($countava>0){
@@ -103,7 +105,9 @@ public function store(SaveProductoRequest $request){
                 ['products_id' => $idproducto, 'availables_id' => $datocheckbox[$i]] );
         }
     }
+    }
 
+    if(isset($request["size"])){
     $sizenum = $request["size"];
     $countsiz = count($sizenum);
     if($countsiz>0){
@@ -113,7 +117,9 @@ public function store(SaveProductoRequest $request){
                 ['product_id' => $idproducto, 'size_id' => $datochecksize[$i]] );
         }
     }
+    }
 
+    if(isset($request["number"])){
     $number = $request["number"];
     $countnumber = count($number);
     if($countnumber>0){
@@ -122,6 +128,7 @@ public function store(SaveProductoRequest $request){
             \DB::table('products_numbersizes')->insert(
                 ['products_id' => $idproducto, 'numbersizes_id' => $datochecknumber[$i]] );
         }
+    }
     }
 
     $message = $product ? 'Producto creado correctamente': 'El producto no se pudo crear';
@@ -179,7 +186,20 @@ public function update(Request $request, Product $product)
 }
 
 public function destroy(Product $product)
-{
+{    
+    $sizes = productsize::where('product_id',$product->id)->get();
+    if(count($sizes)>0){
+        productsize::where('product_id',$product->id)->delete();
+    }
+    $availables = availablesproducts::where('products_id',$product->id)->get();
+    if(count($availables)>0){
+        availablesproducts::where('products_id',$product->id)->delete();
+    }
+    $numbers = productsnumbersizes::where('products_id',$product->id)->get();
+    if(count($numbers)>0){
+        productsnumbersizes::where('products_id',$product->id)->delete();
+    }
+
     $deleted = $product->delete();
     $message = $deleted ? 'El producto se elimino correctamente': 'El producto no se pudo eliminar';
     $this->genLog("Eliminó producto ".$product->slug);           
@@ -237,7 +257,7 @@ public function searchadvanceproduct(Request $request)
 public function genLog($mensaje)
 {
     $area = 'Administracion';
-    $logs = Svlog::log($mensaje,$area);
+    //  $logs = Svlog::log($mensaje,$area);
 }
 
 

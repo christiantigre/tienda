@@ -231,11 +231,12 @@ class SalesController extends Controller
         if (file_exists($archivo)) {
             unlink($archivo);
         }
-    }
-
+    } 
+ 
     public function firmarXml($nombrexml)
     {
-        $dt_empress    = Empresaa::select()->get();
+        $dt_empress    = Empresaa::select()->first();
+        dd($dt_empress);
         $rutai         = public_path();
         $ruta          = str_replace("\\", "//", $rutai);
         $rout          = $this->makeDir('firmados');
@@ -260,6 +261,7 @@ class SalesController extends Controller
             $pathgenerado     = $generados . $nombrexml . '.xml';
             $jar              = $ruta . '//DevelopedSignature/dist/firmaJava.jar';
             $cmd              = 'cmd /C java -jar ' . $jar . ' ' . $pathfirma . ' ' . $pass . ' ' . $pathgenerado . ' ' . $pathsalida . ' ' . $xml . ' ';
+            
             $oExec            = $WshShell->Run($cmd, 0, false);
             $pathxmlfirmado   = $pathsalida . '' . $xml;
             $xmlautorizados   = $autorizados . $nombrexml . '.xml';
@@ -749,7 +751,7 @@ class SalesController extends Controller
     public function genLog($mensaje)
     {
         $area = 'Administracion';
-        $logs = Svlog::log($mensaje, $area);
+        //$logs = Svlog::log($mensaje, $area);
     }
 
 }

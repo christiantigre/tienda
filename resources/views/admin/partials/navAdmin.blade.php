@@ -103,6 +103,7 @@
         <li><a><i class="fa fa-cogs"></i> Configuraci&oacute;n <span class="fa fa-chevron-down"></span></a>
           <ul class="nav child_menu" style="display: none"> <!--child_menu-->
             <li><a href="{{ route('admin.entiti.index') }}">Tienda</a>                    </li>
+            <li><a href="{{ route('admin.geo.index') }}">Geolocalización</a>                    </li>
             <li><a href="{{ route('admin.seccion.index') }}">Secciones</a></li>
             <li><a href="{{ route('admin.category.index') }}">Categor&iacute;as</a>                    </li>
             <li><a href="{{ route('admin.brand.index') }}">Marcas</a>                    </li>

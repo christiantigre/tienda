@@ -41,9 +41,9 @@ Route::bind('empress', function ($id) {
 Route::bind('pedido', function ($id) {
     return App\Pedido::Where('id', $id)->first();
 });
-Route::bind('Product', function ($id) {
+/*Route::bind('Product', function ($id) {
     return App\Product::Where('id', $id)->first();
-});
+});*/
 Route::bind('perfil', function ($id) {
     return App\client::Where('id', $id)->first();
 });
@@ -290,11 +290,17 @@ Route::group(['middleware' => 'auth', 'is_admin'], function () {
     Route::resource('admin/mapas', 'Admin\MapsController');
     /*mails*/
     Route::resource('admin/mails', 'Admin\mailmasivController');
+    /*geo*/
+    Route::resource('admin/geo', 'Admin\GeolocalizationController');
+
 });
+
+
 Route::post('/envionotificacion', [
     'middleware' => 'auth',
     'as'         => 'admin.mails.envionotificacion',
     'uses'       => 'Admin\mailmasivController@envionotificacion']);
+
 
 Route::get('/facturas.download/{pedidoid}', [
     'as'   => 'facturas.download',
@@ -527,6 +533,7 @@ Route::get('frmxml/{claveacceso}', [
     'as'   => 'revisar',
     'uses' => 'Admin\SalesController@firmarXml']);
 
+
 Route::get('existFile/{var}', [
     'as'   => 'revisar',
     'uses' => 'CarritoController@existFile']);
@@ -587,3 +594,7 @@ Route::get("test-email", function () {
         $message->attach($rutaPdf);
     });
 });
+//  Muestra los paths de los archivos generados despues de generar la venta de productos.
+Route::get('pathFiles/{pedido_id}', 'CarritoController@mostrarRutasArchivosGenerados');
+// realiza el envio de comprobantes para la autorizacion pasandole como parametro la clave de acceso del archivo firmado
+Route::get('autorizar/{claveAcceso}', 'SriController@enviarAutorizar');

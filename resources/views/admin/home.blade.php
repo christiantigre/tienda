@@ -55,8 +55,10 @@
           <div class="container body">
 
             <div class="main_container">
-              @if (Auth::user()->rol===1)
+
               @include('admin.partials.navAdmin')
+              {{--
+              @if (Auth::user()->rol===1)
               @elseif (Auth::user()->rol===3)
               @include('admin.partials.navDesp')
               @elseif (Auth::user()->rol===4)
@@ -64,16 +66,28 @@
               @elseif (Auth::user()->rol===5)
               @include('admin.partials.vavCaj')
               @endif
+              --}}
               @include('admin.partials.messages')  
               <div class="right_col" role="main">    
+              {{--
                 @include('admin.partials.cajas')
-                <div class="">
-                  @include('admin.partials.tabs')
+                  
+                  --}}
+
+                  @if(count($pedidos)>0)
+                  @include('admin.partials.pedidos')
+                  @elseif(count($pedidos)<=0)
+                  <h1>No hay pedidos pendientes</h1>
+                  @endif
+
+                  {{--  
                   @if(count($products)>0)
                   @include('admin.partials.notifysales')
                   @elseif(count($products)<=0)
                   <h1>Nada que notificar</h1>
                   @endif
+                  --}}
+                  
                 </div>
                 
                 <div class="">           

@@ -19,3 +19,9 @@ https://files.000webhost.com/
 https://www.000webhost.com/members/website/storelinect/files
 https://databases.000webhost.com/index.php?token=ffef816111ddfd6a651127a24dc86ef7
 https://es.000webhost.com/members/website/storelinect/database
+
+
+'options'   => [PDO::ATTR_EMULATE_PREPARES => true,]
+
+terminal laravel
+https://github.com/iamalirezaj/laravel-terminal/blob/develop/composer.json

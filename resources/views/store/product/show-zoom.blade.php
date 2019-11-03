@@ -103,13 +103,13 @@ Agregar
 	title: 'Agregándo...',
 	text: '',
 	type: 'success'
-});" value="Agregar" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
+});" value="Agregar" class="btn btn-success add-to-cart" class="btn btn-success cart"><i class="fa fa-shopping-cart"></i>Agregar</button>
 @elseif($product->cant<=0)
-<button type="button" name="agregar" onclick="new PNotify({
+<button type="button" name="agotado" onclick="new PNotify({
 	title: 'Agotado...',
 	text: '',
-	type: 'warnning'
-});" value="" class="btn btn-default add-to-cart" class="btn btn-fefault cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
+	type: 'success'
+});" value="Agotado" class="btn btn-warning add-to-cart" class="btn btn-warning cart"><i class="fa fa-shopping-cart"></i>Producto Agotado</button>
 @endif
 </span>
 

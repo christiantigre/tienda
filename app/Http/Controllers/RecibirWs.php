@@ -15,8 +15,7 @@ class RecibirWs extends Controller
 	public function recibirWs($comprobante,$tipoAmbiente=1){
 		$url="";
 		switch($tipoAmbiente){
-			case1:
-			$url=CompelConfiguracion::$WsdlPruebaRecepcionComprobante;
+			case1:$url=CompelConfiguracion::$WsdlPruebaRecepcionComprobante;
 			break;
 			case2:$url=CompelConfiguracion::$WsdlProduccionRecepcionComprobante;
 			break;

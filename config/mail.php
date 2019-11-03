@@ -94,7 +94,7 @@ return [
     |
     */
 
-    'password' => env('MAIL_PASSWORD','storelinect21102016'),
+    'password' => env('MAIL_PASSWORD','Storeline2019#$.,'),
 
     /*
     |--------------------------------------------------------------------------

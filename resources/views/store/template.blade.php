@@ -73,6 +73,8 @@
         <div class="container">
             @yield('content')
         </div>
+        {{--
+            --}}
         @include('store.partials.modal')
     </section>
 

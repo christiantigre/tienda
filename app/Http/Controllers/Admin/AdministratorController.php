@@ -45,8 +45,8 @@ class AdministratorController extends Controller
 	{
 		$area = 'Administracion';
 		//$mensaje = 'Instancia mensaje';
-		$logs = Svlog::log($mensaje,$area);
-		dd($logs);
+		//$logs = Svlog::log($mensaje,$area);
+		//dd($logs);
 	}
 
 

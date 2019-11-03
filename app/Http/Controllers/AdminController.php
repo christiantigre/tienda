@@ -14,21 +14,24 @@ use App\product;
 class AdminController extends Controller
 {
   public function index(Request $request){
+
    if(\Auth::user()->is_admin)
    {
-    /*if(\Auth::user()->status="0")
+    if(\Auth::user()->status="0")
     {
       \Auth::logout();
       $this->genLog("Error al ingresar al panel principal cuenta inactiva");
-    }else{*/
+    }else{
       $name = \Auth::user()->name;
       $key = Cache::get('key');
-      Cache::forever('key','0');
-      Cache::flush(); 
+      //Cache::forever('key','0');
+      //Cache::flush(); 
       $date = Carbon::now()->format('d/m/Y');
       $mes = Carbon::now()->format('m');
 
+
       $this->genLog("Ingresó a panel principal");
+
 
       $usersmens = \DB::select("SELECT COUNT(*) as usuarios FROM clients JOIN users ON clients.users_id = users.id where users.is_admin = '0' and users.status='1' and clients.genero = '2' or clients.genero='Masculino'");
 
@@ -40,12 +43,16 @@ class AdminController extends Controller
       ->join('clients','pedido.users_id','=','clients.users_id')
       ->get();
 
-      $pedidos = pedido::select(\DB::raw('COUNT(*) as cantidad'))
+      /*$pedidos = pedido::select(\DB::raw('COUNT(*) as cantidad'))
       ->where('pedido.date','=',$date)
-      ->get();
+      ->get();*/
 
       $notify = new notify;
       $the_notify = $notify->select()->where('idnotify', '=' , '1')->get();
+      $products = [];
+      $sales = [];
+      $min_prod = 0;
+      $val_sale = 0;
       if(count($the_notify) > 0)
       {
         $min_prod = $the_notify[0]['min_prod'];
@@ -64,18 +71,22 @@ class AdminController extends Controller
     //$womans = $userswomans->usuarios;
     //$total = $mens+$womans;
     //dd($total);
+      $pedidos = Pedido::where('date',$date)->orderBy('id','DESC')->get();
+
       return view('admin/home',compact('name','usersmens','userswomans','ventas','pedidos','products','sales','min_prod','val_sale'));
-    //} 
+    } 
   }else{	    		
    \Auth::logout();
    $this->genLog("Error al ingresar al panel principal");
    return abort(404);
- }  		    	
+ }  		   
+
 }
 
 public function genLog($mensaje)
 {
   $area = 'Administracion';
-  $logs = Svlog::log($mensaje,$area);
+  //$logs = Svlog::log($mensaje,$area);
 }
+
 }

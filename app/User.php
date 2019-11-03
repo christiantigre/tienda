@@ -13,7 +13,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','status','is_admin','comfirm_token','rol','actividad'
+        'name', 'email', 
+        'password','status',
+        'is_admin','comfirm_token',
+        'rol','actividad'
     ];
 
 
@@ -22,7 +25,7 @@ class User extends Authenticatable
         'status' => 'boolean'
     ];
     /**
-     * The attributes that should be hidden for arrays.
+     * The attributes that should be hidden for arrays. 
      *
      *foreach ($clients as $cliente) {
                     //$user = User::find($cliente->id);

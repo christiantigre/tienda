@@ -62,7 +62,7 @@
                       <div id="crop-avatar">
                         <!-- Current avatar -->
                         <div class="avatar-view" title="Change the avatar">
-                          <img src="{{ $data->img }}" alt="Avatar">
+                          <img src="{{ asset("/upload/".$data->img) }}" alt="Avatar">
                         </div>
 
                         <!-- Cropping modal -->

@@ -60,6 +60,7 @@
            <th>Dar de baja</th>
            <th>Modificar</th>
            <th>Iva %</th>
+           <th>Cod. Porcentaje</th>
            <th>Activo</th>
          </tr>
        </thead>
@@ -80,7 +81,9 @@
         </a>
       </td>
       <td><h3>{{ $iva->iva }}</h3></td>
+      <td><h3>{{ $iva->codporcentaje }}</h3></td>
       <td><h3>{{ $iva->isactive_id ==1 ? "Si" : "No" }}</h3></td>
+
     </tr>
     @endforeach
   </tbody>

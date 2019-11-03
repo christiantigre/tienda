@@ -138,6 +138,7 @@
           </td>
           <td>
             <h6>
+              {{--
               @if(count($item->sizes)>0)
               Talla :
               {{ $item->sizes }}<br />
@@ -151,6 +152,7 @@
               Número :{{ $item->numbers }}
               @else
               @endif
+              --}}
             </h6>
           </td>
           <td>

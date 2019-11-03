@@ -53,6 +53,23 @@
                     </div>
 
                     <div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Cod Porcentaje :</label>
+            <div class="col-md-9 col-sm-9 col-xs-12">
+              {!! Form::number(
+                'codporcentaje',
+                null,
+                array(
+                  'class'=>'form-control',
+                  'placeholder'=>'Cod porcentaje iva',
+                  'autofocus'=>'autofocus',
+                  'autocomplete'=>'off'
+                )
+              ) 
+              !!}
+            </div>
+          </div>
+
+                    <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Estado :</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
                         {!! Form::select('statu_id', $status, null,['class'=>'form-control'])    !!}

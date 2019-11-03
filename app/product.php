@@ -9,7 +9,7 @@ class product extends Model
 {
     protected $table = 'products';
     protected $fillable = ['nombre','path','slug','codbarra','cant','pre_com','pre_ven','img',
-    'prgr_tittle','nuevo','promocion','catalogo','category_id','brand_id','isactive_id','sections_id'];
+    'prgr_tittle','nuevo','promocion','catalogo','category_id','brand_id','isactive_id','sections_id','descuento'];
 
     public function category(){
     	return $this->belongsTo('App\Category');

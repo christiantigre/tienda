@@ -73,8 +73,9 @@
             <div class="main_container">
               <!--Roles-->
               
-              @if (Auth::user()->rol===1)
               @include('admin.partials.navAdmin')
+              {{--
+              @if (Auth::user()->rol===1)
               @elseif (Auth::user()->rol===3)
               @include('admin.partials.navDesp')
               @elseif (Auth::user()->rol===4)
@@ -82,6 +83,7 @@
               @elseif (Auth::user()->rol===5)
               @include('admin.partials.vavCaj')
               @endif
+              --}}
 
               @include('admin.partials.messages')  
                       

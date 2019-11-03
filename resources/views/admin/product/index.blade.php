@@ -80,6 +80,7 @@
 
 
         <tbody>
+          
          @foreach($products as $product)
          <tr>
           <td>
@@ -112,6 +113,7 @@
       <td>{{ $product->catalogo ==1 ? "Si" : "No" }}</td>
     </tr>
     @endforeach
+
   </tbody>
 </table>
 </div>

@@ -27,7 +27,7 @@ class RutasController extends Controller
 	public function genLog($mensaje)
 	{
 		$area = 'Administracion';
-		$logs = Svlog::log($mensaje,$area);
+		//$logs = Svlog::log($mensaje,$area);
 	}
 
 	

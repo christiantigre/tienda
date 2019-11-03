@@ -100,6 +100,7 @@
                         !!}
                       </div>
                     </div>
+                    
                     <div class="form-group">
                       <label class="control-label col-md-3 col-sm-3 col-xs-12">Pvp venta :</label>
                       <div class="col-md-9 col-sm-9 col-xs-12">
@@ -115,6 +116,22 @@
                           !!}
                         </div>
                       </div>
+
+                      <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="descuento">Descuento :</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      {!! Form::number(
+                        'descuento',
+                        null,
+                        array(
+                          'class'=>'form-control',
+                          'placeholder'=>'Valor descuento',
+                          'autofocus'=>'autofocus'
+                          )
+                        ) 
+                        !!}
+                      </div>
+                    </div>
 
 
                       <div class="form-group">

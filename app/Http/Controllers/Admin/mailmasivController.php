@@ -15,6 +15,7 @@ class mailmasivController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$this->genLog("Ingresó en envio de correos masivos");
+				$data = '';
 				return view('admin.correos.index', compact('data'));
 			}else{
 				\Auth::logout();
@@ -92,6 +93,6 @@ class mailmasivController extends Controller
 	public function genLog($mensaje)
 	{
 		$area = 'Administracion';
-		$logs = Svlog::log($mensaje,$area);
+		//$logs = Svlog::log($mensaje,$area);
 	}
 }

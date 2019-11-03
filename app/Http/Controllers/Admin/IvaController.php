@@ -35,11 +35,12 @@ class IvaController extends Controller
 
     public function store(Request $request){
     	$this->validate($request, [
-    		'iva'=>'required|unique:iva|max:45|numeric'
+    		'iva'=>'required|unique:iva|max:4255'
     		]);
 
     	$iva = Iva::create([
-    		'iva'=>$request->get('iva'),
+            'iva'=>$request->get('iva'),
+    		'codporcentaje'=>$request->get('codporcentaje'),
     		'isactive_id'=>$request->get('statu_id')
     		]);
     	$message = $iva ? 'Iva creado correctamente': 'El valor no se pudo crear';
@@ -69,7 +70,7 @@ class IvaController extends Controller
     public function genLog($mensaje)
     {
         $area = 'Administracion';
-        $logs = Svlog::log($mensaje,$area);
+        //$logs = Svlog::log($mensaje,$area);
     }
 
     

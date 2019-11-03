@@ -152,7 +152,7 @@
 								</div>
 								<!--Geolocalización-->
 
-								<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDeaMu7HK8FTuG15aoqeVwgwIYYKLzhj2w&callback=initMap"></script>
+								<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ $emp->key_google }}&callback=initMap"></script>
 								<!--Version con errores google maps
 								<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>-->
 
