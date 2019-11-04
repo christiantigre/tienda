@@ -108,6 +108,9 @@ public function update(SaveEmpresaRequest $request,$id){
     $empresa['passcertificate']=$request->passcertificate;
     $empresa['enlace_recepcion']=$request->enlace_recepcion;
     $empresa['enlace_autorizacion']=$request->enlace_autorizacion;
+    $empresa['alert_developer']=$request->alert_developer;
+    $empresa['alert_incidencias']=$request->alert_incidencias;
+    
     $updated = $empresa->save();
     $message = $updated ? 'Información actualizada correctamente': 'La información no se pudo actualizar';
     \Session::flash('flash_message', $message);

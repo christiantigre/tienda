@@ -41,7 +41,7 @@
 <script src="{{ asset('admin/js/validate/validaruc.js') }}"></script>
 <script src='{{ asset('admin/js/validate/ruc_jquery_validator.min.js') }}'></script>
 
-<script src="{{ asset('admin/js/query-2.1.4.min.js') }}"></script>
+<script src="{{ asset('admin/js/jquery-2.1.4.min.js') }}"></script>
 {{--Pnotify--}}
 <link rel="stylesheet" href="{{ asset('pnotify/pnotify.core.min.css') }}"/>
 <link rel="stylesheet" href="{{ asset('pnotify/pnotify.buttons.min.css') }}"/>
@@ -146,8 +146,12 @@
             </script>
 
             <!-- Se escribe un mapa con la localizacion anterior-->
-
-            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap"></script>
+            {{-- --}}
+            @if(!empty($dt_empress->key_google))
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key={{$dt_empress->key_google}}&callback=initMap"></script>
+            @endif
+            
+            
 
             <script type="text/javascript">
 
@@ -244,8 +248,12 @@ function geocodeLatLng(geocoder, map, infowindow) {
 }
 
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCfEnRziz09pG_OBmrz01pB0X5XXBBFOMg&signed_in=true&callback=initMap" async defer></script>
+{{--
 
+@if(!empty($dt_empress->key_google))
+                <script async defer src="https://maps.googleapis.com/maps/api/js?key={{$dt_empress->key_google}}&callback=initMap"></script>
+            @endif
+            --}}
 
 
 <!--Geocoder inverso-->

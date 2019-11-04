@@ -64,13 +64,11 @@
         <thead>
           <tr>
             <th></th>
-            <th></th>
             <th>Foto</th>
             <th>Nombre</th>
             <th>Email</th>
             <th>Info</th>
             <th>Activo</th>
-            <th>Actividad</th>
           </tr>
         </thead>
 
@@ -82,8 +80,6 @@
             <a href="{{ route('admin.clients.show',$cliente->id) }}" title="DETALLES" class="btn btn-default">
               <i class="fa fa-eye"></i>
             </a>
-          </td>
-          <td>
 
             <a href="{{ route('admin.clients.edit',$cliente->id) }}" title="EDITAR" class="btn btn-warning">
               <i class="fa fa-pencil-square"></i>
@@ -102,7 +98,6 @@
           <td>{{ $cliente->dir1 }} {{ $cliente->dir2 }}({{ $cliente->prov }})<br/>
           {{ $cliente->telefono }} / {{ $cliente->celular }}</td>
           <td>{{ $cliente->status ==1 ? "Si" : "No" }}</td>
-          <td>{{ $cliente->actividad() }}</td>
         </tr>
         @endforeach
       </tbody>

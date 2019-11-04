@@ -1,20 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b4dd2e9-f070-4a84-b20a-16662b39c43f" name="Default" comment="" />
+    <list default="true" id="5b4dd2e9-f070-4a84-b20a-16662b39c43f" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tienla.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tienla.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Empresaa.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Empresaa.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmpresaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/EmpresaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/reportController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/reportController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/reportprodController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/reportprodController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CarritoController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CarritoController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FirmaController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FirmaController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/SriController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/SriController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900110010010000000626536464610.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900110010010000000636279836612.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900110010010000000643884435219.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900110010010000000651644681614.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900110010010000000668727395710.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000488165826515.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000497943937914.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000567866192811.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000574618224515.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000585557796911.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000594238858911.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000603989768313.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0311201901010511850900113090010000000616755733413.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/autorizados/0809201701010511850900110010010000000073862237616.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/certificado/christian_andres_tigre_condo.p12" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/0311201901010511850900110010010000000677627711312.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/0809201701010511850900110010010000000059861558114.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/0809201701010511850900110010010000000068152246213.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/0809201701010511850900110010010000000095336774211.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1010201601010511850900110010010000002497377266317.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1109201701010511850900110010010000000108846456219.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1109201701010511850900110010010000000115482629313.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1109201701010511850900110010010000000121424771711.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1209201701010511850900110010010000003333149956717.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1209201701010511850900110010010000003347966555113.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1309201701010511850900110010010000003361459741514.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1309201701010511850900110010010000003376768987711.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1310201601010511850900110010010000002521121157318.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1310201601010511850900110010010000002548458444616.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1310201601010511850900110010010000002552415835716.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1310201601010511850900110010010000002575852953116.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1810201601010511850900110010010000002612554467417.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1810201601010511850900110010010000002633963667816.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1810201601010511850900110010010000002654122393913.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1810201601010511850900110010010000002704174939911.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002727142756313.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002766913411610.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002773214327619.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002786918117916.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002795137971112.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002806126626611.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002811527724812.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002827838614615.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002831228685917.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002844224771910.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002855124845617.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002862688642216.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002879115957913.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002887913648612.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002895424427614.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002903727761617.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/1910201601010511850900110010010000002915857582518.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2010201601010511850900110010010000002922541777510.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2010201601010511850900110010010000002935285786714.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2010201601010511850900110010010000002948171737114.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2010201601010511850900110010010000002951981457811.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2010201601010511850900110010010000002967642433417.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000002978935214414.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000002986167324811.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000002993744382111.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000003005723471412.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000003013752274319.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2110201601010511850900110010010000003025479364510.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2610201601010511850900110010010000003039975967717.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2710201601010511850900110010010000003048391446816.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2810201601010511850900110010010000003122157291310.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2810201601010511850900110010010000003161984995714.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2810201601010511850900110010010000003181975216215.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2910201601010511850900110010010000003224968241919.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2910201601010511850900110010010000003237988498813.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2910201601010511850900110010010000003242517173111.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/enviados/2910201601010511850900110010010000003258353549311.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/pdf/0311201901010511850900110010010000000668727395710.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/pdf/1309201701010511850900110010010000003352342338116.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900110010010000000626536464610.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900110010010000000636279836612.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900110010010000000643884435219.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900110010010000000651644681614.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900110010010000000668727395710.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900113090010000000594238858911.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900113090010000000603989768313.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/archivos/temp/0311201901010511850900113090010000000616755733413.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/clients/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/clients/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/entiti/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/entiti/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/store/partials/order-detal.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/store/partials/order-detal.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/store/template.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/store/template.blade.php" afterDir="false" />
+    </list>
     <ignored path="tienla.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+  </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="tienla" />
   </component>
@@ -24,71 +122,156 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER">
-    <package-json value="$PROJECT_DIR$/package.json" />
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/laracasts/flash" />
+      <path value="$PROJECT_DIR$/vendor/nesbot/carbon" />
+      <path value="$PROJECT_DIR$/vendor/barryvdh/laravel-dompdf" />
+      <path value="$PROJECT_DIR$/vendor/dnoegel/php-xdg-base-dir" />
+      <path value="$PROJECT_DIR$/vendor/robrichards/xmlseclibs" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-docblock" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/type-resolver" />
+      <path value="$PROJECT_DIR$/vendor/phpdocumentor/reflection-common" />
+      <path value="$PROJECT_DIR$/vendor/jorgejavierleon/laravelpnotify" />
+      <path value="$PROJECT_DIR$/vendor/laravel/framework" />
+      <path value="$PROJECT_DIR$/vendor/mtdowling/cron-expression" />
+      <path value="$PROJECT_DIR$/vendor/laravie/parser" />
+      <path value="$PROJECT_DIR$/vendor/ircmaxell/security-lib" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/ircmaxell/random-lib" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/instantiator" />
+      <path value="$PROJECT_DIR$/vendor/doctrine/inflector" />
+      <path value="$PROJECT_DIR$/vendor/guzzlehttp/psr7" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-backup" />
+      <path value="$PROJECT_DIR$/vendor/mockery/mockery" />
+      <path value="$PROJECT_DIR$/vendor/spatie/db-dumper" />
+      <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
+      <path value="$PROJECT_DIR$/vendor/orchestra/parser" />
+      <path value="$PROJECT_DIR$/vendor/symfony/console" />
+      <path value="$PROJECT_DIR$/vendor/symfony/process" />
+      <path value="$PROJECT_DIR$/vendor/symfony/debug" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php56" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-util" />
+      <path value="$PROJECT_DIR$/vendor/symfony/var-dumper" />
+      <path value="$PROJECT_DIR$/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-kernel" />
+      <path value="$PROJECT_DIR$/vendor/hamcrest/hamcrest-php" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-svg-lib" />
+      <path value="$PROJECT_DIR$/vendor/symfony/dom-crawler" />
+      <path value="$PROJECT_DIR$/vendor/phenx/php-font-lib" />
+      <path value="$PROJECT_DIR$/vendor/symfony/finder" />
+      <path value="$PROJECT_DIR$/vendor/symfony/routing" />
+      <path value="$PROJECT_DIR$/vendor/dompdf/dompdf" />
+      <path value="$PROJECT_DIR$/vendor/symfony/css-selector" />
+      <path value="$PROJECT_DIR$/vendor/jeremeamia/superclosure" />
+      <path value="$PROJECT_DIR$/vendor/symfony/event-dispatcher" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-ctype" />
+      <path value="$PROJECT_DIR$/vendor/symfony/translation" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-mbstring" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/global-state" />
+      <path value="$PROJECT_DIR$/vendor/intervention/image" />
+      <path value="$PROJECT_DIR$/vendor/symfony/http-foundation" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/comparator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/yaml" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/environment" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/exporter" />
+      <path value="$PROJECT_DIR$/vendor/maatwebsite/excel" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-file-iterator" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/recursion-context" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-timer" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/diff" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-text-template" />
+      <path value="$PROJECT_DIR$/vendor/sebastian/version" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-token-stream" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit-mock-objects" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/php-code-coverage" />
+      <path value="$PROJECT_DIR$/vendor/league/flysystem" />
+      <path value="$PROJECT_DIR$/vendor/phpunit/phpunit" />
+      <path value="$PROJECT_DIR$/vendor/milon/barcode" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-message" />
+      <path value="$PROJECT_DIR$/vendor/sabberworm/php-css-parser" />
+      <path value="$PROJECT_DIR$/vendor/kylekatarnls/update-helper" />
+      <path value="$PROJECT_DIR$/vendor/psr/log" />
+      <path value="$PROJECT_DIR$/vendor/phpspec/prophecy" />
+      <path value="$PROJECT_DIR$/vendor/phpoffice/phpexcel" />
+      <path value="$PROJECT_DIR$/vendor/tijsverkoyen/css-to-inline-styles" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/path-util" />
+      <path value="$PROJECT_DIR$/vendor/predis/predis" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/assert" />
+      <path value="$PROJECT_DIR$/vendor/webmozart/glob" />
+      <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
+      <path value="$PROJECT_DIR$/vendor/webcraft/laravel-random" />
+      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-highlighter" />
+      <path value="$PROJECT_DIR$/vendor/jakub-onderka/php-console-color" />
+      <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
+      <path value="$PROJECT_DIR$/vendor/arcanedev/log-viewer" />
+      <path value="$PROJECT_DIR$/vendor/psy/psysh" />
+      <path value="$PROJECT_DIR$/vendor/arcanedev/support" />
+      <path value="$PROJECT_DIR$/vendor/rap2hpoutre/laravel-log-viewer" />
+      <path value="$PROJECT_DIR$/vendor/ralouphie/getallheaders" />
+      <path value="$PROJECT_DIR$/vendor/vlucas/phpdotenv" />
+      <path value="$PROJECT_DIR$/vendor/classpreloader/classpreloader" />
+      <path value="$PROJECT_DIR$/vendor/recca0120/terminal" />
+    </include_path>
   </component>
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <gulpfiles>
-      <GulpfileState>
-        <gulpfile-path>$PROJECT_DIR$/gulpfile.js</gulpfile-path>
-      </GulpfileState>
-    </gulpfiles>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="10" />
     <option name="y" value="20" />
     <option name="width" value="1340" />
     <option name="height" value="688" />
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
-    <OptionsSetting value="true" id="Add" />
-    <OptionsSetting value="true" id="Remove" />
-    <OptionsSetting value="true" id="Checkout" />
-    <OptionsSetting value="true" id="Update" />
-    <OptionsSetting value="true" id="Status" />
-    <OptionsSetting value="true" id="Edit" />
-    <ConfirmationsSetting value="0" id="Add" />
-    <ConfirmationsSetting value="0" id="Remove" />
-  </component>
   <component name="ProjectView">
-    <navigator currentView="ProjectPane" proportions="" version="1">
-      <flattenPackages />
-      <showMembers />
-      <showModules />
-      <showLibraryContents />
-      <hideEmptyPackages />
-      <abbreviatePackageNames />
-      <autoscrollToSource />
-      <autoscrollFromSource />
-      <sortByType />
-      <manualOrder />
+    <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="tienla" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
+          <expand>
+            <path>
+              <item name="tienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tienda" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="tienda" type="b2602c69:ProjectViewProjectNode" />
+              <item name="tienda" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
-  <component name="ShelveChangesManager" show_recycled="false">
-    <option name="remove_strategy" value="false" />
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="phpunit.xml" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner scope="XML" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -100,36 +283,53 @@
       <workItem from="1477800889018" duration="343000" />
       <workItem from="1477940804630" duration="562000" />
       <workItem from="1478272565178" duration="554000" />
+      <workItem from="1572830954165" duration="1647000" />
+      <workItem from="1572898383134" duration="3705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1459000" />
+    <option name="totallyTimeSpent" value="6811000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="10" y="20" width="1340" height="688" extended-state="0" />
-    <editor active="false" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <layout>
-      <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32871974" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24962178" />
+      <window_info id="Structure" order="1" weight="0.25" />
+      <window_info id="Gulp" order="2" side_tool="true" />
+      <window_info id="npm" order="3" side_tool="true" />
+      <window_info id="Favorites" order="4" side_tool="true" />
+      <window_info id="Designer" order="5" />
+      <window_info id="Image Layers" order="6" />
+      <window_info id="Capture Tool" order="7" />
+      <window_info id="UI Designer" order="8" />
+      <window_info id="Learn" order="9" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29917356" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Docker" order="10" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="11" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Json Parser" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
+      <window_info anchor="right" id="Theme Preview" order="9" />
     </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -139,20 +339,7 @@
       <collection />
     </option>
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager />
-    <watches-manager />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/ide/ide-scripting.js" />
   </component>
 </project>

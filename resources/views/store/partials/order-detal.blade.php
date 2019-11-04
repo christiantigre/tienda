@@ -215,9 +215,12 @@
 
   function ordermap(){
     navigator.geolocation.getCurrentPosition(showPosition,showError);
-    jsShowWindowLoad("Porfavor compartír su ubicación");
+    jsShowWindowLoad("Por favor compartír su ubicación");
+    //  showPosition();
     function showPosition(position)
     {
+      console.log('position');
+      console.log(position);
       lat=position.coords.latitude;
       lon=position.coords.longitude;
       latlon=new google.maps.LatLng(lat, lon)
@@ -240,6 +243,8 @@
 
     function showError(error)
     {
+      console.log('error');
+      console.log(error);
       switch(error.code)
       {
         case error.PERMISSION_DENIED:
@@ -255,7 +260,10 @@
         x.innerHTML="Ha ocurrido un error desconocido."
         break;
       }
-    }}
+    }
+
+    
+  }
   </script>
 
   <script>

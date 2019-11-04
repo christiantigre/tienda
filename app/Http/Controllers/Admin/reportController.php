@@ -18,6 +18,7 @@ class reportController extends Controller
 		if(\Auth::check()){
 			if(\Auth::user()->is_admin){
 				$this->genLog("Ingresó a reportes de ventas");
+				$reports = '';
 				return view('admin.reportes.ventas.index', compact('reports'));
 			}else{
 				\Auth::logout();

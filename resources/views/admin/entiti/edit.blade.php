@@ -494,6 +494,24 @@ $('#wizard_verticle').smartWizard({
                 </div>
             </div>
 
+            <span class="section">Notificaciónes Mantenimiento/Errores</span>
+
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alert_developer">Mantenimiento developer<span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {!! Form::text('alert_developer', null,['class'=>'form-control'])    !!}
+                    </div>
+                </div>
+
+                <div class="item form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="alert_incidencias">Notificación errores<span class="required">*</span>
+                    </label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        {!! Form::text('alert_incidencias', null,['class'=>'form-control'])    !!}
+                    </div>
+                </div>
+
 
 
             <div class="ln_solid"></div>

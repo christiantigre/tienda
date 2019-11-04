@@ -72,7 +72,6 @@ class SriController extends Controller
         $claveAcceso = $claveacceso;
         $rutai       = public_path();
         $ruta        = str_replace("\\", "\\", $rutai);
-        //$autorizados = $ruta.'//archivos//'.'autorizados'.'//';
 
         $xmlPath = $ruta . "\\archivos\\autorizados\\" . $claveAcceso . ".xml";
         if (file_exists($xmlPath)) {

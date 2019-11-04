@@ -155,6 +155,8 @@ class FirmaController extends Controller
             \Log::info('output');
             \Log::info($output);
         } catch (\Exception $e) {
+            \Log::info('log error');
+            \Log::info($e);
             $output = 'error';
         }
         $pathxmlfirmado   = $pathsalida . '' . $xml;
